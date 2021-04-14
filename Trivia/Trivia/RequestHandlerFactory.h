@@ -17,5 +17,8 @@ public:
 private:
 	RequestHandlerFactory(IDatabase& db);
 
+	IDatabase& m_database;
+	LoginManager& m_loginManager;
+	
 	friend class Singleton;
 };

@@ -14,7 +14,10 @@ protected:
 
 public:
     Singleton(const Singleton&) = delete;
-    Singleton& operator=(Singleton & Singleton) = delete;
+    Singleton& operator=(Singleton& singleton) // Operator overloading
+    {
+        return singleton;
+    }
 
     template<class... Args>
     static subclass& getInstance(Args... arguments) // Getting instance

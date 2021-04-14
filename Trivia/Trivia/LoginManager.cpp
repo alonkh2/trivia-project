@@ -1,7 +1,7 @@
 ﻿#include "LoginManager.h"
 #include <exception>
 
-LoginManager::LoginManager(IDatabase* database): m_database(database)
+LoginManager::LoginManager(IDatabase& database): m_database(database)
 {
 }
 
@@ -18,11 +18,11 @@ void LoginManager::signup(const std::string& username, const std::string& passwo
 	/*
 	 * Temporal, will replace with exceptions of my own.
 	 */
-	if (m_database->doesUserExist(username))
+	if (m_database.doesUserExist(username))
 	{
 		throw std::exception("User exists already!");
 	}
-	m_database->addNewUser(username, password, email);
+	m_database.addNewUser(username, password, email);
 	m_logged_users.emplace_back(username);
 }
 
@@ -36,11 +36,11 @@ void LoginManager::login(const std::string& username, const std::string& passwor
 	/*
 	 * Temporal, will replace with exceptions of my own.
 	 */
-	if (!m_database->doesUserExist(username))
+	if (!m_database.doesUserExist(username))
 	{
 		throw std::exception("User doesn't exist! Please signup instead");
 	}
-	if (!m_database->doesPasswordMatch(username, password))
+	if (!m_database.doesPasswordMatch(username, password))
 	{
 		throw std::exception("Password doesn't match! Please try again");
 	}
@@ -72,7 +72,7 @@ void LoginManager::logout(const std::string& username)
  */
 bool LoginManager::exists(const std::string& username)
 {
-	if (!m_database->doesUserExist(username) && getUserIterator(username) == m_logged_users.end())
+	if (!m_database.doesUserExist(username) && getUserIterator(username) == m_logged_users.end())
 	{
 		return false;
 	}
