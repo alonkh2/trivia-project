@@ -9,6 +9,7 @@ public:
 	void run();
 
 private:
+	Server();
 	
 	IDatabase* m_database;
 	Communicator m_communicator;

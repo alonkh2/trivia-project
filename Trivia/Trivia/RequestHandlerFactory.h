@@ -1,9 +1,11 @@
 ﻿#pragma once
+#include <iostream>
 
+#include "Singleton.h"
 #include "IDatabase.h"
 #include "LoginManager.h"
 #include "LoginRequestHandler.h"
-#include "Singleton.h"
+
 
 class LoginRequestHandler;
 
@@ -13,7 +15,7 @@ public:
 	LoginRequestHandler createLoginRequestHandler();
 	
 private:
-	RequestHandlerFactory();
+	RequestHandlerFactory(IDatabase& db);
 
 	friend class Singleton;
 };
