@@ -9,9 +9,11 @@
 #include "constants.h"
 #include <thread>
 
+#include "Singleton.h"
+
 class RequestHandlerFactory;
 
-class Communicator
+class Communicator : public Singleton<Communicator>
 {
 public:
 	Communicator(RequestHandlerFactory& handlerFactory);
@@ -24,4 +26,6 @@ private:
 	SOCKET m_serverSocket;
 	std::map<SOCKET, IRequestHandler*> m_clients;
 	RequestHandlerFactory& m_handlerFactory;
+
+	friend class Singleton;
 };
