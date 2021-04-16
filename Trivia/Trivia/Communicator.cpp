@@ -1,22 +1,27 @@
 ﻿#include "Communicator.h"
 
 
-Communicator::Communicator(RequestHandlerFactory& handlerFactory): m_handlerFactory(handlerFactory)
+Communicator::Communicator(RequestHandlerFactory& handlerFactory): m_serverSocket(0), m_handlerFactory(handlerFactory)
 {
-	m_serverSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-
-	if (m_serverSocket == INVALID_SOCKET)
-		throw std::exception(__FUNCTION__ " - socket");
+	
 }
+
 
 void Communicator::startHandleRequests()
 {
+	
 	bindAndListen();
 }
 
-void Communicator::bindAndListen() const
+void Communicator::bindAndListen()
 {
-	struct sockaddr_in sa = { 0 };
+	struct sockaddr_in sa = {0};
+
+	m_serverSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+	if (m_serverSocket == INVALID_SOCKET)
+	{
+		throw std::exception(__FUNCTION__ " - socket");
+	}
 
 	sa.sin_port = htons(DEF_PORT); // port that server will listen for
 	sa.sin_family = AF_INET; // must be AF_INET
@@ -40,7 +45,7 @@ void Communicator::bindAndListen() const
 			throw std::exception(__FUNCTION__);
 
 		// Have to add the option to create login handler here
-		
+
 		std::thread t([=] { handleNewClient(client_socket); });
 		t.detach();
 	}

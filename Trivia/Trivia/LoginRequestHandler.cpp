@@ -20,6 +20,7 @@ RequestResult LoginRequestHandler::handleRequest(const RequestInfo& info)
 
 RequestResult LoginRequestHandler::login(const RequestInfo& info)
 {
+
 	RequestResult rr;
 	rr.newHandler = nullptr;
 	return rr;

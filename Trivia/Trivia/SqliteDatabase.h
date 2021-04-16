@@ -1,5 +1,8 @@
 ﻿#pragma once
 
 #include "IDatabase.h"
+#include "Singleton.h"
 
-class SqliteDatabse : public IDatabase{};
+class SqliteDatabase : public Singleton<SqliteDatabase, IDatabase>
+{
+};

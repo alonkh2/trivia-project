@@ -2,10 +2,10 @@
 #include <string>
 #include <vector>
 
-
+#include "Singleton.h"
 #include "IDatabase.h"
 #include "LoggedUser.h"
-#include "Singleton.h"
+
 
 class LoginManager : public Singleton<LoginManager>
 {

@@ -3,7 +3,6 @@
 
 #include "Singleton.h"
 #include "IDatabase.h"
-#include "LoginManager.h"
 #include "LoginRequestHandler.h"
 
 

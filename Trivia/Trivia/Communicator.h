@@ -20,7 +20,7 @@ public:
 	void startHandleRequests();
 
 private:
-	void bindAndListen() const;
+	void bindAndListen();
 	void handleNewClient(SOCKET client) const;
 
 	SOCKET m_serverSocket;

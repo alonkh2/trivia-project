@@ -1,7 +1,9 @@
 #pragma once
-#include "Communicator.h"
+
 #include "Singleton.h"
+#include "Communicator.h"
 #include "IDatabase.h"
+#include "RequestHandlerFactory.h"
 
 class Server : public Singleton<Server>
 {
@@ -12,8 +14,9 @@ private:
 	Server();
 	
 	IDatabase* m_database;
-	Communicator m_communicator;
 	RequestHandlerFactory& m_handlerFactory;
 
+	Communicator& m_communicator;
+	
 	friend class Singleton;
 };
