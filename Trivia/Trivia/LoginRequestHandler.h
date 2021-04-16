@@ -11,7 +11,7 @@ class LoginRequestHandler : public IRequestHandler
 public:
 	// C'tor
 	LoginRequestHandler(RequestHandlerFactory& handlerFactory, LoginManager& loginManager);
-
+	
 	// Functions and methods
 	bool isRequestRelevant(const RequestInfo& info) override;
 	RequestResult handleRequest(const RequestInfo& info) override;

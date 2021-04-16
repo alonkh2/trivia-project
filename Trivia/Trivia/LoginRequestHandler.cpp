@@ -4,6 +4,7 @@ LoginRequestHandler::LoginRequestHandler(RequestHandlerFactory& handlerFactory, 
 {
 }
 
+
 /**
  * \brief Checks if a request is a login/signup request.
  * \param info The request's info.

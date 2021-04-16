@@ -121,16 +121,19 @@ char* Communicator::receive(SOCKET socket, int numOfBytes, int flags) const
 		return (char*)"";
 	}
 
-	auto* data = new char[numOfBytes]();
+	char* data = new char[numOfBytes + 1];
+	int res = recv(socket, data, numOfBytes, flags);
 
-	const auto res = recv(socket, data, numOfBytes, flags);
-
-	if (res == INVALID_SOCKET || res == SOCKET_ERROR || !res)
+	if (res == INVALID_SOCKET)
 	{
-		std::string error = "Error while receiving from socket: ";
-		error += std::to_string(socket);
-		throw std::exception(error.c_str());
+		std::string s = "Error while receiving from socket: ";
+		s += std::to_string(socket);
+		throw std::exception(s.c_str());
 	}
 
+	if (numOfBytes < strlen(data))
+	{
+		data[numOfBytes] = 0;
+	}
 	return data;
 }
