@@ -8,9 +8,11 @@
 class Server : public Singleton<Server>
 {
 public:
-	void run();
+	// Functions and methods
+	void run() const;
 
 private:
+	// C'tor. Private because of singleton.
 	Server();
 	
 	IDatabase* m_database;

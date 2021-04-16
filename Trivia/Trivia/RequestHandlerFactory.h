@@ -11,9 +11,11 @@ class LoginRequestHandler;
 class RequestHandlerFactory : public Singleton<RequestHandlerFactory>
 {	
 public:
+	// Functions and methods
 	LoginRequestHandler createLoginRequestHandler();
 	
 private:
+	// C'tor. Private because of singleton
 	RequestHandlerFactory(IDatabase& db);
 
 	IDatabase& m_database;

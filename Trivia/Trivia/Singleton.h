@@ -7,12 +7,13 @@ template<class subclass, class... superclasses>
 class Singleton : public superclasses...
 {
 protected:
-    // Constructors & Destructors
+    // C'tor & D'tor
     Singleton() = default;
     
     virtual ~Singleton() = default;
 
 public:
+	// Deleting copy c'tor
     Singleton(const Singleton&) = delete;
     Singleton& operator=(Singleton& singleton) // Operator overloading
     {

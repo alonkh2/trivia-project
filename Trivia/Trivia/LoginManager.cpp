@@ -5,8 +5,6 @@ LoginManager::LoginManager(IDatabase& database): m_database(database)
 {
 }
 
-LoginManager::~LoginManager() = default;
-
 /**
  * \brief Inserts a user's details into the database and adds them to the connected user list.
  * \param username The user's username.

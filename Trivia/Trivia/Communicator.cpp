@@ -1,5 +1,7 @@
 ﻿#include "Communicator.h"
 
+#include "LoginRequestHandler.h"
+
 
 Communicator::Communicator(RequestHandlerFactory& handlerFactory): m_serverSocket(0), m_handlerFactory(handlerFactory)
 {
@@ -7,12 +9,33 @@ Communicator::Communicator(RequestHandlerFactory& handlerFactory): m_serverSocke
 }
 
 
+Communicator::~Communicator()
+{
+	try
+	{
+		for (const auto client : m_clients)
+		{
+			closesocket(client.first);
+		}
+		closesocket(m_serverSocket);
+	}
+	catch (...)
+	{
+	}
+}
+
+/**
+ * \brief Runs the server.
+ */
 void Communicator::startHandleRequests()
 {
 	
 	bindAndListen();
 }
 
+/**
+ * \brief Binds the server to a port and starts listening for new connections.
+ */
 void Communicator::bindAndListen()
 {
 	struct sockaddr_in sa = {0};
@@ -44,20 +67,70 @@ void Communicator::bindAndListen()
 		if (client_socket == INVALID_SOCKET)
 			throw std::exception(__FUNCTION__);
 
-		// Have to add the option to create login handler here
+		LoginRequestHandler req = m_handlerFactory.createLoginRequestHandler();
+		m_clients.insert_or_assign(client_socket, &req);
 
 		std::thread t([=] { handleNewClient(client_socket); });
 		t.detach();
 	}
 }
 
+/**
+ * \brief Handles a new client. Doesn't do much for now, will do more later.
+ * \param client The new client.
+ */
 void Communicator::handleNewClient(SOCKET client) const
 {
 	const std::string message = "HELLO";
-	const auto* data = message.c_str();
+	sendall(client, message);
+	auto* ans = receive(client, message.size());
+	std::cout << ans << std::endl;
+	delete ans;
+}
 
-	if (send(client, data, message.size(), 0) == INVALID_SOCKET)
+/**
+ * \brief Sends a message via a socket.
+ * \param socket The socket to send to.
+ * \param msg The message to send.
+ */
+void Communicator::sendall(SOCKET socket, const std::string& msg) const
+{
+	const auto* toSend = msg.c_str();
+
+	const auto res = send(socket, toSend, msg.size(), 0);
+
+	if (res == INVALID_SOCKET || res == SOCKET_ERROR || !res)
 	{
-		throw std::exception("Error while sending message to client");
+		std::string error = "Error while sending message to client: ";
+		error += std::to_string(socket);
+		throw std::exception(error.c_str());
 	}
+}
+
+/**
+ * \brief Receives a message from a socket.
+ * \param socket The socket to receive from.
+ * \param numOfBytes The number of bytes to receive.
+ * \param flags Operation flags.
+ * \return The received message.
+ */
+char* Communicator::receive(SOCKET socket, int numOfBytes, int flags) const
+{
+	if (numOfBytes == 0)
+	{
+		return (char*)"";
+	}
+
+	auto* data = new char[numOfBytes]();
+
+	const auto res = recv(socket, data, numOfBytes, flags);
+
+	if (res == INVALID_SOCKET || res == SOCKET_ERROR || !res)
+	{
+		std::string error = "Error while receiving from socket: ";
+		error += std::to_string(socket);
+		throw std::exception(error.c_str());
+	}
+
+	return data;
 }

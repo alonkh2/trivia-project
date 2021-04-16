@@ -16,13 +16,23 @@ class RequestHandlerFactory;
 class Communicator : public Singleton<Communicator>
 {
 public:
-	Communicator(RequestHandlerFactory& handlerFactory);
+	// D'tor
+	~Communicator();
+
+	// Server starter.
 	void startHandleRequests();
 
 private:
+	// C'tor. Private because of singleton template 
+	Communicator(RequestHandlerFactory& handlerFactory);
+
+	// Server functions 
 	void bindAndListen();
 	void handleNewClient(SOCKET client) const;
 
+	void sendall(SOCKET socket, const std::string& msg) const;
+	char* receive(SOCKET socket, int numOfBytes, int flags = 0) const;
+	
 	SOCKET m_serverSocket;
 	std::map<SOCKET, IRequestHandler*> m_clients;
 	RequestHandlerFactory& m_handlerFactory;

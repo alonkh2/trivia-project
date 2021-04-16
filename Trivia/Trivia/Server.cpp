@@ -1,8 +1,12 @@
 ﻿#include "Server.h"
 
 #include "SqliteDatabase.h"
+#include "LoginRequestHandler.h"
 
-void Server::run()
+/**
+ * \brief Runs the server, then listens to admin's commands on console.
+ */
+void Server::run() const
 {
 	std::thread comm(&Communicator::startHandleRequests, std::ref(m_communicator));
 	comm.detach();
