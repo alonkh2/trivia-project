@@ -12,7 +12,7 @@ def main():
 
         print("Client message: ", msg)
         sock.sendall(msg.encode())
-        server_resp = sock.recv(1024)
+        server_resp = sock.recv(BUFF)
         server_resp = server_resp.decode()
         print("Server message: ", server_resp)
 
@@ -21,7 +21,7 @@ def main():
 
             print("Client2 message: ", msg)
             s2.sendall(msg.encode())
-            server_resp = s2.recv(1024)
+            server_resp = s2.recv(BUFF)
             server_resp = server_resp.decode()
             print("Server message: ", server_resp)
 
