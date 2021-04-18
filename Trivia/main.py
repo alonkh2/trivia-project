@@ -1,6 +1,7 @@
 import socket
 
 SERVER_ADDR = "127.0.0.1", 2410
+BUFF = 1024
 
 
 def main():
