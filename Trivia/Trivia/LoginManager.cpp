@@ -32,7 +32,7 @@ void LoginManager::signup(const std::string& username, const std::string& passwo
 void LoginManager::login(const std::string& username, const std::string& password)
 {
 	/*
-	 * Temporal, will replace with exceptions of my own.
+	 * Temporary, will replace with exceptions of my own.
 	 */
 	if (!m_database.doesUserExist(username))
 	{
