@@ -4,3 +4,7 @@
 #define DEF_PORT 2410
 
 #define EXIT_COM "EXIT"
+
+enum codes { LGN_CD = 101, SU_CD, ERR_CD };
+
+typedef unsigned char Byte;

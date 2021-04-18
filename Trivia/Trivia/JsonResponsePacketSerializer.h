@@ -1,5 +1,12 @@
 ﻿#pragma once
 #include <string>
+#include "vector"
+
+#include "constants.h"
+#include "json.hpp"
+
+
+
 
 typedef struct ErrorResponse
 {
@@ -8,18 +15,21 @@ typedef struct ErrorResponse
 
 typedef struct LoginResponse
 {
-	unsigned status;
+	std::string status;
 } LoginResponse;
 
 typedef struct SignupResponse
 {
-	unsigned status;
+	std::string status;
 } SignupResponse;
 
 class JsonResponseSerializer
 {
 public:
-	static char* serializeResponse(const ErrorResponse& response);
-	static char* serializeResponse(const LoginResponse& response);
-	static char* serializeResponse(const SignupResponse& response);
+	static std::vector<Byte> serializeResponse(const ErrorResponse& response);
+	static std::vector<Byte> serializeResponse(const LoginResponse& response);
+	static std::vector<Byte> serializeResponse(const SignupResponse& response);
+
+private:
+	static std::vector<Byte> serialize(const nlohmann::json& msg, Byte code);
 };
