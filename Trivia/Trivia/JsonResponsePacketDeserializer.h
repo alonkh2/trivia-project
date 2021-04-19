@@ -1,6 +1,15 @@
 ﻿#pragma once
 #include <string>
 
+#include "constants.h"
+#include "json.hpp"
+
+
+typedef struct ErrorResponse
+{
+	std::string message;
+} ErrorResponse;
+
 typedef struct LoginRequest
 {
 	std::string username;
@@ -15,9 +24,9 @@ typedef struct SingupRequest
 } SignupRequest;
 
 
-class my_class
+class JsonPacketDeserializer
 {
 public:
-	static LoginRequest deserializerLoginRequest(char* buffer);
-	static SignupRequest deserializerSingupRequest(char* buffer);
+	static LoginRequest deserializeLoginRequest(char* buffer);
+	static SignupRequest deserializeSingupRequest(char* buffer);
 };
