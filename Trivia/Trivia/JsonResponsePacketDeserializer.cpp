@@ -1,5 +1,10 @@
 #include "JsonResponsePacketDeserializer.h"
 
+/**
+ * \brief Deserializes a login request.
+ * \param buffer The request to deserialize.
+ * \return A formatted LoginRequest.
+ */
 LoginRequest JsonPacketDeserializer::deserializeLoginRequest(char* buffer)
 {
 	LoginRequest lnReq;
@@ -19,6 +24,11 @@ LoginRequest JsonPacketDeserializer::deserializeLoginRequest(char* buffer)
 	return lnReq;
 }
 
+/**
+ * \brief Deserializes a signup request.
+ * \param buffer The request to deserialize.
+ * \return A formatted SignupRequest.
+ */
 SignupRequest JsonPacketDeserializer::deserializeSingupRequest(char* buffer)
 {
 	SignupRequest snReq;
