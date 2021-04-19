@@ -1,14 +1,7 @@
 ﻿#pragma once
 #include <string>
-
 #include "constants.h"
 #include "json.hpp"
-
-
-typedef struct ErrorResponse
-{
-	std::string message;
-} ErrorResponse;
 
 typedef struct LoginRequest
 {
