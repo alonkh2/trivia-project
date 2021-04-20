@@ -1,12 +1,19 @@
 ﻿#include "JsonResponsePacketSerializer.h"
 
 
+
+#include "json.hpp"
+#include "json.hpp"
+#include "json.hpp"
+#include "json.hpp"
+
+
 /**
  * \brief Serializes a response.
  * \param response The response to be sent.
  * \return A byte representation of the message.
  */
-std::vector<Byte> JsonResponseSerializer::serializeResponse(const ErrorResponse& response)
+std::string JsonResponseSerializer::serializeResponse(const ErrorResponse& response)
 {
 	const Byte code = ERR_CD;
 	const nlohmann::json msg = {{"message", response.message}};
@@ -18,7 +25,7 @@ std::vector<Byte> JsonResponseSerializer::serializeResponse(const ErrorResponse&
  * \param response The response to be sent.
  * \return A byte representation of the message.
  */
-std::vector<Byte> JsonResponseSerializer::serializeResponse(const LoginResponse& response)
+std::string JsonResponseSerializer::serializeResponse(const LoginResponse& response)
 {
 	const Byte code = LGN_CD;
 	const nlohmann::json msg = {{"status", response.status}};
@@ -30,7 +37,7 @@ std::vector<Byte> JsonResponseSerializer::serializeResponse(const LoginResponse&
  * \param response The response to be sent.
  * \return A byte representation of the message.
  */
-std::vector<Byte> JsonResponseSerializer::serializeResponse(const SignupResponse& response)
+std::string JsonResponseSerializer::serializeResponse(const SignupResponse& response)
 {
 	const Byte code = SU_CD;
 	const nlohmann::json msg = {{"status", response.status}};
@@ -43,7 +50,7 @@ std::vector<Byte> JsonResponseSerializer::serializeResponse(const SignupResponse
  * \param code The message's code.
  * \return A byte representation of the message.
  */
-std::vector<unsigned char> JsonResponseSerializer::serialize(const nlohmann::json& msg, unsigned char code)
+::std::string JsonResponseSerializer::serialize(const nlohmann::json& msg, unsigned char code)
 {
 	const auto json_text = msg.dump();
 	std::string response;
@@ -58,10 +65,5 @@ std::vector<unsigned char> JsonResponseSerializer::serialize(const nlohmann::jso
 	
 	response += json_text;
 
-	std::vector<Byte> resp;
-	for (auto value : response)
-	{
-		resp.push_back(value);
-	}
-	return resp;
+	return response;
 }

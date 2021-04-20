@@ -1,5 +1,7 @@
 ﻿#include "Communicator.h"
 
+
+#include "JsonResponsePacketSerializer.h"
 #include "LoginRequestHandler.h"
 
 
@@ -79,13 +81,58 @@ void Communicator::bindAndListen()
  * \brief Handles a new client. Doesn't do much for now, will do more later.
  * \param client The new client.
  */
-void Communicator::handleNewClient(SOCKET client) const
+void Communicator::handleNewClient(SOCKET client)
 {
-	const std::string message = "HELLO";
-	sendall(client, message);
-	auto* ans = receive(client, message.size());
-	std::cout << ans << std::endl;
-	delete ans;
+	try
+	{
+		auto* requestHandler = m_clients.at(client);
+		while (true)
+		{
+			const auto code = receive(client, sizeof(Byte)), length = receive(client, sizeof(int));
+			if (code == nullptr || length == nullptr)
+			{
+				throw std::exception(std::string("Data received not according to protocol! " + std::to_string(client)).c_str());
+			}
+
+			const auto numericalLength = *reinterpret_cast<int*>(length);
+
+			auto* data = receive(client, numericalLength);
+
+			RequestInfo info;
+			info.id = *reinterpret_cast<Byte*>(code);
+			time(&info.recievalTime);
+			memcpy_s(info.buffer, BUFFER_SIZE, data, numericalLength);
+
+			delete code;
+			delete length;
+			delete data;
+
+			if (requestHandler->isRequestRelevant(info))
+			{
+				const auto result = requestHandler->handleRequest(info);
+
+				if (result.newHandler != nullptr)
+				{
+					delete requestHandler;
+					requestHandler = result.newHandler;
+				}
+
+				sendall(client, result.buffer);
+			}
+			else
+			{
+				ErrorResponse error;
+				error.message = "Error with login/signup attempt" + std::to_string(client);
+				sendall(client, JsonResponseSerializer::serializeResponse(error));
+			}
+		}
+	}
+	catch (std::exception& e)
+	{
+		std::cout << e.what() << ": " << client << std::endl;
+		closesocket(client);
+		m_clients.erase(client);
+	}
 }
 
 /**

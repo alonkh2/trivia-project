@@ -8,6 +8,8 @@
 #include "Windows.h"
 #include "constants.h"
 #include <thread>
+#include <unordered_map>
+
 
 #include "Singleton.h"
 
@@ -28,13 +30,13 @@ private:
 
 	// Server functions 
 	void bindAndListen();
-	void handleNewClient(SOCKET client) const;
+	void handleNewClient(SOCKET client);
 
 	void sendall(SOCKET socket, const std::string& msg) const;
 	char* receive(SOCKET socket, int numOfBytes, int flags = 0) const;
 	
 	SOCKET m_serverSocket;
-	std::map<SOCKET, IRequestHandler*> m_clients;
+	std::unordered_map<SOCKET, IRequestHandler*> m_clients;
 	RequestHandlerFactory& m_handlerFactory;
 
 	friend class Singleton;
