@@ -3,6 +3,8 @@
 #include <map>
 
 #include <iostream>
+#include <mutex>
+
 #include "IRequestHandler.h"
 #include "WinSock2.h"
 #include "Windows.h"
@@ -38,6 +40,7 @@ private:
 	SOCKET m_serverSocket;
 	std::unordered_map<SOCKET, IRequestHandler*> m_clients;
 	RequestHandlerFactory& m_handlerFactory;
+	std::mutex m_clientMutex;
 
 	friend class Singleton;
 };

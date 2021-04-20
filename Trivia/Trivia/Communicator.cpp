@@ -70,6 +70,8 @@ void Communicator::bindAndListen()
 			throw std::exception(__FUNCTION__);
 
 		LoginRequestHandler req = m_handlerFactory.createLoginRequestHandler();
+
+		std::lock_guard<std::mutex> lock(m_clientMutex);
 		m_clients.insert_or_assign(client_socket, &req);
 
 		std::thread t([=] { handleNewClient(client_socket); });
@@ -83,9 +85,14 @@ void Communicator::bindAndListen()
  */
 void Communicator::handleNewClient(SOCKET client)
 {
+	std::unique_lock<std::mutex> lock(m_clientMutex, std::defer_lock);
+	lock.lock();
+	auto* requestHandler = m_clients.at(client);
+	lock.unlock();
 	try
 	{
-		auto* requestHandler = m_clients.at(client);
+		
+		
 		while (true)
 		{
 			const auto code = receive(client, sizeof(Byte)), length = receive(client, sizeof(int));
@@ -131,7 +138,9 @@ void Communicator::handleNewClient(SOCKET client)
 	{
 		std::cout << e.what() << ": " << client << std::endl;
 		closesocket(client);
+		lock.lock();
 		m_clients.erase(client);
+		lock.unlock();
 	}
 }
 
