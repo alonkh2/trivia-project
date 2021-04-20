@@ -27,9 +27,9 @@ class JsonResponseSerializer
 {
 public:
 	static std::string serializeResponse(const ErrorResponse& response);
-	static std::string serializeResponse(const LoginResponse& response);
-	static std::string serializeResponse(const SignupResponse& response);
+	static std::vector<Byte> serializeResponse(const LoginResponse& response);
+	static std::vector<Byte> serializeResponse(const SignupResponse& response);
 
 private:
-	static std::string serialize(const nlohmann::json& msg, Byte code);
+	static std::vector<Byte> serialize(const nlohmann::json& msg, Byte code);
 };

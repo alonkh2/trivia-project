@@ -91,11 +91,13 @@ void Communicator::handleNewClient(SOCKET client)
 	lock.unlock();
 	try
 	{
-		
+		char* code = nullptr, * length = nullptr;
 		
 		while (true)
 		{
-			const auto code = receive(client, sizeof(Byte)), length = receive(client, sizeof(int));
+			
+			code = receive(client, sizeof(Byte)), length = receive(client, sizeof(int));
+			
 			if (code == nullptr || length == nullptr)
 			{
 				throw std::exception(std::string("Data received not according to protocol! " + std::to_string(client)).c_str());
@@ -123,7 +125,8 @@ void Communicator::handleNewClient(SOCKET client)
 					delete requestHandler;
 					requestHandler = result.newHandler;
 				}
-
+				std::cout << result.buffer << std::endl;
+				
 				sendall(client, result.buffer);
 			}
 			else
@@ -179,6 +182,11 @@ char* Communicator::receive(SOCKET socket, int numOfBytes, int flags) const
 
 	char* data = new char[numOfBytes + 1];
 	int res = recv(socket, data, numOfBytes, flags);
+
+	if (res == 0)
+	{
+		throw std::exception("Client disconnected");
+	}
 
 	if (res == INVALID_SOCKET)
 	{
