@@ -5,10 +5,15 @@
  * \param buffer The request to deserialize.
  * \return A formatted LoginRequest.
  */
-LoginRequest JsonPacketDeserializer::deserializeLoginRequest(char* buffer)
+LoginRequest JsonPacketDeserializer::deserializeLoginRequest(const std::vector<Byte>& buffer)
 {
 	LoginRequest lnReq;
-	const nlohmann::json msg = nlohmann::json::parse(buffer);
+	std::string strBuffer;
+	for (auto value : buffer)
+	{
+		strBuffer += value;
+	}
+	const nlohmann::json msg = nlohmann::json::parse(strBuffer);
 
 	try 
 	{
@@ -29,10 +34,15 @@ LoginRequest JsonPacketDeserializer::deserializeLoginRequest(char* buffer)
  * \param buffer The request to deserialize.
  * \return A formatted SignupRequest.
  */
-SignupRequest JsonPacketDeserializer::deserializeSingupRequest(char* buffer)
+SignupRequest JsonPacketDeserializer::deserializeSingupRequest(const std::vector<Byte>& buffer)
 {
 	SignupRequest snReq;
-	const nlohmann::json msg = nlohmann::json::parse(buffer);
+	std::string strBuffer;
+	for (auto value : buffer)
+	{
+		strBuffer += value;
+	}
+	const nlohmann::json msg = nlohmann::json::parse(strBuffer);
 
 	try
 	{
