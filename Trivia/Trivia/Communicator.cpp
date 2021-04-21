@@ -125,7 +125,6 @@ void Communicator::handleNewClient(SOCKET client)
 					delete requestHandler;
 					requestHandler = result.newHandler;
 				}
-				std::cout << result.buffer << std::endl;
 				
 				sendall(client, result.buffer);
 			}
@@ -152,12 +151,17 @@ void Communicator::handleNewClient(SOCKET client)
  * \param socket The socket to send to.
  * \param msg The message to send.
  */
-void Communicator::sendall(SOCKET socket, const std::string& msg) const
+void Communicator::sendall(SOCKET socket, const std::vector<Byte>& msg) const
 {
-	const auto* toSend = msg.c_str();
+	auto* toSend = new char[msg.size() + 1];
+	for (auto i = 0; i < msg.size(); ++i)
+	{
+		toSend[i] = msg[i];
+	}
 
 	const auto res = send(socket, toSend, msg.size(), 0);
 
+	delete toSend;
 	if (res == INVALID_SOCKET || res == SOCKET_ERROR || !res)
 	{
 		std::string error = "Error while sending message to client: ";

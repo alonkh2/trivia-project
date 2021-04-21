@@ -14,7 +14,7 @@ typedef struct RequestInfo
 
 typedef struct RequestResult
 {
-	char buffer[BUFFER_SIZE];
+	std::vector<Byte> buffer;
 	IRequestHandler* newHandler;
 } RequestResult;
 

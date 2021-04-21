@@ -35,7 +35,6 @@ RequestResult LoginRequestHandler::handleRequest(const RequestInfo& info)
 	default:
 		break;
 	}
-	strcpy_s(rr.buffer, "hello world");
 	rr.newHandler = nullptr;
 	return rr;
 }
@@ -48,15 +47,12 @@ RequestResult LoginRequestHandler::handleRequest(const RequestInfo& info)
 RequestResult LoginRequestHandler::login(const RequestInfo& info)
 {
 	LoginResponse lr;
-	lr.status = 1;
+	std::vector<Byte> status;
+	status.push_back('1');
+	lr.status = status;
 	RequestResult rr;
 	rr.newHandler = nullptr;
-	const auto response = JsonResponseSerializer::serializeResponse(lr);
-
-	for (int i = 0; i < response.size(); ++i)
-	{
-		rr.buffer[i] = response[i];
-	}
+	rr.buffer = JsonResponseSerializer::serializeResponse(lr);
 	return rr;
 }
 
@@ -68,14 +64,11 @@ RequestResult LoginRequestHandler::login(const RequestInfo& info)
 RequestResult LoginRequestHandler::signup(const RequestInfo& info)
 {
 	SignupResponse sr;
-	sr.status = 1;
+	std::vector<Byte> status;
+	status.push_back('1');
+	sr.status = status;
 	RequestResult rr;
 	rr.newHandler = nullptr;
-	const auto response = JsonResponseSerializer::serializeResponse(sr);
-
-	for (int i = 0; i < response.size(); ++i)
-	{
-		rr.buffer[i] = response[i];
-	}
+	rr.buffer = JsonResponseSerializer::serializeResponse(sr);
 	return rr;
 }

@@ -15,16 +15,11 @@
  * \param response The response to be sent.
  * \return A byte representation of the message.
  */
-std::string JsonResponseSerializer::serializeResponse(const ErrorResponse& response)
+std::vector<Byte> JsonResponseSerializer::serializeResponse(const ErrorResponse& response)
 {
 	const Byte code = ERR_CD;
 	const nlohmann::json msg = {{"message", response.message}};
-	std::string returnData;
-	for (auto value : serialize(msg, code))
-	{
-		returnData += value;
-	}
-	return returnData;
+	return serialize(msg, code);
 }
 
 /**
@@ -35,7 +30,7 @@ std::string JsonResponseSerializer::serializeResponse(const ErrorResponse& respo
 std::vector<Byte> JsonResponseSerializer::serializeResponse(const LoginResponse& response)
 {
 	const Byte code = LGN_CD;
-	const nlohmann::json msg = {{"status", response.status}};
+	const nlohmann::json msg = {{"status", std::string(response.status.begin(), response.status.end())}};
 	return serialize(msg, code);
 }
 
@@ -47,10 +42,8 @@ std::vector<Byte> JsonResponseSerializer::serializeResponse(const LoginResponse&
 std::vector<Byte> JsonResponseSerializer::serializeResponse(const SignupResponse& response)
 {
 	const Byte code = SU_CD;
-	const nlohmann::json msg = {{"status", response.status}};
-	auto str = serialize(msg, code);
-	std::cout << str.data() << std::endl;
-	return str;
+	const nlohmann::json msg = {{"status", std::string(response.status.begin(), response.status.end())}};
+	return serialize(msg, code);
 }
 
 /**
@@ -59,7 +52,7 @@ std::vector<Byte> JsonResponseSerializer::serializeResponse(const SignupResponse
  * \param code The message's code.
  * \return A byte representation of the message.
  */
-::std::vector<Byte> JsonResponseSerializer::serialize(const nlohmann::json& msg, unsigned char code)
+std::vector<Byte> JsonResponseSerializer::serialize(const nlohmann::json& msg, unsigned char code)
 {
 	const auto json_text = msg.dump();
 	std::vector<Byte> response;
@@ -76,7 +69,5 @@ std::vector<Byte> JsonResponseSerializer::serializeResponse(const SignupResponse
 	{
 		response.push_back(text);
 	}
-
-	std::cout << response.data() << std::endl;
 	return response;
 }

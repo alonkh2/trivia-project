@@ -34,7 +34,7 @@ private:
 	void bindAndListen();
 	void handleNewClient(SOCKET client);
 
-	void sendall(SOCKET socket, const std::string& msg) const;
+	void sendall(SOCKET socket, const std::vector<Byte>& msg) const;
 	char* receive(SOCKET socket, int numOfBytes, int flags = 0) const;
 	
 	SOCKET m_serverSocket;

@@ -15,18 +15,18 @@ typedef struct ErrorResponse
 
 typedef struct LoginResponse
 {
-	std::string status;
+	std::vector<Byte> status;
 } LoginResponse;
 
 typedef struct SignupResponse
 {
-	std::string status;
+	std::vector<Byte> status;
 } SignupResponse;
 
 class JsonResponseSerializer
 {
 public:
-	static std::string serializeResponse(const ErrorResponse& response);
+	static std::vector<Byte> serializeResponse(const ErrorResponse& response);
 	static std::vector<Byte> serializeResponse(const LoginResponse& response);
 	static std::vector<Byte> serializeResponse(const SignupResponse& response);
 
