@@ -147,6 +147,7 @@
     <ClInclude Include="constants.h" />
     <ClInclude Include="IDatabase.h" />
     <ClInclude Include="IRequestHandler.h" />
+    <ClInclude Include="json.hpp" />
     <ClInclude Include="JsonResponsePacketDeserializer.h" />
     <ClInclude Include="JsonResponsePacketSerializer.h" />
     <ClInclude Include="LoggedUser.h" />
@@ -160,6 +161,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Communicator.cpp" />
+    <ClCompile Include="JsonResponsePacketDeserializer.cpp" />
+    <ClCompile Include="JsonResponsePacketSerializer.cpp" />
     <ClCompile Include="LoggedUser.cpp" />
     <ClCompile Include="LoginManager.cpp" />
     <ClCompile Include="LoginRequestHandler.cpp" />

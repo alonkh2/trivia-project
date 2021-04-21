@@ -1,6 +1,9 @@
 ﻿#include "LoginRequestHandler.h"
 
-LoginRequestHandler::LoginRequestHandler(RequestHandlerFactory& handlerFactory, LoginManager& loginManager) : m_handlerFactory(handlerFactory), m_loginManager(loginManager)
+#include "JsonResponsePacketSerializer.h"
+
+LoginRequestHandler::LoginRequestHandler(RequestHandlerFactory& handlerFactory, LoginManager& loginManager) :
+	m_handlerFactory(handlerFactory), m_loginManager(loginManager)
 {
 }
 
@@ -12,8 +15,7 @@ LoginRequestHandler::LoginRequestHandler(RequestHandlerFactory& handlerFactory, 
  */
 bool LoginRequestHandler::isRequestRelevant(const RequestInfo& info)
 {
-	// going to change this once i add constants
-	return info.id == 129 || info.id == 130;
+	return info.id == LGN_CD || info.id == SU_CD;
 }
 
 /**
@@ -24,32 +26,49 @@ bool LoginRequestHandler::isRequestRelevant(const RequestInfo& info)
 RequestResult LoginRequestHandler::handleRequest(const RequestInfo& info)
 {
 	RequestResult rr;
-	strcpy_s(rr.buffer, "hello world");
+	switch (info.id)
+	{
+	case LGN_CD:
+		return login(info);
+	case SU_CD:
+		return signup(info);
+	default:
+		break;
+	}
 	rr.newHandler = nullptr;
 	return rr;
 }
 
 /**
- * \brief Performs a login attempt. Does nothing for now. 
+ * \brief Performs a login attempt. Does nothing for now.
  * \param info The request's info.
  * \return The request's result.
  */
 RequestResult LoginRequestHandler::login(const RequestInfo& info)
 {
-
+	LoginResponse lr;
+	std::vector<Byte> status;
+	status.push_back('1');
+	lr.status = status;
 	RequestResult rr;
 	rr.newHandler = nullptr;
+	rr.buffer = JsonResponseSerializer::serializeResponse(lr);
 	return rr;
 }
 
 /**
- * \brief Performs a signup attempt. Does nothing for now. 
+ * \brief Performs a signup attempt. Does nothing for now.
  * \param info The request's info.
  * \return The request's result.
  */
 RequestResult LoginRequestHandler::signup(const RequestInfo& info)
 {
+	SignupResponse sr;
+	std::vector<Byte> status;
+	status.push_back('1');
+	sr.status = status;
 	RequestResult rr;
 	rr.newHandler = nullptr;
+	rr.buffer = JsonResponseSerializer::serializeResponse(sr);
 	return rr;
 }
