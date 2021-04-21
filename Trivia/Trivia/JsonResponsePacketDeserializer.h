@@ -17,9 +17,12 @@ typedef struct SingupRequest
 } SignupRequest;
 
 
-class JsonPacketDeserializer
+class JsonResponsePacketDeserializer
 {
 public:
-	static LoginRequest deserializeLoginRequest(char* buffer);
-	static SignupRequest deserializeSingupRequest(char* buffer);
+	static LoginRequest deserializeLoginRequest(const std::vector<Byte>& buffer);
+	static SignupRequest deserializeSingupRequest(const std::vector<Byte>& buffer);
+
+private:
+	static std::string strip(const std::string& text);
 };

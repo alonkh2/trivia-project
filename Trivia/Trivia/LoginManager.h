@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include <mutex>
 #include <string>
 #include <vector>
 
@@ -27,6 +28,7 @@ private:
 	
 	IDatabase& m_database;
 	std::vector<LoggedUser> m_logged_users;
+	std::mutex m_usersMutex;
 
 	friend class Singleton;
 };

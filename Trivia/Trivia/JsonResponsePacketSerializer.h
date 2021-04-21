@@ -23,7 +23,7 @@ typedef struct SignupResponse
 	std::vector<Byte> status;
 } SignupResponse;
 
-class JsonResponseSerializer
+class JsonResponsePacketSerializer
 {
 public:
 	static std::vector<Byte> serializeResponse(const ErrorResponse& response);

@@ -47,12 +47,21 @@ RequestResult LoginRequestHandler::handleRequest(const RequestInfo& info)
 RequestResult LoginRequestHandler::login(const RequestInfo& info)
 {
 	LoginResponse lr;
-	std::vector<Byte> status;
-	status.push_back('1');
-	lr.status = status;
+	try
+	{
+		const auto data = JsonResponsePacketDeserializer::deserializeLoginRequest(info.buffer);
+		m_loginManager.login(data.username, data.password);
+		lr.status.push_back('1');
+	}
+	catch (std::exception& e)
+	{
+		lr.status.push_back('0');
+		std::cout << e.what() << std::endl;
+	}
+	
 	RequestResult rr;
 	rr.newHandler = nullptr;
-	rr.buffer = JsonResponseSerializer::serializeResponse(lr);
+	rr.buffer = JsonResponsePacketSerializer::serializeResponse(lr);
 	return rr;
 }
 
@@ -64,11 +73,19 @@ RequestResult LoginRequestHandler::login(const RequestInfo& info)
 RequestResult LoginRequestHandler::signup(const RequestInfo& info)
 {
 	SignupResponse sr;
-	std::vector<Byte> status;
-	status.push_back('1');
-	sr.status = status;
+	try
+	{
+		const auto data = JsonResponsePacketDeserializer::deserializeSingupRequest(info.buffer);
+		m_loginManager.signup(data.username, data.password, data.email);
+		sr.status.push_back('1');
+	}
+	catch (std::exception& e)
+	{
+		sr.status.push_back('0');
+		std::cout << e.what() << std::endl;
+	}
 	RequestResult rr;
 	rr.newHandler = nullptr;
-	rr.buffer = JsonResponseSerializer::serializeResponse(sr);
+	rr.buffer = JsonResponsePacketSerializer::serializeResponse(sr);
 	return rr;
 }

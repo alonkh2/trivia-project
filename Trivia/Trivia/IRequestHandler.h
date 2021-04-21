@@ -7,8 +7,8 @@ class IRequestHandler;
 typedef struct RequestInfo
 {
 	unsigned id;
-	time_t recievalTime;
-	char buffer[BUFFER_SIZE];
+	time_t receivalTime;
+	std::vector<Byte> buffer;
 } RequestInfo;
 
 

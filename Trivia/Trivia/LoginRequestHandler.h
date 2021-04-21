@@ -3,6 +3,7 @@
 #include "IRequestHandler.h"
 #include "LoginManager.h"
 #include "RequestHandlerFactory.h"
+#include "JsonResponsePacketDeserializer.h"
 
 class RequestHandlerFactory;
 
@@ -19,7 +20,7 @@ public:
 private:
 	// Functions and methods.
 	RequestResult login(const RequestInfo& info);
-	static RequestResult signup(const RequestInfo& info);
+	RequestResult signup(const RequestInfo& info);
 
 	LoginManager& m_loginManager;
 	RequestHandlerFactory& m_handlerFactory;

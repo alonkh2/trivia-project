@@ -109,9 +109,11 @@ void Communicator::handleNewClient(SOCKET client)
 
 			RequestInfo info;
 			info.id = *reinterpret_cast<Byte*>(code);
-			time(&info.recievalTime);
-			memcpy_s(info.buffer, BUFFER_SIZE, data, numericalLength);
-			info.buffer[numericalLength] = 0;
+			time(&info.receivalTime);
+			for (int i = 0; i < numericalLength; ++i)
+			{
+				info.buffer.push_back(data[i]);
+			}
 
 			delete code;
 			delete length;
@@ -133,7 +135,7 @@ void Communicator::handleNewClient(SOCKET client)
 			{
 				ErrorResponse error;
 				error.message = "Error with login/signup attempt" + std::to_string(client);
-				sendall(client, JsonResponseSerializer::serializeResponse(error));
+				sendall(client, JsonResponsePacketSerializer::serializeResponse(error));
 			}
 		}
 	}

@@ -14,13 +14,14 @@ LoginManager::LoginManager(IDatabase& database): m_database(database)
 void LoginManager::signup(const std::string& username, const std::string& password, const std::string& email)
 {
 	/*
-	 * Temporal, will replace with exceptions of my own.
+	 * Temporary, will replace with exceptions of my own.
 	 */
-	if (m_database.doesUserExist(username))
+	if (exists(username))
 	{
 		throw std::exception("User exists already!");
 	}
 	m_database.addNewUser(username, password, email);
+	std::lock_guard<std::mutex> lg(m_usersMutex);
 	m_logged_users.emplace_back(username);
 }
 
@@ -46,6 +47,7 @@ void LoginManager::login(const std::string& username, const std::string& passwor
 	{
 		throw std::exception("Username connected already!");
 	}
+	std::lock_guard<std::mutex> lg(m_usersMutex);
 	m_logged_users.emplace_back(username);
 }
 
@@ -59,7 +61,7 @@ void LoginManager::logout(const std::string& username)
 	{
 		throw std::exception("Username doesn't exist or is not connected!");
 	}
-
+	std::lock_guard<std::mutex> lg(m_usersMutex);
 	m_logged_users.erase(getUserIterator(username));
 }
 
@@ -70,6 +72,7 @@ void LoginManager::logout(const std::string& username)
  */
 bool LoginManager::exists(const std::string& username)
 {
+	std::lock_guard<std::mutex> lg(m_usersMutex);
 	if (!m_database.doesUserExist(username) && getUserIterator(username) == m_logged_users.end())
 	{
 		return false;
