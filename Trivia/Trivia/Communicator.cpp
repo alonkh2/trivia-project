@@ -1,5 +1,7 @@
 ﻿#include "Communicator.h"
 
+
+#include "JsonResponsePacketSerializer.h"
 #include "LoginRequestHandler.h"
 
 
@@ -68,6 +70,8 @@ void Communicator::bindAndListen()
 			throw std::exception(__FUNCTION__);
 
 		LoginRequestHandler req = m_handlerFactory.createLoginRequestHandler();
+
+		std::lock_guard<std::mutex> lock(m_clientMutex);
 		m_clients.insert_or_assign(client_socket, &req);
 
 		std::thread t([=] { handleNewClient(client_socket); });
@@ -79,13 +83,68 @@ void Communicator::bindAndListen()
  * \brief Handles a new client. Doesn't do much for now, will do more later.
  * \param client The new client.
  */
-void Communicator::handleNewClient(SOCKET client) const
+void Communicator::handleNewClient(SOCKET client)
 {
-	const std::string message = "HELLO";
-	sendall(client, message);
-	auto* ans = receive(client, message.size());
-	std::cout << ans << std::endl;
-	delete ans;
+	std::unique_lock<std::mutex> lock(m_clientMutex, std::defer_lock);
+	lock.lock();
+	auto* requestHandler = m_clients.at(client);
+	lock.unlock();
+	try
+	{
+		char* code = nullptr, * length = nullptr;
+		
+		while (true)
+		{
+			
+			code = receive(client, sizeof(Byte)), length = receive(client, sizeof(int));
+			
+			if (code == nullptr || length == nullptr)
+			{
+				throw std::exception(std::string("Data received not according to protocol! " + std::to_string(client)).c_str());
+			}
+
+			const auto numericalLength = *reinterpret_cast<int*>(length);
+
+			auto* data = receive(client, numericalLength);
+
+			RequestInfo info;
+			info.id = *reinterpret_cast<Byte*>(code);
+			time(&info.recievalTime);
+			memcpy_s(info.buffer, BUFFER_SIZE, data, numericalLength);
+			info.buffer[numericalLength] = 0;
+
+			delete code;
+			delete length;
+			delete data;
+
+			if (requestHandler->isRequestRelevant(info))
+			{
+				const auto result = requestHandler->handleRequest(info);
+
+				if (result.newHandler != nullptr)
+				{
+					delete requestHandler;
+					requestHandler = result.newHandler;
+				}
+				
+				sendall(client, result.buffer);
+			}
+			else
+			{
+				ErrorResponse error;
+				error.message = "Error with login/signup attempt" + std::to_string(client);
+				sendall(client, JsonResponseSerializer::serializeResponse(error));
+			}
+		}
+	}
+	catch (std::exception& e)
+	{
+		std::cout << e.what() << ": " << client << std::endl;
+		closesocket(client);
+		lock.lock();
+		m_clients.erase(client);
+		lock.unlock();
+	}
 }
 
 /**
@@ -93,12 +152,17 @@ void Communicator::handleNewClient(SOCKET client) const
  * \param socket The socket to send to.
  * \param msg The message to send.
  */
-void Communicator::sendall(SOCKET socket, const std::string& msg) const
+void Communicator::sendall(SOCKET socket, const std::vector<Byte>& msg) const
 {
-	const auto* toSend = msg.c_str();
+	auto* toSend = new char[msg.size() + 1];
+	for (auto i = 0; i < msg.size(); ++i)
+	{
+		toSend[i] = msg[i];
+	}
 
 	const auto res = send(socket, toSend, msg.size(), 0);
 
+	delete toSend;
 	if (res == INVALID_SOCKET || res == SOCKET_ERROR || !res)
 	{
 		std::string error = "Error while sending message to client: ";
@@ -123,6 +187,11 @@ char* Communicator::receive(SOCKET socket, int numOfBytes, int flags) const
 
 	char* data = new char[numOfBytes + 1];
 	int res = recv(socket, data, numOfBytes, flags);
+
+	if (res == 0)
+	{
+		throw std::exception("Client disconnected");
+	}
 
 	if (res == INVALID_SOCKET)
 	{

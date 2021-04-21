@@ -1,5 +1,9 @@
 ﻿#include "JsonResponsePacketSerializer.h"
 
+#include <iostream>
+
+
+#include "json.hpp"
 
 /**
  * \brief Serializes a response.
@@ -21,7 +25,7 @@ std::vector<Byte> JsonResponseSerializer::serializeResponse(const ErrorResponse&
 std::vector<Byte> JsonResponseSerializer::serializeResponse(const LoginResponse& response)
 {
 	const Byte code = LGN_CD;
-	const nlohmann::json msg = {{"status", response.status}};
+	const nlohmann::json msg = {{"status", std::string(response.status.begin(), response.status.end())}};
 	return serialize(msg, code);
 }
 
@@ -33,7 +37,7 @@ std::vector<Byte> JsonResponseSerializer::serializeResponse(const LoginResponse&
 std::vector<Byte> JsonResponseSerializer::serializeResponse(const SignupResponse& response)
 {
 	const Byte code = SU_CD;
-	const nlohmann::json msg = {{"status", response.status}};
+	const nlohmann::json msg = {{"status", std::string(response.status.begin(), response.status.end())}};
 	return serialize(msg, code);
 }
 
@@ -43,25 +47,22 @@ std::vector<Byte> JsonResponseSerializer::serializeResponse(const SignupResponse
  * \param code The message's code.
  * \return A byte representation of the message.
  */
-std::vector<unsigned char> JsonResponseSerializer::serialize(const nlohmann::json& msg, unsigned char code)
+std::vector<Byte> JsonResponseSerializer::serialize(const nlohmann::json& msg, unsigned char code)
 {
 	const auto json_text = msg.dump();
-	std::string response;
+	std::vector<Byte> response;
 	auto* len = new Byte[sizeof(int)];
 	*reinterpret_cast<int*>(len) = json_text.size();
-	response += code;
+	response.push_back(code);
 
 	for (auto i = 0; i < sizeof(int); ++i)
 	{
-		response += len[i];
+		response.push_back(len[i]);
 	}
-	
-	response += json_text;
 
-	std::vector<Byte> resp;
-	for (auto value : response)
+	for (auto text : json_text)
 	{
-		resp.push_back(value);
+		response.push_back(text);
 	}
-	return resp;
+	return response;
 }
