@@ -3,12 +3,7 @@
 #include <iostream>
 
 
-
 #include "json.hpp"
-#include "json.hpp"
-#include "json.hpp"
-#include "json.hpp"
-
 
 /**
  * \brief Serializes a response.
