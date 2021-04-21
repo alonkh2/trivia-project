@@ -29,7 +29,6 @@ def main():
         print("Signup msg: ", signup_msg_json)
         sock.sendall(signup_msg_json)
         server_resp = sock.recv(BUFF)
-        print(server_resp)
         print("Server message: code:", ord(server_resp[:1]), ", len:", int.from_bytes(server_resp[1:5], 'little'), "content: ", server_resp[5:].decode())  # Formatting server message
     
 
