@@ -111,6 +111,7 @@ void Communicator::handleNewClient(SOCKET client)
 			info.id = *reinterpret_cast<Byte*>(code);
 			time(&info.recievalTime);
 			memcpy_s(info.buffer, BUFFER_SIZE, data, numericalLength);
+			info.buffer[numericalLength] = 0;
 
 			delete code;
 			delete length;
