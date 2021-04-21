@@ -1,5 +1,7 @@
 #include "JsonResponsePacketDeserializer.h"
 
+#include "LoginException.h"
+
 /**
  * \brief Deserializes a login request.
  * \param buffer The request to deserialize.
@@ -21,7 +23,7 @@ LoginRequest JsonResponsePacketDeserializer::deserializeLoginRequest(const std::
 	}
 	catch (const std::exception& e)
 	{
-		throw std::exception("Error deserializing LoginRequest");
+		throw LoginException("Error deserializing LoginRequest", DSRL);
 	}
 
 	return lnReq;
@@ -50,7 +52,7 @@ SignupRequest JsonResponsePacketDeserializer::deserializeSingupRequest(const std
 	}
 	catch(std::exception& e)
 	{
-		throw std::exception("Error deserializing LoginRequest");
+		throw LoginException("Error deserializing LoginRequest", DSRL);
 	}
 
 

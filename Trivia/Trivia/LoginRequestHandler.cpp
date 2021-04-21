@@ -46,22 +46,27 @@ RequestResult LoginRequestHandler::handleRequest(const RequestInfo& info)
  */
 RequestResult LoginRequestHandler::login(const RequestInfo& info)
 {
+	RequestResult rr;
 	LoginResponse lr;
 	try
 	{
 		const auto data = JsonResponsePacketDeserializer::deserializeLoginRequest(info.buffer);
 		m_loginManager.login(data.username, data.password);
 		lr.status.push_back('1');
+		rr.buffer = JsonResponsePacketSerializer::serializeResponse(lr);
+		rr.newHandler = &(m_handlerFactory.createLoginRequestHandler());
+	}
+	catch (LoginException& e)
+	{
+		lr.status.push_back(e.getStatus());
+		// rr.newHandler = m_handlerFactory
 	}
 	catch (std::exception& e)
 	{
-		lr.status.push_back('0');
 		std::cout << e.what() << std::endl;
+		rr.newHandler = nullptr;
 	}
 	
-	RequestResult rr;
-	rr.newHandler = nullptr;
-	rr.buffer = JsonResponsePacketSerializer::serializeResponse(lr);
 	return rr;
 }
 
