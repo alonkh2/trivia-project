@@ -7,7 +7,7 @@
 class SqliteDatabase : public Singleton<SqliteDatabase, IDatabase>
 {
 public:
-
+	// C'tor and D'tor
 	SqliteDatabase();
 	~SqliteDatabase();
 
@@ -16,8 +16,8 @@ public:
 	void addNewUser(const std::string& username, const std::string& password, const std::string& email) override;
 
 private:
-	bool execCommand(const std::string command, int (*foo)(void*, int, char**, char**), std::string* ansRef);
 	sqlite3* _db;
 
+	bool execCommand(const std::string command, int (*foo)(void*, int, char**, char**), std::string* ansRef);
 	friend class Singleton;
 };

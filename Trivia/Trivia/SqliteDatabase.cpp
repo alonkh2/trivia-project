@@ -21,6 +21,9 @@ bool SqliteDatabase::execCommand(const std::string command, int (*foo)(void*, in
 	return res == SQLITE_OK;
 }
 
+/**
+ * \brief Function constructs an SqliteDatabase
+ */
 SqliteDatabase::SqliteDatabase()
 {
 	std::string dbName = "triviaDB.sqlite";
@@ -30,11 +33,19 @@ SqliteDatabase::SqliteDatabase()
 	execCommand(createTableQuery, nullptr, nullptr);
 }
 
+/**
+ * \brief Function closes the database
+ */
 SqliteDatabase::~SqliteDatabase()
 {
 	sqlite3_close(_db);
 }
 
+/**
+ * \brief Checks if a user exists in the database
+ * \param username The user's username.
+ * \return A bool indicating if a user exists in the DB.
+ */
 bool SqliteDatabase::doesUserExist(const std::string& username)
 {
 	std::string sqlQuery = "SELECT username FROM USERS WHERE username = '" + username + "';";
@@ -45,6 +56,12 @@ bool SqliteDatabase::doesUserExist(const std::string& username)
 	return dbResp == username ? true : false;
 }
 
+/**
+ * \brief Checks if the inputted password matches the DB
+ * \param username The user's username.
+ * \param password The user's password.
+ * \return A bool indicating if the passwords match.
+ */
 bool SqliteDatabase::doesPasswordMatch(const std::string& username, const std::string& password)
 {
 	std::string dbResp;
@@ -60,6 +77,12 @@ bool SqliteDatabase::doesPasswordMatch(const std::string& username, const std::s
 	return dbResp == password;
 }
 
+/**
+ * \brief Logs a user with a given username to the server.
+ * \param username The user's username.
+ * \param password The user's password.
+ * \param email The user's email.
+ */
 void SqliteDatabase::addNewUser(const std::string& username, const std::string& password, const std::string& email)
 {
 	std::string addUserQuery = "INSERT INTO USERS (username, password, email) VALUES ('" + username + "', '" + password + "', '" + email + "');";

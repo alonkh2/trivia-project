@@ -14,7 +14,7 @@ LoginManager::LoginManager(IDatabase& database): m_database(database)
 void LoginManager::signup(const std::string& username, const std::string& password, const std::string& email)
 {
 	/*
-	 * Temporal, will replace with exceptions of my own.
+	 * Temporary, will replace with exceptions of my own.
 	 */
 	if (m_database.doesUserExist(username))
 	{
