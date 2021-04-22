@@ -156,6 +156,7 @@
     <ClInclude Include="RequestHandlerFactory.h" />
     <ClInclude Include="Server.h" />
     <ClInclude Include="Singleton.h" />
+    <ClInclude Include="sqlite3.h" />
     <ClInclude Include="SqliteDatabase.h" />
     <ClInclude Include="WSAInitializer.h" />
   </ItemGroup>
@@ -169,6 +170,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RequestHandlerFactory.cpp" />
     <ClCompile Include="Server.cpp" />
+    <ClCompile Include="sqlite3.c" />
+    <ClCompile Include="SqliteDatabase.cpp" />
     <ClCompile Include="WSAInitializer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
