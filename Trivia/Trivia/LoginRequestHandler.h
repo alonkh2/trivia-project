@@ -19,7 +19,7 @@ public:
 
 private:
 	// Functions and methods.
-	RequestResult login(const RequestInfo& info);
+	RequestResult login(const RequestInfo& info) const;
 	RequestResult signup(const RequestInfo& info);
 
 	LoginManager& m_loginManager;

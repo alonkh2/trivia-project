@@ -5,9 +5,14 @@
  * \brief Creates a new login handler.
  * \return A new login handler.
  */
-LoginRequestHandler RequestHandlerFactory::createLoginRequestHandler()
+LoginRequestHandler* RequestHandlerFactory::createLoginRequestHandler()
 {
-	return {*this, m_loginManager};
+	return new LoginRequestHandler(*this, m_loginManager);
+}
+
+MenuRequestHandler* RequestHandlerFactory::createMenuRequestHandler()
+{
+	return nullptr;
 }
 
 RequestHandlerFactory::RequestHandlerFactory(IDatabase& db) : m_database(db),

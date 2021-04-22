@@ -6,13 +6,15 @@
 #include "LoginRequestHandler.h"
 
 
+class MenuRequestHandler;
 class LoginRequestHandler;
 
 class RequestHandlerFactory : public Singleton<RequestHandlerFactory>
 {	
 public:
 	// Functions and methods
-	LoginRequestHandler createLoginRequestHandler();
+	LoginRequestHandler* createLoginRequestHandler();
+	MenuRequestHandler* createMenuRequestHandler();
 	
 private:
 	// C'tor. Private because of singleton
