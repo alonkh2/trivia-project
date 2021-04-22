@@ -44,15 +44,30 @@ RequestResult LoginRequestHandler::handleRequest(const RequestInfo& info)
  * \param info The request's info.
  * \return The request's result.
  */
-RequestResult LoginRequestHandler::login(const RequestInfo& info)
+RequestResult LoginRequestHandler::login(const RequestInfo& info) const
 {
-	LoginResponse lr;
-	std::vector<Byte> status;
-	status.push_back('1');
-	lr.status = status;
 	RequestResult rr;
+	LoginResponse lr;
 	rr.newHandler = nullptr;
-	rr.buffer = JsonResponseSerializer::serializeResponse(lr);
+	try
+	{
+		const auto data = JsonResponsePacketDeserializer::deserializeLoginRequest(info.buffer);
+		m_loginManager.login(data.username, data.password);
+		lr.status.push_back('1');
+		rr.buffer = JsonResponsePacketSerializer::serializeResponse(lr);
+		rr.newHandler = nullptr;
+		// rr.newHandler = m_handlerFactory.createMenuRequestHandler();
+	}
+	catch (LoginException& e)
+	{
+		lr.status.push_back(e.getStatus());
+		rr.newHandler = m_handlerFactory.createLoginRequestHandler();
+	}
+	catch (std::exception& e)
+	{
+		std::cout << e.what() << std::endl;
+	}
+	
 	return rr;
 }
 
@@ -64,11 +79,19 @@ RequestResult LoginRequestHandler::login(const RequestInfo& info)
 RequestResult LoginRequestHandler::signup(const RequestInfo& info)
 {
 	SignupResponse sr;
-	std::vector<Byte> status;
-	status.push_back('1');
-	sr.status = status;
+	try
+	{
+		const auto data = JsonResponsePacketDeserializer::deserializeSingupRequest(info.buffer);
+		m_loginManager.signup(data.username, data.password, data.email);
+		sr.status.push_back('1');
+	}
+	catch (std::exception& e)
+	{
+		sr.status.push_back('0');
+		std::cout << e.what() << std::endl;
+	}
 	RequestResult rr;
 	rr.newHandler = nullptr;
-	rr.buffer = JsonResponseSerializer::serializeResponse(sr);
+	rr.buffer = JsonResponsePacketSerializer::serializeResponse(sr);
 	return rr;
 }

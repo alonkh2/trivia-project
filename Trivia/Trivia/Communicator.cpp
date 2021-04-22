@@ -15,8 +15,9 @@ Communicator::~Communicator()
 {
 	try
 	{
-		for (const auto client : m_clients)
+		for (const auto &client : m_clients)
 		{
+			delete client.second;
 			closesocket(client.first);
 		}
 		closesocket(m_serverSocket);
@@ -69,10 +70,10 @@ void Communicator::bindAndListen()
 		if (client_socket == INVALID_SOCKET)
 			throw std::exception(__FUNCTION__);
 
-		LoginRequestHandler req = m_handlerFactory.createLoginRequestHandler();
+		LoginRequestHandler *req = m_handlerFactory.createLoginRequestHandler();
 
 		std::lock_guard<std::mutex> lock(m_clientMutex);
-		m_clients.insert_or_assign(client_socket, &req);
+		m_clients.insert_or_assign(client_socket, req);
 
 		std::thread t([=] { handleNewClient(client_socket); });
 		t.detach();
@@ -109,9 +110,11 @@ void Communicator::handleNewClient(SOCKET client)
 
 			RequestInfo info;
 			info.id = *reinterpret_cast<Byte*>(code);
-			time(&info.recievalTime);
-			memcpy_s(info.buffer, BUFFER_SIZE, data, numericalLength);
-			info.buffer[numericalLength] = 0;
+			time(&info.receivalTime);
+			for (int i = 0; i < numericalLength; ++i)
+			{
+				info.buffer.push_back(data[i]);
+			}
 
 			delete code;
 			delete length;
@@ -133,7 +136,7 @@ void Communicator::handleNewClient(SOCKET client)
 			{
 				ErrorResponse error;
 				error.message = "Error with login/signup attempt" + std::to_string(client);
-				sendall(client, JsonResponseSerializer::serializeResponse(error));
+				sendall(client, JsonResponsePacketSerializer::serializeResponse(error));
 			}
 		}
 	}

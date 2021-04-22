@@ -14,13 +14,14 @@ LoginManager::LoginManager(IDatabase& database): m_database(database)
 void LoginManager::signup(const std::string& username, const std::string& password, const std::string& email)
 {
 	/*
-	 * Temporary, will replace with exceptions of my own.
+	 * not anymore
 	 */
-	if (m_database.doesUserExist(username))
+	if (exists(username))
 	{
-		throw std::exception("User exists already!");
+		throw LoginException("User exists already!", EXSTS);
 	}
 	m_database.addNewUser(username, password, email);
+	std::lock_guard<std::mutex> lg(m_usersMutex);
 	m_logged_users.emplace_back(username);
 }
 
@@ -36,16 +37,17 @@ void LoginManager::login(const std::string& username, const std::string& passwor
 	 */
 	if (!m_database.doesUserExist(username))
 	{
-		throw std::exception("User doesn't exist! Please signup instead");
+		throw LoginException("User doesn't exist! Please signup instead", DSNT_EXST);
 	}
 	if (!m_database.doesPasswordMatch(username, password))
 	{
-		throw std::exception("Password doesn't match! Please try again");
+		throw LoginException("Password doesn't match! Please try again", DSNT_EXST);
 	}
 	if (exists(username))
 	{
-		throw std::exception("Username connected already!");
+		throw LoginException("Username connected already!", LGD_IN);
 	}
+	std::lock_guard<std::mutex> lg(m_usersMutex);
 	m_logged_users.emplace_back(username);
 }
 
@@ -57,9 +59,9 @@ void LoginManager::logout(const std::string& username)
 {
 	if (!exists(username))
 	{
-		throw std::exception("Username doesn't exist or is not connected!");
+		throw LoginException("Username doesn't exist or is not connected!", DSNT_EXST);
 	}
-
+	std::lock_guard<std::mutex> lg(m_usersMutex);
 	m_logged_users.erase(getUserIterator(username));
 }
 
@@ -70,6 +72,7 @@ void LoginManager::logout(const std::string& username)
  */
 bool LoginManager::exists(const std::string& username)
 {
+	std::lock_guard<std::mutex> lg(m_usersMutex);
 	if (!m_database.doesUserExist(username) && getUserIterator(username) == m_logged_users.end())
 	{
 		return false;
