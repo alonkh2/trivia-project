@@ -3,7 +3,7 @@
 
 LoginException::LoginException(const std::string& message, Byte status): m_status(status)
 {
-	m_message = "Login Exception - " + message;
+	m_message = "Login/signup Exception - " + message;
 }
 
 char const* LoginException::what() const

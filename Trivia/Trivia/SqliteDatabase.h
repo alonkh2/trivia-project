@@ -18,6 +18,6 @@ public:
 private:
 	sqlite3* _db;
 
-	bool execCommand(const std::string command, int (*foo)(void*, int, char**, char**), std::string* ansRef);
+	bool execCommand(const std::string& command, int (*foo)(void*, int, char**, char**), std::string* ansRef) const;
 	friend class Singleton;
 };
