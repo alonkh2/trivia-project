@@ -1,4 +1,5 @@
 #include "SqliteDatabase.h"
+#include <iostream>
 
 /*
 * This function returns the ID parameter of all tables
@@ -16,7 +17,7 @@ int getStringCallback(void* used, int argc, char** argv, char** az_col_name)
 
 bool SqliteDatabase::execCommand(const std::string command, int (*foo)(void*, int, char**, char**), std::string* ansRef)
 {
-	int res = sqlite3_exec(_db, command.c_str(), foo, &ansRef, nullptr);
+	int res = sqlite3_exec(_db, command.c_str(), foo, ansRef, nullptr);
 
 	return res == SQLITE_OK;
 }
