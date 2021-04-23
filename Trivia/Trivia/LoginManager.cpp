@@ -73,7 +73,7 @@ void LoginManager::logout(const std::string& username)
 bool LoginManager::exists(const std::string& username)
 {
 	std::lock_guard<std::mutex> lg(m_usersMutex);
-	if (!m_database.doesUserExist(username) && getUserIterator(username) == m_logged_users.end())
+	if (!m_database.doesUserExist(username) || getUserIterator(username) == m_logged_users.end())
 	{
 		return false;
 	}

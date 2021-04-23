@@ -60,8 +60,10 @@ RequestResult LoginRequestHandler::login(const RequestInfo& info) const
 	}
 	catch (LoginException& e)
 	{
-		lr.status.push_back(e.getStatus());
+		ErrorResponse er;
+		er.message = std::string(e.what());
 		rr.newHandler = m_handlerFactory.createLoginRequestHandler();
+		rr.buffer = JsonResponsePacketSerializer::serializeResponse(er);
 	}
 	catch (std::exception& e)
 	{
