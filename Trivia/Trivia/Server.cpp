@@ -24,6 +24,6 @@ void Server::run() const
 	}
 }
 
-Server::Server() : m_database(nullptr), m_handlerFactory(RequestHandlerFactory::getInstance<IDatabase&>(*m_database)), m_communicator(Communicator::getInstance<RequestHandlerFactory&>(m_handlerFactory))
+Server::Server() : m_database(&SqliteDatabase::getInstance()), m_handlerFactory(RequestHandlerFactory::getInstance<IDatabase&>(*m_database)), m_communicator(Communicator::getInstance<RequestHandlerFactory&>(m_handlerFactory))
 {
 }

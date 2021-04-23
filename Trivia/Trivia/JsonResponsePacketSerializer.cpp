@@ -10,7 +10,7 @@
  * \param response The response to be sent.
  * \return A byte representation of the message.
  */
-std::vector<Byte> JsonResponseSerializer::serializeResponse(const ErrorResponse& response)
+std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const ErrorResponse& response)
 {
 	const Byte code = ERR_CD;
 	const nlohmann::json msg = {{"message", response.message}};
@@ -22,7 +22,7 @@ std::vector<Byte> JsonResponseSerializer::serializeResponse(const ErrorResponse&
  * \param response The response to be sent.
  * \return A byte representation of the message.
  */
-std::vector<Byte> JsonResponseSerializer::serializeResponse(const LoginResponse& response)
+std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const LoginResponse& response)
 {
 	const Byte code = LGN_CD;
 	const nlohmann::json msg = {{"status", std::string(response.status.begin(), response.status.end())}};
@@ -34,7 +34,7 @@ std::vector<Byte> JsonResponseSerializer::serializeResponse(const LoginResponse&
  * \param response The response to be sent.
  * \return A byte representation of the message.
  */
-std::vector<Byte> JsonResponseSerializer::serializeResponse(const SignupResponse& response)
+std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const SignupResponse& response)
 {
 	const Byte code = SU_CD;
 	const nlohmann::json msg = {{"status", std::string(response.status.begin(), response.status.end())}};
@@ -47,7 +47,7 @@ std::vector<Byte> JsonResponseSerializer::serializeResponse(const SignupResponse
  * \param code The message's code.
  * \return A byte representation of the message.
  */
-std::vector<Byte> JsonResponseSerializer::serialize(const nlohmann::json& msg, unsigned char code)
+std::vector<Byte> JsonResponsePacketSerializer::serialize(const nlohmann::json& msg, unsigned char code)
 {
 	const auto json_text = msg.dump();
 	std::vector<Byte> response;

@@ -1,10 +1,12 @@
 ﻿#pragma once
+#include <mutex>
 #include <string>
 #include <vector>
 
 #include "Singleton.h"
 #include "IDatabase.h"
 #include "LoggedUser.h"
+#include "LoginException.h"
 
 
 class LoginManager : public Singleton<LoginManager>
@@ -27,6 +29,7 @@ private:
 	
 	IDatabase& m_database;
 	std::vector<LoggedUser> m_logged_users;
+	std::mutex m_usersMutex;
 
 	friend class Singleton;
 };
