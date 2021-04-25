@@ -24,5 +24,10 @@ namespace Trivia_GUI
         {
             InitializeComponent();
         }
+
+        private void ExitButton_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Shutdown();
+        }
     }
 }
