@@ -149,6 +149,7 @@
                         CornerRadius="10">
 
                     <Grid>
+                        <Button Background="Transparent" Click="Exit_Click"/>
                         <StackPanel>
                             <TextBlock Text="Exit"
                                    Foreground="White"
