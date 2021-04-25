@@ -37,18 +37,21 @@
                              Height="50"
                              Foreground="White"
                              FontSize="14"
-                             IsChecked="True"/>
+                             IsChecked="True"
+                             Style="{StaticResource MenuButtonTheme}"/>
 
                 <RadioButton Content="Log Out"
                              Height="50"
                              Foreground="White"
-                             FontSize="14"/>
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"/>
 
                 <RadioButton Content="Exit"
                              Height="50"
                              Foreground="White"
                              FontSize="14"
-                             Click="ExitButton_Click"/>
+                             Click="ExitButton_Click"
+                             Style="{StaticResource MenuButtonTheme}"/>
 
             </StackPanel>
 
