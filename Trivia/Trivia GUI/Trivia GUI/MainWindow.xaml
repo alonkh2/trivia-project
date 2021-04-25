@@ -52,7 +52,6 @@
                              FontSize="14"
                              Click="ExitButton_Click"
                              Style="{StaticResource MenuButtonTheme}"/>
-
             </StackPanel>
 
         </Grid>
