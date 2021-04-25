@@ -167,6 +167,8 @@
                                 Click="Exit_Click" 
                                 BorderThickness="0" 
                                 BorderBrush="Transparent"
+                                ForceCursor="true" 
+                                Cursor="Hand"
                                 Style="{DynamicResource LowerButton}"/>
                     </Grid>
                 </Border>
