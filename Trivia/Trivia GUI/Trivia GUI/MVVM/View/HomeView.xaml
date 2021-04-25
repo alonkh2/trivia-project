@@ -149,7 +149,6 @@
                         CornerRadius="10">
 
                     <Grid>
-                        <Button Background="Transparent" Click="Exit_Click"/>
                         <StackPanel>
                             <TextBlock Text="Exit"
                                    Foreground="White"
@@ -161,6 +160,14 @@
                                    FontSize="17"
                                    Margin="10,10,10,0"/>
                         </StackPanel>
+
+                        <Button Background="Transparent"
+                                Width="150"
+                                Height="150"
+                                Click="Exit_Click" 
+                                BorderThickness="0" 
+                                BorderBrush="Transparent"
+                                Style="{DynamicResource LowerButton}"/>
                     </Grid>
                 </Border>
                 

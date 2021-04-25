@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Trivia_GUI.MVVM
+namespace Trivia_GUI.MVVM.ViewModel
 {
     class HomeViewModel
     {
