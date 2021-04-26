@@ -4,7 +4,7 @@
               xmlns:local="clr-namespace:Trivia_GUI"
              xmlns:ViewModel="clr-namespace:Trivia_GUI.MVVM.ViewModel"
              xmlns:view="clr-namespace:Trivia_GUI.MVVM.View"
-             StartupUri="MainWindow.xaml">
+             StartupUri="WelcomeWindow.xaml">
     
     <Application.Resources>
 

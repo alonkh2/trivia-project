@@ -1,0 +1,81 @@
+﻿<Window x:Class="Trivia_GUI.WelcomeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Trivia_GUI" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Height="600" Width="920"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen">
+
+    <Border Background="#272537" CornerRadius="20">
+        <Grid>
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0.1,0" EndPoint="0.9,1.1">
+                    <GradientStop Color="#FFE63070" Offset="1" />
+                    <GradientStop Color="#FFFE8704" Offset="0" />
+                </LinearGradientBrush>
+            </Grid.Background>
+            <Border Height="540" 
+                    Width="920"
+                    VerticalAlignment="Top" 
+                    CornerRadius="0 0 90 90" 
+                    Background="#272537">
+            </Border>
+
+           <Border Margin="557,267,251,275" CornerRadius="20">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                        <GradientStop Color="#5bc3ff" Offset="0.0"/>
+                        <GradientStop Color="#3aa0ff" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+
+            </Border>
+            <Border Margin="710,267,98,275" CornerRadius="20">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                        <GradientStop Color="#4eff91" Offset="0.0"/>
+                        <GradientStop Color="#5eff91" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+
+            </Border>
+
+            <Image Source="/Images/c18.png" Margin="71,98,577,157"/>
+            <!--<TextBlock Text="Trivia" 
+                       FontSize="56" 
+                       Foreground="White" 
+                       Margin="557,93,-14,355"/> -->
+
+            <TextBlock Text="Trivia" 
+                       FontSize="56" 
+                       Foreground="White" 
+                       Margin="559,98,98,429"
+                       TextAlignment="Center"/>
+
+            <TextBlock Text="Login" Foreground="White" Margin="587,280,281,290"
+                       FontSize="20"/>
+            <TextBlock Text="Sign up" Foreground="White" Margin="731,280,113,290"
+                       FontSize="20"/>
+
+            <TextBlock TextAlignment="Center" FontSize="18" Foreground="White" Margin="559,171,98,331"><Run Text="By Mike Segal and "/><LineBreak/><Run Text="Alon Kedar Haspel"/></TextBlock>
+            <Button Content="{materialDesign:PackIcon Kind=ExitToApp, Size=32}"
+                    Background="Transparent"
+                    Foreground="White" 
+                    RenderTransformOrigin="0.577,0.439" 
+                    Margin="871,0,10,545"
+                    BorderThickness="0"
+                    Style="{DynamicResource LowerButton}"
+                    Click="ExitButton_Click"
+                    ForceCursor="True"
+                    Cursor="Hand"/>
+        
+        
+        </Grid>
+    </Border>
+</Window>
