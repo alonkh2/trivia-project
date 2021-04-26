@@ -35,5 +35,12 @@ namespace Trivia_GUI
         {
             System.Windows.Application.Current.Shutdown();
         }
+
+        public void LogOut_Click(object sender, RoutedEventArgs e)
+        {
+            WelcomeWindow welcomeWin = new WelcomeWindow();
+            welcomeWin.Show();
+            this.Close();
+        }
     }
 }

@@ -27,7 +27,7 @@
                     Background="#272537">
             </Border>
 
-           <Border Margin="557,267,251,275" CornerRadius="20">
+            <Border Margin="557,267,251,275" CornerRadius="20">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
                         <GradientStop Color="#5bc3ff" Offset="0.0"/>
@@ -58,10 +58,33 @@
                        Margin="559,98,98,429"
                        TextAlignment="Center"/>
 
-            <TextBlock Text="Login" Foreground="White" Margin="587,280,281,290"
+            <TextBlock Text="Login" 
+                       Foreground="White" 
+                       Margin="587,280,281,290"
                        FontSize="20"/>
-            <TextBlock Text="Sign up" Foreground="White" Margin="731,280,113,290"
+            <Button
+                Background="Transparent"
+                BorderThickness="0"
+                Style="{DynamicResource LowerButton}"
+                ForceCursor="True"
+                Cursor="Hand" 
+                Margin="559,269,251,275"
+                Click="Button_Click"/>
+               
+
+
+            <TextBlock Text="Sign up" 
+                       Foreground="White" 
+                       Margin="731,280,113,290"
                        FontSize="20"/>
+            <Button
+                Background="Transparent"
+                BorderThickness="0"
+                Style="{DynamicResource LowerButton}"
+                ForceCursor="True"
+                Cursor="Hand" 
+                Margin="710,267,100,277"
+                Click="Button_Click"/>
 
             <TextBlock TextAlignment="Center" FontSize="18" Foreground="White" Margin="559,171,98,331"><Run Text="By Mike Segal and "/><LineBreak/><Run Text="Alon Kedar Haspel"/></TextBlock>
             <Button Content="{materialDesign:PackIcon Kind=ExitToApp, Size=32}"
@@ -74,8 +97,8 @@
                     Click="ExitButton_Click"
                     ForceCursor="True"
                     Cursor="Hand"/>
-        
-        
+
+
         </Grid>
     </Border>
 </Window>

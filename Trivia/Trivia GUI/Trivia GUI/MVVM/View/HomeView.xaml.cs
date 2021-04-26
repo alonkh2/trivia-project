@@ -29,5 +29,16 @@ namespace Trivia_GUI.MVVM.View
         {
             System.Windows.Application.Current.Shutdown();
         }
+
+        /// <summary>
+        /// This function calls LogOut_Click from MainWindow
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LogOut_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWin = new MainWindow();
+            mainWin.LogOut_Click(sender, e);
+        }
     }
 }
