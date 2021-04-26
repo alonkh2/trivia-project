@@ -12,6 +12,10 @@ namespace Trivia_GUI.Core
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// This function envokes the new args if the Porpery changes
+        /// </summary>
+        /// <param name="name"></param>
         protected void onPropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));

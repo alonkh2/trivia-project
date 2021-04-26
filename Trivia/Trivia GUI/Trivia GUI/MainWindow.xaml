@@ -28,15 +28,16 @@
                 <RowDefinition Height="75"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-
+            
+            <!--Top left of application screen-->
             <TextBlock Text="Trivia" 
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left"
                    Foreground="White"
                    FontSize="22"
-                       Margin="20,0,0,0"/>
+                   Margin="20,0,0,0"/>
 
-
+            <!--Stack Panel containnig the menu buttons-->
             <StackPanel Grid.Row="1">
                 <RadioButton Content="Home"
                              Height="50"
@@ -59,7 +60,8 @@
                              Click="ExitButton_Click"
                              Style="{StaticResource MenuButtonTheme}"/>
             </StackPanel>
-
+            
+             <!--The View Display-->
             <ContentControl Grid.Row="1"
                             Grid.Column="1"
                             Margin="10"

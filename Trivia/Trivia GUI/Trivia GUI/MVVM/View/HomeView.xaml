@@ -13,9 +13,12 @@
                    FontSize="28"
                    HorizontalAlignment="Left"
                    Margin="0,0,0,20"/>
-
+        
+        <!--StackPanel containig top 2 buttons-->
         <StackPanel Orientation="Horizontal"
                     Margin="0,0,0,10">
+            
+            <!--Create room Button-->
             <Border Width="400"
                     Height="200">
                 <Border.Background>
@@ -46,7 +49,8 @@
                 </Grid>
 
             </Border>
-
+            
+            <!--Join room button-->
             <Border Width="200"
                     Height="200"
                     CornerRadius="10"
@@ -84,7 +88,10 @@
             </StackPanel.Resources>
             <TextBlock Margin="0,0,0,10"/>
 
+            <!--The StackPanel containing the bottom 4 buttons-->
             <StackPanel Orientation="Horizontal">
+                
+                <!--Statistics button-->
                 <Border Width="150"
                         Height="150"
                         Background="#844eff"
@@ -104,7 +111,8 @@
                         </StackPanel>
                     </Grid>
                 </Border>
-
+                
+                <!--High Scores button-->
                 <Border Width="150"
                         Height="150"
                         Background="#4eff91"
@@ -123,7 +131,8 @@
                         </StackPanel>
                     </Grid>
                 </Border>
-
+                
+                <!--Log out button-->
                 <Border Width="150"
                         Height="150"
                         Background="#fdc12a"
@@ -142,7 +151,8 @@
                         </StackPanel>
                     </Grid>
                 </Border>
-
+                   
+                <!--Exit button-->
                 <Border Width="150"
                         Height="150"
                         Background="#d21f3c"
@@ -172,9 +182,6 @@
                                 Style="{DynamicResource LowerButton}"/>
                     </Grid>
                 </Border>
-                
-                    
-
             </StackPanel>
         </StackPanel>
 

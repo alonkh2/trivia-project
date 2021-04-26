@@ -20,11 +20,17 @@ namespace Trivia_GUI
     /// </summary>
     public partial class MainWindow : Window
     {
+        ///Initializes the MainWindow
         public MainWindow()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// This function exits the application when the 'Exit' radio button is toggled
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Application.Current.Shutdown();
