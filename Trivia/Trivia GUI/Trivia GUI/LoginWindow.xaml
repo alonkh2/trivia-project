@@ -3,10 +3,76 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:Trivia_GUI"
         mc:Ignorable="d"
-        Title="LoginWindow" Height="450" Width="800">
+        Height="600" Width="920"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen">
+
     <Grid>
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0.1,0" EndPoint="0.9,1">
+                <GradientStop Color="#FFE63070" Offset="1" />
+                <GradientStop Color="#FFFE8704" Offset="0" />
+            </LinearGradientBrush>
+        </Grid.Background>
         
+        <Border Height="540" 
+                    Width="920"
+                    VerticalAlignment="Top" 
+                    CornerRadius="0 0 90 90" 
+                    Background="#272537"/>
+
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Width="350">
+                <Image Source="Images/c18.png"
+                       Width="300"
+                       Height="377" 
+                       VerticalAlignment="Top" 
+                       Margin="30,30,20,30" 
+                       Stretch="Fill" />
+            </StackPanel>
+            <StackPanel Width="570" >
+                <StackPanel Margin="240,40,56,40">
+                    <TextBlock Text="Login"
+                               Margin="20"
+                               Foreground="White"
+                               TextAlignment="Center"
+                               FontSize="38"/>
+
+                    <StackPanel Orientation="Horizontal"
+                                Margin="10">
+
+                        <materialDesign:PackIcon Kind="User" 
+                                                 Width="25" 
+                                                 Height="25" 
+                                                 Foreground="White"/>
+                        <TextBox x:Name="txtUsername" 
+                                 Margin="10 0" 
+                                 materialDesign:HintAssist.Hint="Enter Username" 
+                                 Foreground="White" 
+                                 Width="250" 
+                                 BorderBrush="White"
+                                 CaretBrush="#FFD94448" 
+                                 SelectionBrush="#FFD94448" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                                Margin="10">
+                        <materialDesign:PackIcon Kind="Lock" Width="25" Height="25" Foreground="White"/>
+                        <PasswordBox x:Name="txtPassword" Margin="10 0" materialDesign:HintAssist.Hint="********" Foreground="White" Width="250" BorderBrush="White" CaretBrush="#FFD94448" SelectionBrush="#FFD94448" />
+                    </StackPanel>
+                    <StackPanel Margin="10" HorizontalAlignment="Center">
+                        <Button Width="100" Height="40" Style="{StaticResource MaterialDesignRaisedButton}" 
+                         materialDesign:ButtonAssist.CornerRadius="10" BorderThickness="2" BorderBrush="#D94448"
+                         Background="#D94448" Foreground="White" ToolTip="Login" x:Name="btnLogin" Content="Login">
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </Window>
