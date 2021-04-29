@@ -23,5 +23,20 @@ namespace Trivia_GUI
         {
             InitializeComponent();
         }
+
+        private void ExitButton_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Shutdown();
+        }
+
+        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            if(!String.IsNullOrEmpty(txtPassword.Password) && !String.IsNullOrEmpty(txtUsername.Text))
+            {
+                MainWindow mainWin = new MainWindow();
+                mainWin.Show();
+                this.Close();
+            }
+        }
     }
 }
