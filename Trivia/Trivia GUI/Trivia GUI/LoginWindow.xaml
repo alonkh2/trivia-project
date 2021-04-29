@@ -15,6 +15,7 @@
 
     <Grid>
         <Grid.Background>
+            <!--The gradient at the bottom-->
             <LinearGradientBrush StartPoint="0.1,0" EndPoint="0.9,1">
                 <GradientStop Color="#b06ab3" Offset="1" />
                 <GradientStop Color="#4568dc   " Offset="0" />
@@ -37,8 +38,10 @@
                        Stretch="Fill" />
             </StackPanel>
             <StackPanel Width="570" >
+                
+                <!--Exit button-->
                 <Button Content="{materialDesign:PackIcon Kind=ExitToApp, Size=32}"
-                     Background="Transparent"
+                    Background="Transparent"
                     Foreground="White" 
                     BorderThickness="0"
                     Style="{DynamicResource LowerButton}"
@@ -47,13 +50,17 @@
                     Cursor="Hand" 
                     Margin="517,0,10,0" 
                     RenderTransformOrigin="1.558,0.484"/>
+                
+                <!--Stack panel containing the input fields-->
                 <StackPanel Margin="240,40,56,40">
+                    
                     <TextBlock Text="Login"
                                Margin="20"
                                Foreground="White"
                                TextAlignment="Center"
                                FontSize="38"/>
-
+                    
+                    <!--StackPanel containing the Username TextBox-->
                     <StackPanel Orientation="Horizontal"
                                 Margin="10">
 
@@ -71,14 +78,17 @@
                                  SelectionBrush="#4568dc"
                                  materialDesign:TextFieldAssist.UnderlineBrush="#b06ab3"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal"
-                                Margin="10">
+                    
+                    <!--Stack panel containing the PasswordBox-->
+                    <StackPanel 
+                        Orientation="Horizontal"
+                        Margin="10">
                         <materialDesign:PackIcon 
                             Kind="Lock" 
                             Width="25" 
                             Height="25" 
                             Foreground="White"/>
-
+                
                         <PasswordBox x:Name="txtPassword"
                                      Margin="10 0" 
                                      materialDesign:HintAssist.Hint="********" 
@@ -88,6 +98,8 @@
                                      CaretBrush="#4568dc" 
                                      materialDesign:TextFieldAssist.UnderlineBrush="#b06ab3"/>
                     </StackPanel>
+                    
+                    <!--The login button-->
                     <StackPanel Margin="10" HorizontalAlignment="Center">
                         <Button Width="100" 
                                 Height="40" 
@@ -100,7 +112,7 @@
                                 ToolTip="Login" 
                                 x:Name="btnLogin" 
                                 Content="Login"
-                                Click="btnLogin_Click"/>
+                                Click="BtnLogin_Click"/>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>

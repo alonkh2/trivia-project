@@ -24,12 +24,22 @@ namespace Trivia_GUI
             InitializeComponent();
         }
 
+        /// <summary>
+        /// This function exits the program
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Application.Current.Shutdown();
         }
 
-        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// This function check wether the text boxes are empty, and if not continues to the MainWindow
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
             if(!String.IsNullOrEmpty(txtPassword.Password) && !String.IsNullOrEmpty(txtUsername.Text))
             {

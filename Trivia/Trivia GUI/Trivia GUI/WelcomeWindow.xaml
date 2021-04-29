@@ -16,8 +16,8 @@
         <Grid>
             <Grid.Background>
                 <LinearGradientBrush StartPoint="0.1,0" EndPoint="0.9,1.1">
-                    <GradientStop Color="#FFE63070" Offset="1" />
-                    <GradientStop Color="#FFFE8704" Offset="0" />
+                    <GradientStop Color="#b06ab3" Offset="1" />
+                    <GradientStop Color="#4568dc" Offset="0" />
                 </LinearGradientBrush>
             </Grid.Background>
             <Border Height="540" 
@@ -41,7 +41,7 @@
                     materialDesign:ButtonAssist.CornerRadius="10"
                     BorderThickness="2" 
                     BorderBrush="Transparent"
-                    Background="#3aa0ff"
+                    Background="#4568dc"
                     Foreground="White"
                     ToolTip="Login"
                     Content="Login"
@@ -55,7 +55,7 @@
                     materialDesign:ButtonAssist.CornerRadius="10"
                     BorderThickness="2" 
                     BorderBrush="Transparent"
-                    Background="#5eff91"
+                    Background="#b06ab3"
                     Foreground="White"
                     ToolTip="Sign up" 
                     Content="Sign up"
