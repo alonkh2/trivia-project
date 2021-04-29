@@ -22,6 +22,7 @@ public:
 	void addUser(const LoggedUser& user);
 	void removeUser(const LoggedUser& user);
 	std::vector<std::string> getAllUsers();
+	RoomData getRoomData() const;
 
 private:
 	RoomData m_metadata;

@@ -34,6 +34,11 @@ std::vector<std::string> Room::getAllUsers()
 	return names;
 }
 
+RoomData Room::getRoomData() const
+{
+	return m_metadata;
+}
+
 std::vector<LoggedUser>::iterator Room::getUserIterator(const LoggedUser& user)
 {
 	for (auto it = m_users.begin(); it != m_users.end(); ++it)
