@@ -45,20 +45,27 @@
                              FontSize="14"
                              IsChecked="True"
                              Style="{StaticResource MenuButtonTheme}"
-                             Command="{Binding HomeViewCommand}"/>
+                             Command="{Binding HomeViewCommand}"
+                             ForceCursor="True"
+                             Cursor="Hand"/>
 
                 <RadioButton Content="Log Out"
                              Height="50"
                              Foreground="White"
                              FontSize="14"
-                             Style="{StaticResource MenuButtonTheme}"/>
+                             Style="{StaticResource MenuButtonTheme}"
+                             Click="LogOut_Click"
+                             ForceCursor="True"
+                             Cursor="Hand"/>
 
                 <RadioButton Content="Exit"
                              Height="50"
                              Foreground="White"
                              FontSize="14"
                              Click="ExitButton_Click"
-                             Style="{StaticResource MenuButtonTheme}"/>
+                             Style="{StaticResource MenuButtonTheme}"
+                             ForceCursor="True"
+                             Cursor="Hand"/>
             </StackPanel>
             
              <!--The View Display-->

@@ -4,7 +4,7 @@
               xmlns:local="clr-namespace:Trivia_GUI"
              xmlns:ViewModel="clr-namespace:Trivia_GUI.MVVM.ViewModel"
              xmlns:view="clr-namespace:Trivia_GUI.MVVM.View"
-             StartupUri="MainWindow.xaml">
+             StartupUri="WelcomeWindow.xaml">
     
     <Application.Resources>
 
@@ -57,14 +57,6 @@
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsDefaulted" Value="true">
                                     <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-                                </Trigger>
-                                <!--<Trigger Property="IsMouseOver" Value="true">
-                                    <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
-                                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
-                                </Trigger>-->
-                                <Trigger Property="IsPressed" Value="true">
-                                    <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
-                                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
                                 </Trigger>
                                 <Trigger Property="IsEnabled" Value="false">
                                     <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>

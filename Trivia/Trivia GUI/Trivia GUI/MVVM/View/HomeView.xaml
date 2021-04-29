@@ -149,6 +149,16 @@
                                    FontSize="17"
                                    Margin="10,10,10,0"/>
                         </StackPanel>
+                        
+                        <Button Background="Transparent"
+                                Width="150"
+                                Height="150"
+                                Click="LogOut_Click" 
+                                BorderThickness="0" 
+                                BorderBrush="Transparent"
+                                ForceCursor="true" 
+                                Cursor="Hand"
+                                Style="{DynamicResource LowerButton}"/>
                     </Grid>
                 </Border>
                    

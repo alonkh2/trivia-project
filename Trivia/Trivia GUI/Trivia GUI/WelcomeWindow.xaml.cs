@@ -10,35 +10,30 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Trivia_GUI.MVVM.View
+namespace Trivia_GUI
 {
     /// <summary>
-    /// Interaction logic for HomeView.xaml
+    /// Interaction logic for WelcomeWindow.xaml
     /// </summary>
-    public partial class HomeView : UserControl
+    public partial class WelcomeWindow : Window
     {
-        public HomeView()
+        public WelcomeWindow()
         {
             InitializeComponent();
         }
 
-        private void Exit_Click(object sender, RoutedEventArgs e)
+        private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Application.Current.Shutdown();
         }
 
-        /// <summary>
-        /// This function calls LogOut_Click from MainWindow
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void LogOut_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mainWin = new MainWindow();
-            mainWin.LogOut_Click(sender, e);
+            mainWin.Show();
+            this.Close();
         }
     }
 }
