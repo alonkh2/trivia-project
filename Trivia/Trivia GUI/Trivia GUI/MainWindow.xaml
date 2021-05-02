@@ -16,6 +16,7 @@
     <Window.DataContext>
         <ViewModel1:MainViewModel/>
     </Window.DataContext>
+
     <Grid>
         <Grid.Background>
             <!--The gradient at the bottom-->
@@ -39,48 +40,48 @@
 
                 <!--Top left of application screen-->
                 <TextBlock Text="Trivia" 
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Left"
-                       Foreground="White"
-                       FontSize="22"
-                       Margin="20,0,0,0"/>
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    Foreground="White"
+                    FontSize="22"
+                    Margin="20,0,0,0"/>
 
                 <!--Stack Panel containnig the menu buttons-->
                 <StackPanel Grid.Row="1" Margin="0,0,0,60">
                     <RadioButton Content="Home"
-                                 Height="50"
-                                 Foreground="White"
-                                 FontSize="14"
-                                 IsChecked="True"
-                                 Style="{StaticResource MenuButtonTheme}"
-                                 Command="{Binding HomeViewCommand}"
-                                 ForceCursor="True"
-                                 Cursor="Hand"/>
+                                Height="50"
+                                Foreground="White"
+                                FontSize="14"
+                                IsChecked="True"
+                                Style="{StaticResource MenuButtonTheme}"
+                                Command="{Binding HomeViewCommand}"
+                                ForceCursor="True"
+                                Cursor="Hand"/>
 
                     <RadioButton Content="Log Out"
-                                 Height="50"
-                                 Foreground="White"
-                                 FontSize="14"
-                                 Style="{StaticResource MenuButtonTheme}"
-                                 Click="LogOut_Click"
-                                 ForceCursor="True"
-                                 Cursor="Hand"/>
+                                Height="50"
+                                Foreground="White"
+                                FontSize="14"
+                                Style="{StaticResource MenuButtonTheme}"
+                                Click="LogOut_Click"
+                                ForceCursor="True"
+                                Cursor="Hand"/>
 
                     <RadioButton Content="Exit"
-                                 Height="50"
-                                 Foreground="White"
-                                 FontSize="14"
-                                 Click="ExitButton_Click"
-                                 Style="{StaticResource MenuButtonTheme}"
-                                 ForceCursor="True"
-                                 Cursor="Hand"/>
+                                Height="50"
+                                Foreground="White"
+                                FontSize="14"
+                                Click="ExitButton_Click"
+                                Style="{StaticResource MenuButtonTheme}"
+                                ForceCursor="True"
+                                Cursor="Hand"/>
                 </StackPanel>
 
                 <!--The View Display-->
                 <ContentControl Grid.Row="1"
-                                Grid.Column="1"
-                                Margin="10,10,10,0"
-                                Content="{Binding CurrentView}"/>
+                            Grid.Column="1"
+                            Margin="10,10,10,0"
+                            Content="{Binding CurrentView}"/>
 
             </Grid>
 
