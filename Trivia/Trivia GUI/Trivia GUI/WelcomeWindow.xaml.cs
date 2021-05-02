@@ -24,11 +24,21 @@ namespace Trivia_GUI
             InitializeComponent();
         }
 
+        /// <summary>
+        /// This fuction stops the program
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Application.Current.Shutdown();
         }
 
+        /// <summary>
+        /// This function sends a user to the LoginWindow
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             LoginWindow loginWin = new LoginWindow();
@@ -36,7 +46,11 @@ namespace Trivia_GUI
             this.Close();
         }
 
-
+        /// <summary>
+        /// This function directs a user to the SignupWindow
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SignupButton_Click(object sender, RoutedEventArgs e)
         {
             SignupWindow signupWin = new SignupWindow();
