@@ -29,10 +29,10 @@ namespace Trivia_GUI
             System.Windows.Application.Current.Shutdown();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mainWin = new MainWindow();
-            mainWin.Show();
+            LoginWindow loginWin = new LoginWindow();
+            loginWin.Show();
             this.Close();
         }
     }
