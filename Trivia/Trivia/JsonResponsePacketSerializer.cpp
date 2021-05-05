@@ -41,6 +41,48 @@ std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const SignupRe
 	return serialize(msg, code);
 }
 
+std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const LogoutResponse& response)
+{
+	const Byte code = SO_CD;
+	const nlohmann::json msg = {{"status", std::string(response.status.begin(), response.status.end())}};
+	return serialize(msg, code);
+}
+
+std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const GetRoomsResponse& response)
+{
+	const Byte code = GR_CD;
+	std::cout << std::string(response.rooms.begin(), response.rooms.end()) << std::endl;
+	const nlohmann::json msg = {
+		{"status", std::string(response.status.begin(), response.status.end())}, {"rooms"},
+		std::string(response.rooms.begin(), response.rooms.end())
+	};
+	return serialize(msg, code);
+}
+
+std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const JoinRoomResponse& response)
+{
+	const Byte code = JR_CD;
+	const nlohmann::json msg = {{"status", std::string(response.status.begin(), response.status.end())}};
+	return serialize(msg, code);
+}
+
+std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const CreateRoomResponse& response)
+{
+	const Byte code = CR_CD;
+	const nlohmann::json msg = {{"status", std::string(response.status.begin(), response.status.end())}};
+	return serialize(msg, code);
+}
+
+std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const GetPersonalStatsResponse& response)
+{
+	const Byte code = GPS_CD;
+	const nlohmann::json msg = {
+		{"status", std::string(response.status.begin(), response.status.end())},
+		{"statistics", std::string(response.statistics.begin(), response.statistics.end())}
+	};
+	return serialize(msg, code);
+}
+
 /**
  * \brief Serializes a response.
  * \param msg The message to serialize.

@@ -24,13 +24,13 @@ typedef struct SignupResponse
 
 typedef struct LogoutResponse
 {
-	unsigned status;
+	std::vector<Byte> status;
 } LogoutResponse;
 
 
 typedef struct GetRoomsResponse
 {
-	unsigned status;
+	std::vector<Byte> status;
 	std::vector<RoomData> rooms;
 } GetRoomsResponse;
 
@@ -41,24 +41,24 @@ typedef struct GetPlayersInRoomResponse
 
 typedef struct GetHighScoreResponse
 {
-	unsigned status;
+	std::vector<Byte> status;
 	std::vector<std::string> statistics;
 } GetHighScoreResponse;
 
 typedef struct GetPersonalStatsResponse
 {
-	unsigned status;
+	std::vector<Byte> status;
 	std::vector<std::string> statistics;
 } GetPersonalStatsResponse;
 
 typedef struct JoinRoomResponse
 {
-	unsigned status;
+	std::vector<Byte> status;
 } JoinRoomResponse;
 
 typedef struct CreateRoomResponse
 {
-	unsigned status;
+	std::vector<Byte> status;
 } CreateRoomResponse;
 
 class JsonResponsePacketSerializer
@@ -67,6 +67,11 @@ public:
 	static std::vector<Byte> serializeResponse(const ErrorResponse& response);
 	static std::vector<Byte> serializeResponse(const LoginResponse& response);
 	static std::vector<Byte> serializeResponse(const SignupResponse& response);
+	static std::vector<Byte> serializeResponse(const LogoutResponse& response);
+	static std::vector<Byte> serializeResponse(const GetRoomsResponse& response);
+	static std::vector<Byte> serializeResponse(const JoinRoomResponse& response);
+	static std::vector<Byte> serializeResponse(const CreateRoomResponse& response);
+	static std::vector<Byte> serializeResponse(const GetPersonalStatsResponse& response);
 
 private:
 	static std::vector<Byte> serialize(const nlohmann::json& msg, Byte code);

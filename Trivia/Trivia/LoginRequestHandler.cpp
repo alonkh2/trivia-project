@@ -33,10 +33,9 @@ RequestResult LoginRequestHandler::handleRequest(const RequestInfo& info)
 	case SU_CD:
 		return signup(info);
 	default:
-		break;
+		rr.newHandler = nullptr;
+		return rr;
 	}
-	rr.newHandler = nullptr;
-	return rr;
 }
 
 /**
