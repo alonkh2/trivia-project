@@ -16,6 +16,24 @@ typedef struct SingupRequest
 	std::string email;
 } SignupRequest;
 
+typedef struct getPlayersInRoomRequest
+{
+	unsigned roomId;
+} getPlayersInRoomRequest;
+
+typedef struct JoinRoomRequest
+{
+	unsigned roomId;
+} JoinRoomRequest;
+
+typedef struct CreateRoomRequest
+{
+	std::string roomName;
+	unsigned maxUsers;
+	unsigned questionCount;
+	unsigned answerTimeout;
+} CreateRoomRequest;
+
 
 class JsonResponsePacketDeserializer
 {
