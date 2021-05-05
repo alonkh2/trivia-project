@@ -1,6 +1,7 @@
 ﻿#include "LoginRequestHandler.h"
 
 #include "JsonResponsePacketSerializer.h"
+#include "MenuRequestHandler.h"
 
 LoginRequestHandler::LoginRequestHandler(RequestHandlerFactory& handlerFactory, LoginManager& loginManager) :
 	m_handlerFactory(handlerFactory), m_loginManager(loginManager)
@@ -54,10 +55,10 @@ RequestResult LoginRequestHandler::login(const RequestInfo& info) const
 		m_loginManager.login(data.username, data.password);
 		lr.status.push_back('1');
 		rr.buffer = JsonResponsePacketSerializer::serializeResponse(lr);
-		rr.newHandler = nullptr;
-		// rr.newHandler = m_handlerFactory.createMenuRequestHandler();
+		// rr.newHandler = nullptr;
+		rr.newHandler = m_handlerFactory.createMenuRequestHandler();
 	}
-	catch (LoginException& e)
+	catch (CommunicationException& e)
 	{
 		ErrorResponse er;
 		er.message = std::string(e.what());

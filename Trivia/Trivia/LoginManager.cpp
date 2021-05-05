@@ -18,7 +18,7 @@ void LoginManager::signup(const std::string& username, const std::string& passwo
 	 */
 	if (exists(username))
 	{
-		throw LoginException("User exists already!", EXSTS);
+		throw CommunicationException("User exists already!", EXSTS);
 	}
 	m_database.addNewUser(username, password, email);
 	std::lock_guard<std::mutex> lg(m_usersMutex);
@@ -37,15 +37,15 @@ void LoginManager::login(const std::string& username, const std::string& passwor
 	 */
 	if (!m_database.doesUserExist(username))
 	{
-		throw LoginException("User doesn't exist! Please signup instead", DSNT_EXST);
+		throw CommunicationException("User doesn't exist! Please signup instead", DSNT_EXST);
 	}
 	if (!m_database.doesPasswordMatch(username, password))
 	{
-		throw LoginException("Password doesn't match! Please try again", DSNT_EXST);
+		throw CommunicationException("Password doesn't match! Please try again", WRNG_PSWRD);
 	}
 	if (exists(username))
 	{
-		throw LoginException("Username connected already!", LGD_IN);
+		throw CommunicationException("Username connected already!", LGD_IN);
 	}
 	std::lock_guard<std::mutex> lg(m_usersMutex);
 	m_logged_users.emplace_back(username);
@@ -59,7 +59,7 @@ void LoginManager::logout(const std::string& username)
 {
 	if (!exists(username))
 	{
-		throw LoginException("Username doesn't exist or is not connected!", DSNT_EXST);
+		throw CommunicationException("Username doesn't exist or is not connected!", DSNT_EXST);
 	}
 	std::lock_guard<std::mutex> lg(m_usersMutex);
 	m_logged_users.erase(getUserIterator(username));

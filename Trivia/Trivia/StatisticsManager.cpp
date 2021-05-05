@@ -1,0 +1,22 @@
+﻿#include "StatisticsManager.h"
+
+
+StatisticsManager::StatisticsManager(IDatabase& database) : m_database(database)
+{
+}
+
+std::vector<std::string> StatisticsManager::getStatistics()
+{
+	return std::vector<std::string>();
+}
+
+std::vector<std::string> StatisticsManager::getHighScore()
+{
+	return std::vector<std::string>();
+}
+
+std::vector<std::string> StatisticsManager::getUserStatistics()
+{
+	return std::vector<std::string>();
+}
+

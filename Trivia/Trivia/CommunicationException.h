@@ -4,10 +4,10 @@
 #include <string>
 #include "constants.h"
 
-class LoginException : public std::exception
+class CommunicationException : public std::exception
 {
 public:
-	LoginException(const std::string& message, Byte status);
+	CommunicationException(const std::string& message, Byte status);
 	char const* what() const override;
 	Byte getStatus() const noexcept;
 

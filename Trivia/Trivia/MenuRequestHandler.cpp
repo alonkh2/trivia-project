@@ -1,5 +1,20 @@
 ﻿#include "MenuRequestHandler.h"
 
+#include <utility>
+
+
+#include "JsonResponsePacketDeserializer.h"
+#include "JsonResponsePacketSerializer.h"
+
+MenuRequestHandler::MenuRequestHandler(LoggedUser user, RoomManager& roomManager,
+                                       StatisticsManager& statisticsManager,
+                                       RequestHandlerFactory& handlerFactory, LoginManager& loginManager) :
+	m_user(std::move(user)),
+	m_roomManager(roomManager), m_statisticsManager(statisticsManager), m_handlerFactory(handlerFactory),
+	m_loginManager(loginManager)
+{
+}
+
 bool MenuRequestHandler::isRequestRelevant(const RequestInfo& info)
 {
 	return info.id >= SO_CD && info.id <= CR_CD;
@@ -30,8 +45,37 @@ RequestResult MenuRequestHandler::handleRequest(const RequestInfo& info)
 	}
 }
 
-RequestResult MenuRequestHandler::signout(const RequestInfo& info)
+RequestResult MenuRequestHandler::signout(const RequestInfo& info) const
 {
+	RequestResult rr;
+	LogoutResponse lr;
+	rr.newHandler = nullptr;
+	try
+	{
+		m_loginManager.logout(m_user.getUsername());
+		lr.status.push_back('1');
+		rr.buffer = JsonResponsePacketSerializer::serializeResponse(lr);
+		rr.newHandler = nullptr;
+	}
+	catch (CommunicationException& e)
+	{
+		ErrorResponse er;
+		er.message = e.what();
+		if (e.getStatus() == NT_LGD)
+		{
+			rr.newHandler = m_handlerFactory.createLoginRequestHandler();
+		}
+		else
+		{
+			rr.newHandler = m_handlerFactory.createMenuRequestHandler();
+		}
+		rr.buffer = JsonResponsePacketSerializer::serializeResponse(er);
+	}
+	catch (std::exception& e)
+	{
+		std::cout << e.what() << std::endl;
+	}
+	return rr;
 }
 
 RequestResult MenuRequestHandler::getRooms(const RequestInfo& info)

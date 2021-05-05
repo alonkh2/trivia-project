@@ -40,7 +40,11 @@ class JsonResponsePacketDeserializer
 public:
 	static LoginRequest deserializeLoginRequest(const std::vector<Byte>& buffer);
 	static SignupRequest deserializeSingupRequest(const std::vector<Byte>& buffer);
+	static getPlayersInRoomRequest deserializeGetPlayerRequest(const std::vector<Byte>& buffer);
+	static JoinRoomRequest deserializeJoinRoomRequest(const std::vector<Byte>& buffer);
+	static CreateRoomRequest deserializeCreateRoomRequest(const std::vector<Byte>& buffer);
 
 private:
 	static std::string strip(const std::string& text);
+	static nlohmann::json toJson(const std::vector<Byte>& buffer);
 };

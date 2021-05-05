@@ -6,7 +6,7 @@
 #include "Singleton.h"
 #include "IDatabase.h"
 #include "LoggedUser.h"
-#include "LoginException.h"
+#include "CommunicationException.h"
 
 
 class LoginManager : public Singleton<LoginManager>
