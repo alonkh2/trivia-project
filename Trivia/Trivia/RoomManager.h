@@ -14,6 +14,7 @@ public:
 	void deleteRoom(unsigned id);
 	unsigned getRoomState(unsigned id);
 	std::vector<RoomData> getRooms();
+	std::map<unsigned, Room> getAllRooms() const;
 	
 private:
 	RoomManager() = default;

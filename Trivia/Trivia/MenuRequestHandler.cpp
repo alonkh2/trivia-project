@@ -47,15 +47,15 @@ RequestResult MenuRequestHandler::handleRequest(const RequestInfo& info)
 
 RequestResult MenuRequestHandler::signout(const RequestInfo& info) const
 {
-	RequestResult rr;
-	LogoutResponse lr;
+	RequestResult rr{};
+	LogoutResponse lr{};
 	rr.newHandler = nullptr;
 	try
 	{
 		m_loginManager.logout(m_user.getUsername());
 		lr.status.push_back('1');
 		rr.buffer = JsonResponsePacketSerializer::serializeResponse(lr);
-		rr.newHandler = nullptr;
+		rr.newHandler = m_handlerFactory.createLoginRequestHandler();
 	}
 	catch (CommunicationException& e)
 	{
@@ -80,10 +80,43 @@ RequestResult MenuRequestHandler::signout(const RequestInfo& info) const
 
 RequestResult MenuRequestHandler::getRooms(const RequestInfo& info)
 {
+	RequestResult rr{};
+	GetRoomsResponse gr{};
+
+	try
+	{
+		gr.rooms = m_roomManager.getRooms();
+		gr.status.push_back('1');
+		rr.buffer = JsonResponsePacketSerializer::serializeResponse(gr);
+		rr.newHandler = m_handlerFactory.createMenuRequestHandler();
+	}
+	catch (CommunicationException& e)
+	{
+		ErrorResponse er;
+		er.message = e.what();
+		rr.newHandler = m_handlerFactory.createMenuRequestHandler();
+		rr.buffer = JsonResponsePacketSerializer::serializeResponse(er);
+	}
+	catch (std::exception& e)
+	{
+		std::cout << e.what() << std::endl;
+	}
+	return rr;
 }
 
 RequestResult MenuRequestHandler::getPlayersInRoom(const RequestInfo& info)
 {
+	GetPlayersInRoomResponse gr{};
+	RequestResult rr{};
+
+	try
+	{
+		const auto data = JsonResponsePacketDeserializer::deserializeGetPlayersRequest(info.buffer);
+		gr.players = m_roomManager.getAllRooms().at(data.roomId).getAllUsers();
+	}
+	catch (...)
+	{
+	}
 }
 
 RequestResult MenuRequestHandler::getPersonalStats(const RequestInfo& info)

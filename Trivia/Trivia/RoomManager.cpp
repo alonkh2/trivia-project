@@ -39,3 +39,8 @@ std::vector<RoomData> RoomManager::getRooms()
 	}
 	return rooms;
 }
+
+std::map<unsigned, Room> RoomManager::getAllRooms() const
+{
+	return m_rooms;
+}

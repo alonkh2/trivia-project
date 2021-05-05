@@ -50,7 +50,7 @@ SignupRequest JsonResponsePacketDeserializer::deserializeSingupRequest(const std
 	return snReq;
 }
 
-getPlayersInRoomRequest JsonResponsePacketDeserializer::deserializeGetPlayerRequest(const std::vector<Byte>& buffer)
+getPlayersInRoomRequest JsonResponsePacketDeserializer::deserializeGetPlayersRequest(const std::vector<Byte>& buffer)
 {
 	getPlayersInRoomRequest gpirReq{};
 	const auto msg = toJson(buffer);
