@@ -225,7 +225,7 @@ RequestResult MenuRequestHandler::createRoom(const RequestInfo& info) const
 
 		cr.status.push_back('1');
 		rr.buffer = JsonResponsePacketSerializer::serializeResponse(cr);
-		rr.newHandler = nullptr; // room admin
+		rr.newHandler = m_handlerFactory.createMenuRequestHandler(m_user.getUsername()); // room admin
 	}
 	catch (CommunicationException& e)
 	{

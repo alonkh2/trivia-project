@@ -27,7 +27,6 @@ typedef struct LogoutResponse
 	std::vector<Byte> status;
 } LogoutResponse;
 
-
 typedef struct GetRoomsResponse
 {
 	std::vector<Byte> status;
