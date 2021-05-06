@@ -24,13 +24,9 @@ namespace Trivia_GUI
     {
 
 
-    public SignupWindow()
+        public SignupWindow()
         {
             InitializeComponent();
-            const string validEmailPattern = @"^(?!\.)(""([^""\r\\]|\\[""\r\\])*""|"
-            + @"([-a-z0-9!#$%&'*+/=?^_`{|}~]|(?<!\.)\.)*)(?<!\.)"
-            + @"@[a-z0-9][\w\.-]*[a-z0-9]\.[a-z][a-z\.]*[a-z]$";
-
         }
 
         /// <summary>
@@ -44,19 +40,23 @@ namespace Trivia_GUI
             System.Windows.Application.Current.Shutdown();
         }
 
-        /// <summary>
-        /// This function check wether the text boxes are empty, and if not continues to the MainWindow
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        /// 
 
+        /// <summary>
+        /// This function checks if an email is valid
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
         private bool IsValidEmail(string source)
         {
             return new EmailAddressAttribute().IsValid(source);
         }
 
-
+        /// <summary>
+        /// This function check wether the Input Boxes are empty or invalid, and if not continues to the MainWindow
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// 
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
             if (!IsValidEmail(txtEmail.Text))
