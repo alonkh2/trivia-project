@@ -69,6 +69,8 @@ public:
 	static std::vector<Byte> serializeResponse(const SignupResponse& response);
 	static std::vector<Byte> serializeResponse(const LogoutResponse& response);
 	static std::vector<Byte> serializeResponse(const GetRoomsResponse& response);
+	static std::vector<Byte> serializeResponse(const GetPlayersInRoomResponse& response);
+	static std::vector<Byte> serializeResponse(const GetHighScoreResponse& response);
 	static std::vector<Byte> serializeResponse(const JoinRoomResponse& response);
 	static std::vector<Byte> serializeResponse(const CreateRoomResponse& response);
 	static std::vector<Byte> serializeResponse(const GetPersonalStatsResponse& response);

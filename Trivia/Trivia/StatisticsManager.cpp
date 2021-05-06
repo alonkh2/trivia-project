@@ -15,7 +15,7 @@ std::vector<std::string> StatisticsManager::getHighScore()
 	return std::vector<std::string>();
 }
 
-std::vector<std::string> StatisticsManager::getUserStatistics()
+std::vector<std::string> StatisticsManager::getUserStatistics(const std::string& username)
 {
 	return std::vector<std::string>();
 }

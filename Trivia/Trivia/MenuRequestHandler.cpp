@@ -82,23 +82,23 @@ RequestResult MenuRequestHandler::getRooms(const RequestInfo& info)
 {
 	RequestResult rr{};
 	GetRoomsResponse gr{};
-
+	rr.newHandler = m_handlerFactory.createMenuRequestHandler();
+	
 	try
 	{
 		gr.rooms = m_roomManager.getRooms();
 		gr.status.push_back('1');
 		rr.buffer = JsonResponsePacketSerializer::serializeResponse(gr);
-		rr.newHandler = m_handlerFactory.createMenuRequestHandler();
 	}
 	catch (CommunicationException& e)
 	{
 		ErrorResponse er;
 		er.message = e.what();
-		rr.newHandler = m_handlerFactory.createMenuRequestHandler();
 		rr.buffer = JsonResponsePacketSerializer::serializeResponse(er);
 	}
 	catch (std::exception& e)
 	{
+		rr.newHandler = nullptr;
 		std::cout << e.what() << std::endl;
 	}
 	return rr;
@@ -108,23 +108,81 @@ RequestResult MenuRequestHandler::getPlayersInRoom(const RequestInfo& info)
 {
 	GetPlayersInRoomResponse gr{};
 	RequestResult rr{};
-
+	rr.newHandler = m_handlerFactory.createMenuRequestHandler();
+	
 	try
 	{
 		const auto data = JsonResponsePacketDeserializer::deserializeGetPlayersRequest(info.buffer);
 		gr.players = m_roomManager.getAllRooms().at(data.roomId).getAllUsers();
+		rr.buffer = JsonResponsePacketSerializer::serializeResponse(gr);
 	}
-	catch (...)
+	catch (CommunicationException& e)
 	{
+		ErrorResponse er;
+		er.message = e.what();	
+		rr.buffer = JsonResponsePacketSerializer::serializeResponse(er);
 	}
+	catch (std::exception& e)
+	{
+		rr.newHandler = nullptr;
+		std::cout << e.what() << std::endl;
+	}
+	
+	return rr;
 }
 
 RequestResult MenuRequestHandler::getPersonalStats(const RequestInfo& info)
 {
+	GetPersonalStatsResponse gr;
+	RequestResult rr;
+	rr.newHandler = m_handlerFactory.createMenuRequestHandler();
+	
+	try
+	{
+		gr.statistics = m_statisticsManager.getUserStatistics(m_user.getUsername());
+		gr.status.push_back('1');
+		rr.buffer = JsonResponsePacketSerializer::serializeResponse(gr);
+	}
+	catch (CommunicationException& e)
+	{
+		ErrorResponse er;
+		er.message = e.what();
+		rr.buffer = JsonResponsePacketSerializer::serializeResponse(er);
+	}
+	catch (std::exception& e)
+	{
+		std::cout << e.what() << std::endl;
+		rr.newHandler = nullptr;
+	}
+
+	return rr;
 }
 
 RequestResult MenuRequestHandler::getHighScore(const RequestInfo& info)
 {
+	GetHighScoreResponse gr;
+	RequestResult rr;
+	rr.newHandler = m_handlerFactory.createMenuRequestHandler();
+	
+	try
+	{
+		gr.statistics = m_statisticsManager.getHighScore();
+		gr.status.push_back('1');
+		rr.buffer = JsonResponsePacketSerializer::serializeResponse(gr);
+	}
+	catch (CommunicationException& e)
+	{
+		ErrorResponse er;
+		er.message = e.what();
+		rr.buffer = JsonResponsePacketSerializer::serializeResponse(er);
+	}
+	catch (std::exception& e)
+	{
+		rr.newHandler = nullptr;
+		std::cout << e.what() << std::endl;
+	}
+
+	return rr;
 }
 
 RequestResult MenuRequestHandler::joinRoom(const RequestInfo& info)

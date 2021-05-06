@@ -11,7 +11,7 @@ class StatisticsManager : Singleton<StatisticsManager>
 public:
 	std::vector<std::string> getStatistics();
 	std::vector<std::string> getHighScore();
-	std::vector<std::string> getUserStatistics();
+	std::vector<std::string> getUserStatistics(const std::string& username);
 	
 	friend class Singleton;
 private:
