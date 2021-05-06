@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+
+
 namespace Trivia_GUI
 {
     /// <summary>
@@ -19,9 +22,15 @@ namespace Trivia_GUI
     /// </summary>
     public partial class SignupWindow : Window
     {
-        public SignupWindow()
+
+
+    public SignupWindow()
         {
             InitializeComponent();
+            const string validEmailPattern = @"^(?!\.)(""([^""\r\\]|\\[""\r\\])*""|"
+            + @"([-a-z0-9!#$%&'*+/=?^_`{|}~]|(?<!\.)\.)*)(?<!\.)"
+            + @"@[a-z0-9][\w\.-]*[a-z0-9]\.[a-z][a-z\.]*[a-z]$";
+
         }
 
         /// <summary>
@@ -40,13 +49,31 @@ namespace Trivia_GUI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        /// 
+
+        private bool IsValidEmail(string source)
+        {
+            return new EmailAddressAttribute().IsValid(source);
+        }
+
+
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
-            if (!String.IsNullOrEmpty(txtPassword.Password) && !String.IsNullOrEmpty(txtEmail.Text) && !String.IsNullOrEmpty(txtUsername.Text))
+            if (!IsValidEmail(txtEmail.Text))
+            {
+                MessageBox.Show("Invalid email address");
+            }
+
+            else if (!String.IsNullOrEmpty(txtPassword.Password) && !String.IsNullOrEmpty(txtEmail.Text) && !String.IsNullOrEmpty(txtUsername.Text))
             {
                 MainWindow mainWin = new MainWindow();
                 mainWin.Show();
                 this.Close();
+            }
+
+            else
+            {
+                MessageBox.Show("Invalid or missing parameters");
             }
         }
     }
