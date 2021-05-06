@@ -4,7 +4,7 @@
 #include "MenuRequestHandler.h"
 
 LoginRequestHandler::LoginRequestHandler(RequestHandlerFactory& handlerFactory, LoginManager& loginManager) :
-	m_handlerFactory(handlerFactory), m_loginManager(loginManager)
+	m_loginManager(loginManager), m_handlerFactory(handlerFactory)
 {
 }
 
@@ -55,7 +55,7 @@ RequestResult LoginRequestHandler::login(const RequestInfo& info) const
 		lr.status.push_back('1');
 		rr.buffer = JsonResponsePacketSerializer::serializeResponse(lr);
 		// rr.newHandler = nullptr;
-		rr.newHandler = m_handlerFactory.createMenuRequestHandler();
+		rr.newHandler = m_handlerFactory.createMenuRequestHandler(data.username);
 	}
 	catch (CommunicationException& e)
 	{
@@ -86,7 +86,7 @@ RequestResult LoginRequestHandler::signup(const RequestInfo& info)
 		const auto data = JsonResponsePacketDeserializer::deserializeSingupRequest(info.buffer);
 		m_loginManager.signup(data.username, data.password, data.email);
 		sr.status.push_back('1');
-		rr.newHandler = m_handlerFactory.createLoginRequestHandler();
+		rr.newHandler = m_handlerFactory.createMenuRequestHandler(data.username);
 		rr.buffer = JsonResponsePacketSerializer::serializeResponse(sr);
 	}
 	catch (CommunicationException& e)

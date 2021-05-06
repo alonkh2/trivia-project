@@ -15,9 +15,12 @@ public:
 	unsigned getRoomState(unsigned id);
 	std::vector<RoomData> getRooms();
 	std::map<unsigned, Room> getAllRooms() const;
+
 	
 private:
 	RoomManager() = default;
 	
 	std::map<unsigned, Room> m_rooms;
+
+	friend class Singleton;
 };

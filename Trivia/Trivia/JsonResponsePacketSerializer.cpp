@@ -51,10 +51,28 @@ std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const LogoutRe
 std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const GetRoomsResponse& response)
 {
 	const Byte code = GR_CD;
-	std::cout << std::string(response.rooms.begin(), response.rooms.end()) << std::endl;
 	const nlohmann::json msg = {
-		{"status", std::string(response.status.begin(), response.status.end())}, {"rooms"},
-		std::string(response.rooms.begin(), response.rooms.end())
+		{"status", std::string(response.status.begin(), response.status.end())} //,
+		// {"rooms", std::string(response.rooms.begin(), response.rooms.end())}
+	};
+	return serialize(msg, code);
+}
+
+std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const GetPlayersInRoomResponse& response)
+{
+	const Byte code = GPR_CD;
+	const nlohmann::json msg = {
+		{"players", std::accumulate(response.players.begin(), response.players.end(), std::string{})}
+	};
+	return serialize(msg, code);
+}
+
+std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const GetHighScoreResponse& response)
+{
+	const Byte code = GHS_CD;
+	const nlohmann::json msg = {
+		{"status", std::string(response.status.begin(), response.status.end())},
+		{"statistics", std::accumulate(response.statistics.begin(), response.statistics.end(), std::string{})}
 	};
 	return serialize(msg, code);
 }
@@ -78,7 +96,7 @@ std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const GetPerso
 	const Byte code = GPS_CD;
 	const nlohmann::json msg = {
 		{"status", std::string(response.status.begin(), response.status.end())},
-		{"statistics", std::string(response.statistics.begin(), response.statistics.end())}
+		{"statistics", std::accumulate(response.statistics.begin(), response.statistics.end(), std::string{})}
 	};
 	return serialize(msg, code);
 }

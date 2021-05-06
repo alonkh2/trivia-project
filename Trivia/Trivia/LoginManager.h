@@ -16,7 +16,9 @@ public:
 	void signup(const std::string& username, const std::string& password, const std::string& email);
 	void login(const std::string& username, const std::string& password);
 	void logout(const std::string& username);
-	
+
+	std::vector<LoggedUser> getLoggedUsers();
+
 private:
 
 	// C'tor. Private because of singleton

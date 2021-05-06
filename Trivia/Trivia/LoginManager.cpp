@@ -65,6 +65,11 @@ void LoginManager::logout(const std::string& username)
 	m_logged_users.erase(getUserIterator(username));
 }
 
+std::vector<LoggedUser> LoginManager::getLoggedUsers()
+{
+	return m_logged_users;
+}
+
 /**
  * \brief Checks if a user with a given username is connected to the server.
  * \param username The user's username.

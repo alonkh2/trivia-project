@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include <utility>
 #include <vector>
 
 #include "LoggedUser.h"
@@ -11,6 +12,11 @@ typedef struct RoomData
 	unsigned numOfQuestions;
 	unsigned timePerQuestion;
 	unsigned isActive;
+
+	RoomData(unsigned id_, std::string name_, unsigned maxPlayers_, unsigned numOfQuestions_,
+	         unsigned timePerQuestion_, unsigned isActive_) : id(id_), name(std::move(name_)), maxPlayers(maxPlayers_),
+	                                                          numOfQuestions(numOfQuestions_),
+	                                                          timePerQuestion(timePerQuestion_), isActive(isActive_) {}
 } RoomData;
 
 class Room
