@@ -15,6 +15,12 @@ public:
 	bool doesPasswordMatch(const std::string& username, const std::string& password) override;
 	void addNewUser(const std::string& username, const std::string& password, const std::string& email) override;
 
+	std::list<Question> getQuestions(int roomID) override;
+	float getPlayerAverageAnswerTime() override;
+	int getNumOfCorrectAnswers() override;
+	int getNumOfTotalAnswers() override;
+	int getNumOfPlayerGames() override;
+	
 private:
 	sqlite3* _db;
 

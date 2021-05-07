@@ -29,9 +29,9 @@ SqliteDatabase::SqliteDatabase(): _db(nullptr)
 {
 	const std::string dbName = "triviaDB.sqlite";
 	sqlite3_open(dbName.c_str(), &_db);
-	const std::string createTableQuery = "CREATE TABLE IF NOT EXISTS USERS (username TEXT PRIMARY KEY, password TEXT, email TEXT);";
-	 
+	std::string createTableQuery = "CREATE TABLE IF NOT EXISTS USERS (username TEXT PRIMARY KEY, password TEXT, email TEXT);";
 	execCommand(createTableQuery, nullptr, nullptr);
+	createTableQuery = "CREATE TABLE IF NOT EXISTS QUESTIONS (question TEXT PRIMARY KEY, ans1 TEXT, ans2 TEXT, ans3 TEXT, ans4 TEXT, correct INTEGER)";
 }
 
 /**
