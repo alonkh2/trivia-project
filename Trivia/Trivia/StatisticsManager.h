@@ -18,6 +18,4 @@ private:
 	StatisticsManager(IDatabase& database);
 	
 	IDatabase& m_database;
-
-	
 };

@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <list>
 #include <string>
+#include <vector>
 
 
 typedef struct Question
@@ -9,6 +10,15 @@ typedef struct Question
 	std::vector<std::string> options;
 	unsigned correct;
 } Question;
+
+
+typedef struct Statistic
+{
+	float averageTime;
+	int correctAnswers;
+	int totalAnswers;
+	int playerGames;
+} Statistic;
 
 
 class IDatabase
@@ -20,8 +30,8 @@ public:
 	virtual void addNewUser(const std::string& username, const std::string& password, const std::string& email) = 0;
 
 	virtual std::list<Question> getQuestions(int roomID) = 0;
-	virtual float getPlayerAverageAnswerTime() = 0;
-	virtual int getNumOfCorrectAnswers() = 0;
-	virtual int getNumOfTotalAnswers() = 0;
-	virtual int getNumOfPlayerGames() = 0;
+	virtual float getPlayerAverageAnswerTime(const std::string& username) = 0;
+	virtual int getNumOfCorrectAnswers(const std::string& username) = 0;
+	virtual int getNumOfTotalAnswers(const std::string& username) = 0;
+	virtual int getNumOfPlayerGames(const std::string& username) = 0;
 };

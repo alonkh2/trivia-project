@@ -45,11 +45,11 @@ def main():
     fill_codes()
     print(CODES)
 
-    """real_signup_msg = {
+    real_signup_msg = {
         "username": "alonkh2",
         "password": "1234",
         "mail": "alonkh2@gmail.com"
-    }"""
+    }
 
     real_login_msg = {
         "username": "alonkh2",
@@ -72,7 +72,7 @@ def main():
         "username": "alonkh2"
     }
 
-    #  real_signup_msg = create_message("signup", real_signup_msg)
+    real_signup_msg = create_message("signup", real_signup_msg)
 
     real_login_msg = create_message("login", real_login_msg)
 
@@ -82,7 +82,7 @@ def main():
     
     fake_login_msg = create_message("login", fake_login_msg)
 
-    #  create_sock_and_send([real_signup_msg], SERVER_ADDR)
+    create_sock_and_send([real_signup_msg], SERVER_ADDR)
 
     create_sock_and_send([real_login_msg, real_create_room_msg, real_signout_msg], SERVER_ADDR)
 
