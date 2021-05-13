@@ -40,6 +40,10 @@ int SqliteDatabase::statisticCallback(void* used, int argc, char** argv, char** 
 			{
 				val->playerGames = std::stoi(std::string(argv[i]));
 			}
+			else if (!strcmp(az_col_name[i], "score"))
+			{
+				val->score = std::stoi(std::string(argv[i]));
+			}
 		}
 	}
 	return 0;
@@ -71,12 +75,36 @@ int SqliteDatabase::questionCallback(void* used, int argc, char** argv, char** a
 	return 0;
 }
 
-Statistic SqliteDatabase::getStats(const std::string& username) const
+int SqliteDatabase::stringVectorCallback(void* used, int argc, char** argv, char** az_col_name)
+{
+	auto* val = static_cast<std::vector<std::string>*>(used);
+	if (argc > 0)
+	{
+		for (auto i = 0; i < argc; ++i)
+		{
+			if (!strcmp(az_col_name[i], "score"))
+			{
+				val->push_back(std::string(argv[i]));
+			}
+		}
+	}
+	return 0;
+}
+
+Statistic SqliteDatabase::getStats(const std::string& username) 
 {
 	const auto query = "SELECT * FROM STATISTICS WHERE username = '" + username + "';";
 	Statistic stat;
 	execCommand(query, statisticCallback, &stat);
 	return stat;
+}
+
+std::vector<std::string> SqliteDatabase::getHighScore()
+{
+	const std::string query = "SELECT score FROM statistics ORDER BY score LIMIT 5";
+	std::vector<std::string> scores;
+	execCommand(query, stringVectorCallback, &scores);
+	return scores;
 }
 
 template <class T>
@@ -103,7 +131,7 @@ SqliteDatabase::SqliteDatabase(): _db(nullptr)
 		"CREATE TABLE IF NOT EXISTS QUESTIONS (question TEXT PRIMARY KEY, ans1 TEXT, ans2 TEXT, ans3 TEXT, ans4 TEXT, correct INTEGER, room_id INTEGER);";
 	execCommand<int>(createTableQuery, nullptr, nullptr);
 	createTableQuery =
-		"CREATE TABLE IF NOT EXISTS STATISTICS (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, username TEXT NOT NULL, average REAL, correct INTEGER, total INTEGER, games INTEGER, FOREIGN KEY(username) REFERENCES USERS(username));";
+		"CREATE TABLE IF NOT EXISTS STATISTICS (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, username TEXT NOT NULL, average REAL, correct INTEGER, total INTEGER, games INTEGER, score INTEGER, FOREIGN KEY(username) REFERENCES USERS(username));";
 	execCommand<int>(createTableQuery, nullptr, nullptr);
 }
 

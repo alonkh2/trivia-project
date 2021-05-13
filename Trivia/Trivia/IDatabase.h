@@ -18,6 +18,7 @@ typedef struct Statistic
 	int correctAnswers;
 	int totalAnswers;
 	int playerGames;
+	int score;
 } Statistic;
 
 
@@ -34,4 +35,7 @@ public:
 	virtual int getNumOfCorrectAnswers(const std::string& username) = 0;
 	virtual int getNumOfTotalAnswers(const std::string& username) = 0;
 	virtual int getNumOfPlayerGames(const std::string& username) = 0;
+
+	virtual Statistic getStats(const std::string& username) = 0;
+	virtual std::vector<std::string> getHighScore() = 0;
 };

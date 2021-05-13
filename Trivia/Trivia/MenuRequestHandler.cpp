@@ -137,7 +137,7 @@ RequestResult MenuRequestHandler::getPersonalStats(const RequestInfo& info) cons
 	
 	try
 	{
-		gr.statistics = m_statisticsManager.getUserStatistics(m_user.getUsername());
+		gr.statistics = m_statisticsManager.getStatistics(m_user.getUsername());
 		gr.status.push_back('1');
 		rr.buffer = JsonResponsePacketSerializer::serializeResponse(gr);
 	}

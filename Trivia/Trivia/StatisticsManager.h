@@ -9,9 +9,8 @@
 class StatisticsManager : public Singleton<StatisticsManager>
 {
 public:
-	std::vector<std::string> getStatistics();
-	std::vector<std::string> getHighScore();
-	std::vector<std::string> getUserStatistics(const std::string& username);
+	std::vector<std::string> getStatistics(const std::string& username) const;
+	std::vector<std::string> getHighScore() const;
 
 	friend class Singleton;
 private:
