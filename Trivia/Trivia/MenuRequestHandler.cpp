@@ -13,11 +13,21 @@ MenuRequestHandler::MenuRequestHandler(LoggedUser user, RequestHandlerFactory& h
 {
 }
 
+/**
+ * \brief Checks if a request is relevant.
+ * \param info The request's info.
+ * \return True if the request is relevant, else false.
+ */
 bool MenuRequestHandler::isRequestRelevant(const RequestInfo& info)
 {
 	return info.id >= SO_CD && info.id <= CR_CD;
 }
 
+/**
+ * \brief Calls the correct function to handle the request.
+ * \param info The request's info.
+ * \return The request's result.
+ */
 RequestResult MenuRequestHandler::handleRequest(const RequestInfo& info)
 {
 	switch (info.id)
@@ -43,6 +53,11 @@ RequestResult MenuRequestHandler::handleRequest(const RequestInfo& info)
 	}
 }
 
+/**
+ * \brief Signs a player out.
+ * \param info The request's info.
+ * \return The request's result.
+ */
 RequestResult MenuRequestHandler::signout(const RequestInfo& info) const
 {
 	RequestResult rr{};
@@ -76,6 +91,11 @@ RequestResult MenuRequestHandler::signout(const RequestInfo& info) const
 	return rr;
 }
 
+/**
+ * \brief Handles a getRooms request.
+ * \param info The request's info.
+ * \return The request's result.
+ */
 RequestResult MenuRequestHandler::getRooms(const RequestInfo& info) const
 {
 	RequestResult rr{};
@@ -102,6 +122,11 @@ RequestResult MenuRequestHandler::getRooms(const RequestInfo& info) const
 	return rr;
 }
 
+/**
+ * \brief Handles a getPlayersInRoom request.
+ * \param info The request's info.
+ * \return The request's result.
+ */
 RequestResult MenuRequestHandler::getPlayersInRoom(const RequestInfo& info) const
 {
 	GetPlayersInRoomResponse gr{};
@@ -129,6 +154,11 @@ RequestResult MenuRequestHandler::getPlayersInRoom(const RequestInfo& info) cons
 	return rr;
 }
 
+/**
+ * \brief Handles a getPersonalStats request.
+ * \param info Tne request's info.
+ * \return The request's result.
+ */
 RequestResult MenuRequestHandler::getPersonalStats(const RequestInfo& info) const
 {
 	GetPersonalStatsResponse gr;
@@ -156,6 +186,11 @@ RequestResult MenuRequestHandler::getPersonalStats(const RequestInfo& info) cons
 	return rr;
 }
 
+/**
+ * \brief Handles a getHighScore request.
+ * \param info The request's info.
+ * \return The request's result.
+ */
 RequestResult MenuRequestHandler::getHighScore(const RequestInfo& info) const
 {
 	GetHighScoreResponse gr;
@@ -183,6 +218,11 @@ RequestResult MenuRequestHandler::getHighScore(const RequestInfo& info) const
 	return rr;
 }
 
+/**
+ * \brief Handles a joinRoom request.
+ * \param info The request's info.
+ * \return The request's result.
+ */
 RequestResult MenuRequestHandler::joinRoom(const RequestInfo& info) const
 {
 	JoinRoomResponse jr;
@@ -212,6 +252,11 @@ RequestResult MenuRequestHandler::joinRoom(const RequestInfo& info) const
 	return rr;
 }
 
+/**
+ * \brief Handles a createRoom request.
+ * \param info The request's info.
+ * \return The request's result.
+ */
 RequestResult MenuRequestHandler::createRoom(const RequestInfo& info) const
 {
 	CreateRoomResponse cr;

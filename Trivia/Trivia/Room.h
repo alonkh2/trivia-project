@@ -16,7 +16,16 @@ typedef struct RoomData
 	RoomData(unsigned id_, std::string name_, unsigned maxPlayers_, unsigned numOfQuestions_,
 	         unsigned timePerQuestion_, unsigned isActive_) : id(id_), name(std::move(name_)), maxPlayers(maxPlayers_),
 	                                                          numOfQuestions(numOfQuestions_),
-	                                                          timePerQuestion(timePerQuestion_), isActive(isActive_) {}
+	                                                          timePerQuestion(timePerQuestion_), isActive(isActive_)
+	{
+	}
+
+	std::string toString() const
+	{
+		return std::string(
+			std::to_string(id) + ", " + name + ", " + std::to_string(maxPlayers) + ", " + std::to_string(numOfQuestions)
+			+ ", " + std::to_string(timePerQuestion) + ", " + std::to_string(isActive));
+	}
 } RoomData;
 
 class Room

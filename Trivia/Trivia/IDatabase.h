@@ -25,11 +25,12 @@ typedef struct Statistic
 class IDatabase
 {
 public:
-	
+	// Login functions
 	virtual bool doesUserExist(const std::string& username) = 0;
 	virtual bool doesPasswordMatch(const std::string& username, const std::string& password) = 0;
 	virtual void addNewUser(const std::string& username, const std::string& password, const std::string& email) = 0;
 
+	// Questions and statistics
 	virtual std::list<Question> getQuestions(int roomID) = 0;
 	virtual float getPlayerAverageAnswerTime(const std::string& username) = 0;
 	virtual int getNumOfCorrectAnswers(const std::string& username) = 0;

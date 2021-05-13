@@ -17,6 +17,9 @@ int SqliteDatabase::stringCallback(void* used, int argc, char** argv, char** az_
 	return 0;
 }
 
+/*
+ * This function returns a statistic from the database.
+ */
 int SqliteDatabase::statisticCallback(void* used, int argc, char** argv, char** az_col_name)
 {
 	auto* val = static_cast<Statistic*>(used);
@@ -49,6 +52,9 @@ int SqliteDatabase::statisticCallback(void* used, int argc, char** argv, char** 
 	return 0;
 }
 
+/*
+ * This function returns a question from the database.
+ */
 int SqliteDatabase::questionCallback(void* used, int argc, char** argv, char** az_col_name)
 {
 	auto* val = static_cast<std::list<Question>*>(used);
@@ -75,6 +81,9 @@ int SqliteDatabase::questionCallback(void* used, int argc, char** argv, char** a
 	return 0;
 }
 
+/*
+ * This function returns the top 5 scores. 
+ */
 int SqliteDatabase::stringVectorCallback(void* used, int argc, char** argv, char** az_col_name)
 {
 	auto* val = static_cast<std::vector<std::string>*>(used);
@@ -91,6 +100,11 @@ int SqliteDatabase::stringVectorCallback(void* used, int argc, char** argv, char
 	return 0;
 }
 
+/**
+ * \brief Gets the statistics of a user.
+ * \param username The user's name.
+ * \return The user's stats.
+ */
 Statistic SqliteDatabase::getStats(const std::string& username) 
 {
 	const auto query = "SELECT * FROM STATISTICS WHERE username = '" + username + "';";
@@ -99,6 +113,10 @@ Statistic SqliteDatabase::getStats(const std::string& username)
 	return stat;
 }
 
+/**
+ * \brief Gets the top 5 scores.
+ * \return The high scores.
+ */
 std::vector<std::string> SqliteDatabase::getHighScore()
 {
 	const std::string query = "SELECT score FROM statistics ORDER BY score LIMIT 5";
@@ -107,12 +125,15 @@ std::vector<std::string> SqliteDatabase::getHighScore()
 	return scores;
 }
 
+/*
+ * Please don't ask me what this does.
+ */
 template <class T>
 bool SqliteDatabase::execCommand(const std::string& command, int (*foo)(void*, int, char**, char**),
                                  T* ansRef) const
 {
 	char* err;
-	int res = sqlite3_exec(_db, command.c_str(), foo, ansRef, &err);
+	const int res = sqlite3_exec(_db, command.c_str(), foo, ansRef, &err);
 
 	return res == SQLITE_OK;
 }
@@ -198,26 +219,49 @@ void SqliteDatabase::addNewUser(const std::string& username, const std::string& 
 	execCommand<int>(addUserQuery, nullptr, nullptr);
 }
 
+/**
+ * \brief Gets a user's correct answer count.
+ * \param username The user's name.
+ * \return The user's correct answer count.
+ */
 int SqliteDatabase::getNumOfCorrectAnswers(const std::string& username)
 {
 	return getStats(username).correctAnswers;
 }
 
+/**
+ * \brief Gets a user's game count.
+ * \param username The user's name.
+ * \return The user's game count.
+ */
 int SqliteDatabase::getNumOfPlayerGames(const std::string& username)
 {
 	return getStats(username).playerGames;
 }
 
+/**
+ * \brief Gets a user's total answer count.
+ * \param username The user's name.
+ * \return The user's total answer count.
+ */
 int SqliteDatabase::getNumOfTotalAnswers(const std::string& username)
 {
 	return getStats(username).totalAnswers;
 }
 
+/**
+ * \brief Gets a user's average answer time.
+ * \param username The user's name.
+ * \return The user's average answer time.
+ */
 float SqliteDatabase::getPlayerAverageAnswerTime(const std::string& username)
 {
 	return getStats(username).averageTime;
 }
 
+/*
+ * I do not know.
+ */
 std::list<Question> SqliteDatabase::getQuestions(int roomID)
 {
 	const auto query = "SELECT * FROM questions WHERE room_id = " + std::to_string(roomID) + ";";

@@ -41,6 +41,11 @@ std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const SignupRe
 	return serialize(msg, code);
 }
 
+/**
+ * \brief Serializes a response.
+ * \param response The response to be sent.
+ * \return A byte representation of the message.
+ */
 std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const LogoutResponse& response)
 {
 	const Byte code = SO_CD;
@@ -48,16 +53,31 @@ std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const LogoutRe
 	return serialize(msg, code);
 }
 
+/**
+ * \brief Serializes a response.
+ * \param response The response to be sent.
+ * \return A byte representation of the message.
+ */
 std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const GetRoomsResponse& response)
 {
 	const Byte code = GR_CD;
+	std::vector<std::string> data;
+	for (const auto& room : response.rooms)
+	{
+		data.push_back(room.toString());
+	}
 	const nlohmann::json msg = {
-		{"status", std::string(response.status.begin(), response.status.end())} //,
-		// {"rooms", std::string(response.rooms.begin(), response.rooms.end())}
+		{"status", std::string(response.status.begin(), response.status.end())},
+		{"rooms", std::accumulate(data.begin(), data.end(), std::string{})}
 	};
 	return serialize(msg, code);
 }
 
+/**
+ * \brief Serializes a response.
+ * \param response The response to be sent.
+ * \return A byte representation of the message.
+ */
 std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const GetPlayersInRoomResponse& response)
 {
 	const Byte code = GPR_CD;
@@ -67,6 +87,11 @@ std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const GetPlaye
 	return serialize(msg, code);
 }
 
+/**
+ * \brief Serializes a response.
+ * \param response The response to be sent.
+ * \return A byte representation of the message.
+ */
 std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const GetHighScoreResponse& response)
 {
 	const Byte code = GHS_CD;
@@ -77,6 +102,11 @@ std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const GetHighS
 	return serialize(msg, code);
 }
 
+/**
+ * \brief Serializes a response.
+ * \param response The response to be sent.
+ * \return A byte representation of the message.
+ */
 std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const JoinRoomResponse& response)
 {
 	const Byte code = JR_CD;
@@ -84,6 +114,11 @@ std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const JoinRoom
 	return serialize(msg, code);
 }
 
+/**
+ * \brief Serializes a response.
+ * \param response The response to be sent.
+ * \return A byte representation of the message.
+ */
 std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const CreateRoomResponse& response)
 {
 	const Byte code = CR_CD;
@@ -91,6 +126,11 @@ std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const CreateRo
 	return serialize(msg, code);
 }
 
+/**
+ * \brief Serializes a response.
+ * \param response The response to be sent.
+ * \return A byte representation of the message.
+ */
 std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const GetPersonalStatsResponse& response)
 {
 	const Byte code = GPS_CD;

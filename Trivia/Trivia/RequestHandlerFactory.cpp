@@ -10,6 +10,11 @@ LoginRequestHandler* RequestHandlerFactory::createLoginRequestHandler()
 	return new LoginRequestHandler(*this, m_loginManager);
 }
 
+/**
+ * \brief Creates a new menu handler.
+ * \param username The user who's signed in.
+ * \return A MenuRequestHandler.
+ */
 MenuRequestHandler* RequestHandlerFactory::createMenuRequestHandler(const std::string& username)
 {
 	
@@ -23,16 +28,28 @@ MenuRequestHandler* RequestHandlerFactory::createMenuRequestHandler(const std::s
 	return nullptr;
 }
 
+/**
+ * \brief loginManager getter.
+ * \return The login manager.
+ */
 LoginManager& RequestHandlerFactory::getLoginManager() const
 {
 	return m_loginManager;
 }
 
+/**
+ * \brief roomManager getter.
+ * \return The room manager. 
+ */
 RoomManager& RequestHandlerFactory::getRoomManager() const
 {
 	return m_roomManager;
 }
 
+/**
+ * \brief statisticsManager getter.
+ * \return The statistics manager.
+ */
 StatisticsManager& RequestHandlerFactory::getStatisticsManager() const
 {
 	return m_statisticsManager;

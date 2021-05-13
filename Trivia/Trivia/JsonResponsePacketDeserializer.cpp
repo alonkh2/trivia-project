@@ -50,6 +50,11 @@ SignupRequest JsonResponsePacketDeserializer::deserializeSingupRequest(const std
 	return snReq;
 }
 
+/**
+ * \brief Deserializes a signup request.
+ * \param buffer The request to deserialize.
+ * \return A formatted GetPlayersRequest.
+ */
 getPlayersInRoomRequest JsonResponsePacketDeserializer::deserializeGetPlayersRequest(const std::vector<Byte>& buffer)
 {
 	getPlayersInRoomRequest gpirReq{};
@@ -66,6 +71,11 @@ getPlayersInRoomRequest JsonResponsePacketDeserializer::deserializeGetPlayersReq
 	return gpirReq;
 }
 
+/**
+ * \brief Deserializes a signup request.
+ * \param buffer The request to deserialize.
+ * \return A formatted JoinRoomRequest.
+ */
 JoinRoomRequest JsonResponsePacketDeserializer::deserializeJoinRoomRequest(const std::vector<Byte>& buffer)
 {
 	JoinRoomRequest jrReq{};
@@ -82,6 +92,11 @@ JoinRoomRequest JsonResponsePacketDeserializer::deserializeJoinRoomRequest(const
 	return jrReq;
 }
 
+/**
+ * \brief Deserializes a signup request.
+ * \param buffer The request to deserialize.
+ * \return A formatted CreateRoomRequest.
+ */
 CreateRoomRequest JsonResponsePacketDeserializer::deserializeCreateRoomRequest(const std::vector<Byte>& buffer)
 {
 	CreateRoomRequest crReq{};
@@ -102,11 +117,21 @@ CreateRoomRequest JsonResponsePacketDeserializer::deserializeCreateRoomRequest(c
 	return crReq;
 }
 
+/**
+ * \brief Strips text.
+ * \param text The text to strip.
+ * \return The stripped text.
+ */
 std::string JsonResponsePacketDeserializer::strip(const std::string& text)
 {
 	return text.substr(1, text.length() - 2);
 }
 
+/**
+ * \brief Converts data into json.
+ * \param buffer The data to convert into json.
+ * \return The converted json message.
+ */
 nlohmann::json JsonResponsePacketDeserializer::toJson(const std::vector<Byte>& buffer)
 {
 	return nlohmann::json::parse(std::string(buffer.begin(), buffer.end()));
