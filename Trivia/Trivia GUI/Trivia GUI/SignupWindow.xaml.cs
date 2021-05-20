@@ -66,16 +66,9 @@ namespace Trivia_GUI
             for(int i = 0; i < 4; i++)
             {
 
-                if(bytes[i] != 0)
-                {
-                    byteLength += Encoding.ASCII.GetString(new byte[] { bytes[i] });
+                
+                byteLength += Encoding.ASCII.GetString(new byte[] { bytes[i] });
 
-                }
-
-                else
-                {
-                    byteLength += "x00";
-                }
 
                 byteLength += "\\";
             }
@@ -116,11 +109,12 @@ namespace Trivia_GUI
                         username = txtUsername.Text
                     };
 
-                    string json = JsonConvert.SerializeObject(user, Formatting.Indented);
+                    string json = JsonConvert.SerializeObject(user);
                     byte[] bytes = BitConverter.GetBytes(json.Length);
 
 
-                    string byteLength = ToBytes(bytes);
+                    //string byteLength = ToBytes(bytes);
+                    string byteLength = System.Text.Encoding.Default.GetString(bytes);
                     MessageBox.Show(byteLength);
 
                     string dataSent = "f" + byteLength + json;
