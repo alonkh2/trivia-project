@@ -18,13 +18,13 @@ namespace Trivia_GUI
 {
     public partial class MainWindow : Window
     {
-        Socket socket;
+        Communicator communicator;
         ///Initializes the MainWindow
-        public MainWindow(Socket s)
+        public MainWindow(Communicator communicator_)
         {
             InitializeComponent();
 
-            this.socket = s;
+            communicator = communicator_;
         }
 
         /// <summary>

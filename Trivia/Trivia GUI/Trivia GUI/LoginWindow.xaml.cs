@@ -19,9 +19,12 @@ namespace Trivia_GUI
     /// </summary>
     public partial class LoginWindow : Window
     {
-        public LoginWindow()
+        Communicator communicator;
+        public LoginWindow(Communicator communicator_)
         {
             InitializeComponent();
+
+            communicator = communicator_;
         }
 
         /// <summary>

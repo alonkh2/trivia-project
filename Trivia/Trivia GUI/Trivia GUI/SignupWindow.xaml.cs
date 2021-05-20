@@ -16,7 +16,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Newtonsoft.Json;
 
 
 
@@ -29,13 +28,14 @@ namespace Trivia_GUI
     {
 
 
-        Socket client = null;
+        Communicator communicator;
         Task taskOfReceiveData;
 
-        public SignupWindow()
+        public SignupWindow(Communicator communicator_)
         {
             InitializeComponent();
 
+            communicator = communicator_;
         }
 
         /// <summary>
@@ -97,86 +97,27 @@ namespace Trivia_GUI
             }
 
             else
-            {
-                client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                client.Connect("127.0.0.1", 2410); //Synchronous blocking
+            { 
+                int result = communicator.signup(txtEmail.Text, txtUsername.Text, txtPassword.Password);
 
-                if (client.Connected)
+                switch (result)
                 {
-                    User user = new User
-                    {
-                        password = txtPassword.Password,
-                        mail = txtEmail.Text,
-                        username = txtUsername.Text
-                    };
-
-                    string json = JsonConvert.SerializeObject(user);
-                    byte[] bytes = BitConverter.GetBytes(json.Length);
-
-                    string byteLength = System.Text.Encoding.Default.GetString(bytes);
-
-                    string dataSent = "f" + byteLength + json;
-
-
-                    Byte[] bytesSent = Encoding.ASCII.GetBytes(dataSent);
-                    client.Send(bytesSent);
-
-                    string dataReceive = string.Empty;
-                    Byte[] code = new Byte[1];
-                    Byte[] len = new Byte[4];
-
-                    code = receive(code.Length);
-
-                    char charicCode = Convert.ToChar(code[0]);
-                    if (charicCode != 'f')
-                    {
-                        MessageBox.Show("SERVER ERROR");
-                    }
-
-                    len = receive(len.Length);
-
-                    int numericalLength = BitConverter.ToInt32(len, 0);
-
-                    if (numericalLength == 0)
-                    {
-                        MessageBox.Show("SERVER ERROR");
-                    }
-
-                    Byte[] bytesReceived = new Byte[numericalLength];
-
-                    bytesReceived = receive(numericalLength);
-
-                    string data = System.Text.Encoding.Default.GetString(bytesReceived);
-
-                    dynamic reply = JsonConvert.DeserializeObject(data);
-
-                    if (reply.status == "1")
-                    {
-                        MainWindow mainWin = new MainWindow(client);
-                        mainWin.Show();
+                    case 0:
+                        MessageBox.Show("Server error");
+                        break;
+                    case 1:
+                        MessageBox.Show("Login error");
+                        break;
+                    case 2:
+                        MainWindow main = new MainWindow(communicator);
+                        main.Show();
                         this.Close();
-                    }
-                    else
-                    {
-                        MessageBox.Show("SIGNUP ERROR");
-                    }
+                        break;
+                    default:
+                        break;
                 }
-
-                
             }
         }
 
-        private Byte[] receive(int length)
-        {
-            Byte[] arr = new Byte[length];
-            int received = client.Receive(arr, arr.Length, 0);
-            if (received == 0)
-            {
-                MessageBox.Show("SERVER ERROR");
-            }
-
-
-            return arr;
-        }
     }
 }

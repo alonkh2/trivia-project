@@ -19,9 +19,13 @@ namespace Trivia_GUI
     /// </summary>
     public partial class WelcomeWindow : Window
     {
+        Communicator communicator;
+
         public WelcomeWindow()
         {
             InitializeComponent();
+
+            communicator = new Communicator();
         }
 
         /// <summary>
@@ -41,7 +45,7 @@ namespace Trivia_GUI
         /// <param name="e"></param>
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            LoginWindow loginWin = new LoginWindow();
+            LoginWindow loginWin = new LoginWindow(communicator);
             loginWin.Show();
             this.Close();
         }
@@ -53,7 +57,7 @@ namespace Trivia_GUI
         /// <param name="e"></param>
         private void SignupButton_Click(object sender, RoutedEventArgs e)
         {
-            SignupWindow signupWin = new SignupWindow();
+            SignupWindow signupWin = new SignupWindow(communicator);
             signupWin.Show();
             this.Close();
         }
