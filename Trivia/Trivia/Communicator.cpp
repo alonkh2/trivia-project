@@ -142,7 +142,7 @@ void Communicator::handleNewClient(SOCKET client)
 	}
 	catch (std::exception& e)
 	{
-		std::cout << e.what() << ": " << client << std::endl;
+		std::cout << e.what() << std::endl;
 		closesocket(client);
 		lock.lock();
 		m_clients.erase(client);
