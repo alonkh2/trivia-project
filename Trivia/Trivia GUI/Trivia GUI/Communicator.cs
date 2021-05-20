@@ -35,48 +35,18 @@ namespace Trivia_GUI
                 username =  name
             };
 
-            string json = JsonConvert.SerializeObject(user)
+            string json = JsonConvert.SerializeObject(user);
 
-            string byteLength = getByteLength(json);
+            string data = String.Empty;
 
-            string dataSent = "f" + byteLength + json;
-
-
-            Byte[] bytesSent = Encoding.ASCII.GetBytes(dataSent);
-            socket.Send(bytesSent);
-
-            Byte[] code = new Byte[1];
-            Byte[] len = new Byte[4];
-
-            code = receive(code.Length);
-
-            char charicCode = Convert.ToChar(code[0]);
-            if (charicCode != 'f' && charicCode != 'g')
+            try
             {
-                return 0; // Server error 
+                data = data + sendAndReceive(json, 'f');
             }
-
-            len = receive(len.Length);
-
-            int numericalLength = BitConverter.ToInt32(len, 0);
-
-            if (numericalLength == 0)
+            catch (Exception)
             {
-                return 0; // Server error 
+                return 1;
             }
-
-            int length = serialize(json, 'f');
-
-            if (length == 0)
-            {
-                return 0;
-            }
-
-            Byte[] bytesReceived = new Byte[numericalLength];
-
-            bytesReceived = receive(numericalLength);
-
-            string data = System.Text.Encoding.Default.GetString(bytesReceived);
 
             dynamic reply = JsonConvert.DeserializeObject(data);
 
@@ -87,7 +57,7 @@ namespace Trivia_GUI
             return 1; // Login/Signup excpetion
         }
 
-        public bool signin(string name, string pass)
+        public int signin(string name, string pass)
         {
             User user = new User
             {
@@ -96,10 +66,26 @@ namespace Trivia_GUI
             };
 
 
-            string json = JsonConvert.SerializeObject(user)
+            string json = JsonConvert.SerializeObject(user);
 
-            string byteLength = getByteLength(json);
+            string data = String.Empty;
 
+            try
+            {
+                data = data + sendAndReceive(json, 'e');
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+
+            dynamic reply = JsonConvert.DeserializeObject(data);
+
+            if (reply.status != null && reply.status == "1")
+            {
+                return 2; // success 
+            }
+            return 1; // Login/Signup excpetionstring byteLength = getByteLength(json);
 
         }
 
@@ -151,7 +137,7 @@ namespace Trivia_GUI
 
             bytesReceived = receive(numericalLength);
 
-            if (code != initCode && code != 'g')
+            if (charicCode != initCode && charicCode != 'g')
             {
                 throw new Exception("Irrelevant request");
             }

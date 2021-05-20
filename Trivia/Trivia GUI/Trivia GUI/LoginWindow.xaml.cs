@@ -44,11 +44,30 @@ namespace Trivia_GUI
         /// <param name="e"></param>
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
-            if(!String.IsNullOrEmpty(txtPassword.Password) && !String.IsNullOrEmpty(txtUsername.Text))
+            if(String.IsNullOrEmpty(txtPassword.Password) || String.IsNullOrEmpty(txtUsername.Text))
             {
-                MainWindow mainWin = new MainWindow(null);
-                mainWin.Show();
-                this.Close();
+                MessageBox.Show("Missing or invalid paramaters");
+            }
+            else
+            {
+                int result = communicator.signin(txtUsername.Text, txtPassword.Password);
+
+                switch (result)
+                {
+                    case 0:
+                        MessageBox.Show("Server error");
+                        break;
+                    case 1:
+                        MessageBox.Show("Login error");
+                        break;
+                    case 2:
+                        MainWindow main = new MainWindow(communicator);
+                        main.Show();
+                        this.Close();
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }

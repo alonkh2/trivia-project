@@ -90,12 +90,10 @@ namespace Trivia_GUI
             {
                 MessageBox.Show("Invalid email address");
             }
-
-            else if (String.IsNullOrEmpty(txtPassword.Password) && String.IsNullOrEmpty(txtEmail.Text) && String.IsNullOrEmpty(txtUsername.Text))
+            else if (String.IsNullOrEmpty(txtPassword.Password) || String.IsNullOrEmpty(txtEmail.Text) || String.IsNullOrEmpty(txtUsername.Text))
             {
                 MessageBox.Show("Missing or invalid paramaters");
             }
-
             else
             { 
                 int result = communicator.signup(txtEmail.Text, txtUsername.Text, txtPassword.Password);
