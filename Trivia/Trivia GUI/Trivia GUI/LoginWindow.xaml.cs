@@ -43,7 +43,7 @@ namespace Trivia_GUI
         {
             if(!String.IsNullOrEmpty(txtPassword.Password) && !String.IsNullOrEmpty(txtUsername.Text))
             {
-                MainWindow mainWin = new MainWindow();
+                MainWindow mainWin = new MainWindow(null);
                 mainWin.Show();
                 this.Close();
             }

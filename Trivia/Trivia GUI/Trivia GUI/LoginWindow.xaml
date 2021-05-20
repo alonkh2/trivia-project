@@ -110,7 +110,7 @@
                                 Background="#4568dc" 
                                 Foreground="White" 
                                 ToolTip="Login" 
-                                x:Name="btnLogin" 
+                                x:Name="btnSignup" 
                                 Content="Login"
                                 Click="BtnLogin_Click"/>
                     </StackPanel>

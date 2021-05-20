@@ -59,6 +59,7 @@
                     Foreground="White"
                     ToolTip="Sign up" 
                     Content="Sign up"
+                    Click="SignupButton_Click"
                     Margin="705,267,115,293"/>
 
 
