@@ -12,18 +12,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Net.Sockets;
 
 namespace Trivia_GUI
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
+        Socket socket;
         ///Initializes the MainWindow
-        public MainWindow()
+        public MainWindow(Socket s)
         {
             InitializeComponent();
+
+            this.socket = s;
         }
 
         /// <summary>

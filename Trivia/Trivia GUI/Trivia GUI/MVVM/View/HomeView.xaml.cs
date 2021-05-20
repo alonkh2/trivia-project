@@ -37,7 +37,7 @@ namespace Trivia_GUI.MVVM.View
         /// <param name="e"></param>
         private void LogOut_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mainWin = new MainWindow();
+            MainWindow mainWin = new MainWindow(null);
             mainWin.LogOut_Click(sender, e);
         }
     }

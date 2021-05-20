@@ -97,7 +97,8 @@ void Communicator::handleNewClient(SOCKET client)
 		while (true)
 		{
 			
-			code = receive(client, sizeof(Byte)), length = receive(client, sizeof(int));
+			code = receive(client, sizeof(Byte));
+			length = receive(client, sizeof(int));
 			
 			if (code == nullptr || length == nullptr)
 			{

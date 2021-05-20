@@ -16,6 +16,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
 
 
 
@@ -112,76 +113,70 @@ namespace Trivia_GUI
                     string json = JsonConvert.SerializeObject(user);
                     byte[] bytes = BitConverter.GetBytes(json.Length);
 
-
-                    //string byteLength = ToBytes(bytes);
                     string byteLength = System.Text.Encoding.Default.GetString(bytes);
-                    MessageBox.Show(byteLength);
 
                     string dataSent = "f" + byteLength + json;
 
 
-                    MessageBox.Show(dataSent);
-                    Console.WriteLine(dataSent);
                     Byte[] bytesSent = Encoding.ASCII.GetBytes(dataSent);
                     client.Send(bytesSent);
 
+                    string dataReceive = string.Empty;
+                    Byte[] code = new Byte[1];
+                    Byte[] len = new Byte[4];
 
+                    code = receive(code.Length);
 
+                    char charicCode = Convert.ToChar(code[0]);
+                    if (charicCode != 'f')
+                    {
+                        MessageBox.Show("SERVER ERROR");
+                    }
 
-                    //string dataReceive = string.Empty;
-                    //Byte[] bytesReceived = new Byte[2400];
-                    //int numOfBytes = 0;
+                    len = receive(len.Length);
 
-                   // numOfBytes = client.Receive(bytesReceived, bytesReceived.Length, 0); //Get data continuously until get all data
-                   //dataReceive = dataReceive + Encoding.ASCII.GetString(bytesReceived, 0, numOfBytes);
+                    int numericalLength = BitConverter.ToInt32(len, 0);
 
-                    //MessageBox.Show(dataReceive);
+                    if (numericalLength == 0)
+                    {
+                        MessageBox.Show("SERVER ERROR");
+                    }
 
+                    Byte[] bytesReceived = new Byte[numericalLength];
 
+                    bytesReceived = receive(numericalLength);
+
+                    string data = System.Text.Encoding.Default.GetString(bytesReceived);
+
+                    dynamic reply = JsonConvert.DeserializeObject(data);
+
+                    if (reply.status == "1")
+                    {
+                        MainWindow mainWin = new MainWindow(client);
+                        mainWin.Show();
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("SIGNUP ERROR");
+                    }
                 }
 
-
-
-
-
-
-                //sender
-
-                //User user = new User {
-                //    password = txtPassword.Password,
-                //    email = txtEmail.Text,
-                //    username = txtUsername.Text
-                //    };
-
-                //string json = JsonConvert.SerializeObject(user, Formatting.Indented);
-                //int len = json.Length;
-                //byte[] bytes = BitConverter.GetBytes(len);
-
-                //string parsedMessage
-                //Console.Write(json.Length);
-                //PrintByteArray(bytes);
-                //MessageBox.Show(json.Length.ToString());
-                //MessageBox.Show(Convert.ToByte(json.Length).ToString());
-
-
-
-                MainWindow mainWin = new MainWindow();
-                mainWin.Show();
-                this.Close();
+                
             }
-
-
         }
 
-        public void PrintByteArray(byte[] bytes)
+        private Byte[] receive(int length)
         {
-            var sb = new StringBuilder("new byte[] { ");
-            foreach (var b in bytes)
+            Byte[] arr = new Byte[length];
+            int received = client.Receive(arr, arr.Length, 0);
+            if (received == 0)
             {
-                sb.Append(b + ", ");
+                MessageBox.Show("SERVER ERROR");
             }
-            sb.Append("}");
-            MessageBox.Show(sb.ToString());
+
+
+            return arr;
         }
     }
 }
