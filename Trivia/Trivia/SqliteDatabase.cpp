@@ -171,7 +171,7 @@ SqliteDatabase::~SqliteDatabase()
  */
 bool SqliteDatabase::doesUserExist(const std::string& username)
 {
-	auto sqlQuery = "SELECT username FROM USERS WHERE username = '" + username + "';";
+	const auto sqlQuery = "SELECT username FROM USERS WHERE username = '" + username + "';";
 	std::string dbResp;
 
 	execCommand(sqlQuery, stringCallback, &dbResp);
@@ -188,13 +188,8 @@ bool SqliteDatabase::doesUserExist(const std::string& username)
 bool SqliteDatabase::doesPasswordMatch(const std::string& username, const std::string& password)
 {
 	std::string dbResp;
-	auto passwordQuery = "SELECT password FROM USERS WHERE username = '" + username + "';";
-
-	if (!doesUserExist(username))
-	{
-		auto errMsg = "User: " + username + " does not exist!";
-		throw CommunicationException(std::string("User: " + username + " does not exist!"), DSNT_EXST);
-	}
+	const auto passwordQuery = "SELECT password FROM USERS WHERE username = '" + username + "';";
+	
 	execCommand(passwordQuery, stringCallback, &dbResp);
 
 	return dbResp == password;
@@ -211,14 +206,9 @@ void SqliteDatabase::addNewUser(const std::string& username, const std::string& 
 	auto addUserQuery = "INSERT INTO USERS (username, password, email) VALUES ('" + username + "', '" + password +
 		"', '" + email + "');";
 
-	if (doesUserExist(username))
-	{
-		throw CommunicationException(std::string("User: " + username + " already exists!"), EXSTS);
-	}
-
 	execCommand<int>(addUserQuery, nullptr, nullptr);
 
-	addUserQuery = "INSERT INTO statistics (username) VALUES ('" + username + "');";
+	addUserQuery = "INSERT INTO STATISTICS (username) VALUES ('" + username + "');";
 
 	execCommand<int>(addUserQuery, nullptr, nullptr);
 }
@@ -268,7 +258,7 @@ float SqliteDatabase::getPlayerAverageAnswerTime(const std::string& username)
  */
 std::list<Question> SqliteDatabase::getQuestions(int roomID)
 {
-	const auto query = "SELECT * FROM questions WHERE room_id = " + std::to_string(roomID) + ";";
+	const auto query = "SELECT * FROM QUESTIONS WHERE room_id = " + std::to_string(roomID) + ";";
 	auto questions = std::list<Question>();
 	execCommand(query, questionCallback, &questions);
 	return questions;
