@@ -152,7 +152,7 @@ SqliteDatabase::SqliteDatabase(): _db(nullptr)
 		"CREATE TABLE IF NOT EXISTS QUESTIONS (question TEXT PRIMARY KEY, ans1 TEXT, ans2 TEXT, ans3 TEXT, ans4 TEXT, correct INTEGER, room_id INTEGER);";
 	execCommand<int>(createTableQuery, nullptr, nullptr);
 	createTableQuery =
-		"CREATE TABLE IF NOT EXISTS STATISTICS (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, username TEXT NOT NULL, average REAL, correct INTEGER, total INTEGER, games INTEGER, score INTEGER, FOREIGN KEY(username) REFERENCES USERS(username));";
+		"CREATE TABLE IF NOT EXISTS STATISTICS (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, username TEXT NOT NULL, average REAL DEFAULT 0, correct INTEGER DEFAULT 0, total INTEGER DEFAULT 0, games INTEGER DEFAULT 0, score INTEGER DEFAULT 0, FOREIGN KEY(username) REFERENCES USERS(username));";
 	execCommand<int>(createTableQuery, nullptr, nullptr);
 }
 
@@ -215,6 +215,10 @@ void SqliteDatabase::addNewUser(const std::string& username, const std::string& 
 	{
 		throw CommunicationException(std::string("User: " + username + " already exists!"), EXSTS);
 	}
+
+	execCommand<int>(addUserQuery, nullptr, nullptr);
+
+	addUserQuery = "INSERT INTO statistics (username) VALUES ('" + username + "');";
 
 	execCommand<int>(addUserQuery, nullptr, nullptr);
 }
