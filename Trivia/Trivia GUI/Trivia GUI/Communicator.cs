@@ -23,6 +23,7 @@ namespace Trivia_GUI
 
         ~Communicator()
         {
+            logout();
             socket.Close();
         }
 
@@ -68,7 +69,7 @@ namespace Trivia_GUI
 
             string json = JsonConvert.SerializeObject(user);
 
-            string data = String.Empty;
+            string data = string.Empty;
 
             try
             {
@@ -87,6 +88,54 @@ namespace Trivia_GUI
             }
             return 1; // Login/Signup excpetionstring byteLength = getByteLength(json);
 
+        }
+
+        public int logout()
+        {
+            User user = new User {};
+            string json = JsonConvert.SerializeObject(user);
+            string data = string.Empty;
+
+            try
+            {
+                data = data + sendAndReceive(json, 'h');
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+
+            dynamic reply = JsonConvert.DeserializeObject(data);
+
+            if (reply.status != null && reply.status == "1")
+            {
+                return 2; // success 
+            }
+            return 1; // Login/Signup excpetionstring byteLength = getByteLength(json);
+        }
+
+        public string[] getHighScores() 
+        {
+            string json = JsonConvert.SerializeObject(null);
+            string data = string.Empty;
+
+            try
+            {
+                data = data + sendAndReceive(json, 'l');
+                dynamic reply = JsonConvert.DeserializeObject(data);
+
+                string stat = reply.statistics;
+
+                string[] stats = stat.Split(',');
+
+                
+
+                return stats;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         private string getByteLength(string json)

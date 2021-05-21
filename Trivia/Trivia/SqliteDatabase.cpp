@@ -91,10 +91,10 @@ int SqliteDatabase::stringVectorCallback(void* used, int argc, char** argv, char
 	{
 		for (auto i = 0; i < argc; ++i)
 		{
-			if (!strcmp(az_col_name[i], "score"))
+			if (!strcmp(az_col_name[i], "score") || !strcmp(az_col_name[i], "username"))
 			{
-				val->push_back(std::string(argv[i]));
-			}
+				val->push_back(std::string(argv[i]) + ",");
+			}	
 		}
 	}
 	return 0;
@@ -119,7 +119,7 @@ Statistic SqliteDatabase::getStats(const std::string& username)
  */
 std::vector<std::string> SqliteDatabase::getHighScore()
 {
-	const std::string query = "SELECT score FROM statistics ORDER BY score LIMIT 5";
+	const std::string query = "SELECT username, score FROM statistics ORDER BY score DESC LIMIT 5";
 	std::vector<std::string> scores;
 	execCommand(query, stringVectorCallback, &scores);
 	return scores;

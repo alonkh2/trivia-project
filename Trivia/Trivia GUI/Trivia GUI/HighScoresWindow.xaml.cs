@@ -19,14 +19,21 @@ namespace Trivia_GUI
     /// </summary>
     public partial class HighScoresWindow : Window
     {
-        public HighScoresWindow()
+        Communicator communicator;
+
+        public HighScoresWindow(Communicator communicator_)
         {
             InitializeComponent();
+
+            communicator = communicator_;
+
+            string[] stats = communicator.getHighScores(); 
+            
         }
 
         private void Leave_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mainWin = new MainWindow(null);
+            MainWindow mainWin = new MainWindow(communicator);
             mainWin.Show();
             this.Close();
         }
