@@ -43,5 +43,12 @@ namespace Trivia_GUI
             welcomeWin.Show();
             this.Close();
         }
+
+        private void High_Click(object sender, RoutedEventArgs e)
+        {
+            HighScoresWindow highWin = new HighScoresWindow();
+            highWin.Show();
+            this.Close();
+        }
     }
 }
