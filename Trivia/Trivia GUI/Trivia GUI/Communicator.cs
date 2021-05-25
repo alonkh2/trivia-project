@@ -83,6 +83,7 @@ namespace Trivia_GUI
 
             if (reply.status != null && reply.status == "1")
             {
+                createRoom("alon", 5.5, 10, 10);
                 return 2; // success 
             }
             return 1; // Login/Signup excpetionstring byteLength = getByteLength(json);
@@ -163,6 +164,26 @@ namespace Trivia_GUI
             {
                 return null;
             }
+        }
+
+        public bool createRoom(string name, double timeout, int max, int count)
+        {
+            Room room = new Room
+            {
+                name = name,
+                timeout = timeout,
+                max = max,
+                count = count
+            };
+            string json = JsonConvert.SerializeObject(room);
+
+            dynamic reply = getJson(json, 'n');
+
+            if (reply == null || reply.status == null || reply.status != "1")
+            {
+                return false;
+            }
+            return true;
         }
 
         /// <summary>
