@@ -1,4 +1,4 @@
-﻿<Window x:Class="Trivia_GUI.HighScoresWindow"
+﻿<Window x:Class="Trivia_GUI.StatsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -12,6 +12,7 @@
         Background="Transparent"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen">
+    
     <Grid>
         <Grid.Background>
             <!--The gradient at the bottom-->
@@ -29,6 +30,13 @@
 
         <Border Background="#272537" CornerRadius="0 0 90 90" Margin="0,0,0,60" Grid.RowSpan="2"/>
 
+
+        <TextBlock x:Name="userNameText" 
+                   Text="Your Stats" 
+                   Foreground="White" 
+                   FontSize="35" 
+                   Margin="10,10,751,265"/>
+
         <Button Content="{materialDesign:PackIcon Kind=ExitToApp, Size=32}"
                     Background="Transparent"
                     Foreground="White" 
@@ -43,15 +51,14 @@
         <StackPanel Grid.Row="0"  
                     Margin="10,0,0,0"
                     Orientation="Horizontal">
-            
-            
-            
-            <Border
-                    
+
+
+
+            <Border  
                     Height="200"
                     CornerRadius="10"
                     Margin="151,118,30,7" Width="290" RenderTransformOrigin="0.5,0.5">
-                
+
                 <Border.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -66,37 +73,29 @@
                         <GradientStop Color="#1520a6" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
-                
+
                 <Grid>
                     <StackPanel>
+                        <TextBlock Text="Total Games"
+                                   Foreground="White"
+                                   FontSize="32"
+                                   Margin="20,10,10,0"/>
                         <TextBlock Text="Null"
-                                   x:Name="firstUser"
+                                   x:Name="totalGames"
                                    Foreground="White"
                                    FontSize="28"
                                    Margin="20,10,10,0"/>
-
-                        <TextBlock Text="First Place"
-                                   Foreground="White"
-                                   FontSize="20"
-                                   Margin="20,10,10,0"/>
-
-                        <TextBlock Text="0 Points"
-                                   x:Name="firstPoints"
-                                   Foreground="White"
-                                   FontSize="18"
-                                   Margin="20,10,10,0"/>
                     </StackPanel>
 
-                    <Image Source="/Images/gold.png" Width="75"  Margin="215,112,0,10"/>
-
                 </Grid>
-                
+
             </Border>
 
             <Border
                     Height="200"
                     CornerRadius="10"
                     Margin="0,118,450,7" Width="290" RenderTransformOrigin="0.5,0.5">
+                
                 <Border.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -111,28 +110,20 @@
                         <GradientStop Color="#4c0121" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
-                
+
                 <Grid>
                     <StackPanel>
+                        <TextBlock Text="Correct Answers"
+                                   Foreground="White"
+                                   FontSize="32"
+                                   Margin="20,10,10,0"/>
+
                         <TextBlock Text="Null"
-                                   x:Name="secondUser"
+                                   x:Name="correctAnswers"
                                    Foreground="White"
                                    FontSize="28"
                                    Margin="20,10,10,0"/>
-
-                        <TextBlock Text="Second Place"
-                                   Foreground="White"
-                                   FontSize="20"
-                                   Margin="20,10,10,0"/>
-
-                        <TextBlock Text="0 Points"
-                                   x:Name="secondPoints"
-                                   Foreground="White"
-                                   FontSize="18"
-                                   Margin="20,10,10,0"/>
                     </StackPanel>
-
-                    <Image Source="/Images/silver.png" Width="75"  Margin="215,112,0,10"/>
 
                 </Grid>
             </Border>
@@ -153,23 +144,18 @@
                         <GradientStop Color="#710193" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
+                
                 <Grid>
                     <StackPanel>
-                        <TextBlock Text="Null"
-                                   x:Name="thirdUser"
+                        <TextBlock Text="Total Answers"
                                    Foreground="White"
-                                   FontSize="28"
+                                   FontSize="25"
                                    Margin="20,10,10,0"/>
 
-                        <TextBlock Text="Third Place"
+                        <TextBlock Text="Null"
+                                   x:Name="totalAnswers"
                                    Foreground="White"
                                    FontSize="20"
-                                   Margin="20,10,10,0"/>
-
-                        <TextBlock Text="0 Points"
-                                   x:Name="thirdPoints"
-                                   Foreground="White"
-                                   FontSize="18"
                                    Margin="20,10,10,0"/>
                     </StackPanel>
                 </Grid>
@@ -188,21 +174,15 @@
                 </Border.Background>
                 <Grid>
                     <StackPanel>
-                        <TextBlock Text="Null"
-                                   x:Name="fourthUser"
+                        <TextBlock Text="Average time"
                                    Foreground="White"
-                                   FontSize="28"
+                                   FontSize="25"
                                    Margin="20,10,10,0"/>
 
-                        <TextBlock Text="Fourth Place"
+                        <TextBlock Text="Null"
+                                   x:Name="avgTime"
                                    Foreground="White"
                                    FontSize="20"
-                                   Margin="20,10,10,0"/>
-
-                        <TextBlock Text="0 Points"
-                                   x:Name="fourthPoints"
-                                   Foreground="White"
-                                   FontSize="18"
                                    Margin="20,10,10,0"/>
                     </StackPanel>
                 </Grid>
@@ -220,21 +200,15 @@
                 </Border.Background>
                 <Grid>
                     <StackPanel>
-                        <TextBlock Text="Null"
-                                   x:Name="fifthUser"
+                        <TextBlock Text="Total Points"
                                    Foreground="White"
-                                   FontSize="28"
+                                   FontSize="25"
                                    Margin="20,10,10,0"/>
 
-                        <TextBlock Text="Fifth Place"
+                        <TextBlock Text="Null"
+                                   x:Name="totalPoints"
                                    Foreground="White"
                                    FontSize="20"
-                                   Margin="20,10,10,0"/>
-
-                        <TextBlock Text="0 Points"
-                                   x:Name="fifthPoints"
-                                   Foreground="White"
-                                   FontSize="18"
                                    Margin="20,10,10,0"/>
                     </StackPanel>
                 </Grid>

@@ -19,12 +19,14 @@ namespace Trivia_GUI
     public partial class MainWindow : Window
     {
         Communicator communicator;
+        string currUser;
         ///Initializes the MainWindow
-        public MainWindow(Communicator communicator_)
+        public MainWindow(Communicator communicator_, string username)
         {
             InitializeComponent();
 
             communicator = communicator_;
+            currUser = username;
         }
 
         /// <summary>
@@ -66,8 +68,16 @@ namespace Trivia_GUI
         private void High_Click(object sender, RoutedEventArgs e)
         {
             
-            HighScoresWindow highWin = new HighScoresWindow(communicator);
+            HighScoresWindow highWin = new HighScoresWindow(communicator, currUser);
             highWin.Show();
+            this.Close();
+        }
+
+        private void Stats_Click(object sender, RoutedEventArgs e)
+        {
+
+            StatsWindow statWin = new StatsWindow(communicator, currUser);
+            statWin.Show();
             this.Close();
         }
     }
