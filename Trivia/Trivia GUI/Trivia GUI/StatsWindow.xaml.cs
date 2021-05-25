@@ -29,7 +29,26 @@ namespace Trivia_GUI
             communicator = communicator_;
             currUser = username;
 
-            string[] stats = communicator.getPersonalStats(currUser);
+            string[] stats = communicator.getPersonalStats(currUser); // This does not work alon (stats.length = 1)
+
+
+            if (stats.Length < 6)
+            {
+                totalGames.Text = "No data";
+                correctAnswers.Text = "No data";
+                totalAnswers.Text = "No data";
+                avgTime.Text = "No data";
+                totalPoints.Text = "No data";
+            }
+
+            else // I think this is the correct order of input but idk
+            {
+                avgTime.Text = stats[0];
+                correctAnswers.Text = stats[1];
+                totalAnswers.Text = stats[2];
+                totalGames.Text = stats[3];
+                totalPoints.Text = stats[4];
+            }
         }
 
 
