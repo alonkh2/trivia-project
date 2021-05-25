@@ -69,6 +69,7 @@ RequestResult MenuRequestHandler::signout(const RequestInfo& info) const
 		lr.status.push_back('1');
 		rr.buffer = JsonResponsePacketSerializer::serializeResponse(lr);
 		rr.newHandler = m_handlerFactory.createLoginRequestHandler();
+		std::cout << "logged out" << std::endl;
 	}
 	catch (CommunicationException& e)
 	{

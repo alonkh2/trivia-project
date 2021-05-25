@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Trivia_GUI"
+        xmlns:local="clr-namespace:Trivia_GUI" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Height="600" Width="920"
         WindowStyle="None"
@@ -28,14 +28,33 @@
 
         <Border Background="#272537" CornerRadius="0 0 90 90" Margin="0,0,0,60" Grid.RowSpan="2"/>
 
+        <Button Content="{materialDesign:PackIcon Kind=ExitToApp, Size=32}"
+                    Background="Transparent"
+                    Foreground="White" 
+                    BorderThickness="0"
+                    Style="{DynamicResource LowerButton}"
+                    Click="Leave_Click"
+                    ForceCursor="True"
+                    Cursor="Hand" 
+                    Margin="870,0,0,265" 
+                    RenderTransformOrigin="1.558,0.484"/>
 
         <StackPanel Grid.Row="0"  
-                    Margin="10,0,0,0">
-
+                    Margin="10,0,0,0"
+                    Orientation="Horizontal">
+            
             <Border
                     Height="200"
                     CornerRadius="10"
-                    Margin="151,110,151,0">
+                    Margin="151,118,30,7" Width="290" RenderTransformOrigin="0.5,0.5">
+                <Border.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleY="0.114"/>
+                        <RotateTransform/>
+                        <TranslateTransform Y="0.609"/>
+                    </TransformGroup>
+                </Border.RenderTransform>
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
                         <GradientStop Color="#c31432" Offset="0.0"/>
@@ -44,41 +63,60 @@
                 </Border.Background>
                 <Grid>
                     <StackPanel>
-                        <TextBlock Text="Username"
+                        <TextBlock Text="Null"
+                                   x:Name="firstUser"
                                    Foreground="White"
                                    FontSize="28"
                                    Margin="20,10,10,0"/>
 
                         <TextBlock Text="First Place"
                                    Foreground="White"
+                                   FontSize="20"
+                                   Margin="20,10,10,0"/>
+
+                        <TextBlock Text="0 Points"
+                                   x:Name="firstPoints"
+                                   Foreground="White"
                                    FontSize="18"
                                    Margin="20,10,10,0"/>
                     </StackPanel>
                 </Grid>
             </Border>
-        </StackPanel>
 
-        <StackPanel Grid.Row="1"  
-                    Margin="10,0,0,0" Orientation="Horizontal">
-
-            <Border Width="200"
-                    Height="150"
+            <Border
+                    Height="200"
                     CornerRadius="10"
-                    Margin="150,0,0,57">
+                    Margin="0,118,450,7" Width="290" RenderTransformOrigin="0.5,0.5">
+                <Border.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleY="0.114"/>
+                        <RotateTransform/>
+                        <TranslateTransform Y="0.609"/>
+                    </TransformGroup>
+                </Border.RenderTransform>
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
                         <GradientStop Color="#1520a6" Offset="0.0"/>
                         <GradientStop Color="#4c0121" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
+                
                 <Grid>
                     <StackPanel>
-                        <TextBlock Text="Username"
+                        <TextBlock Text="Null"
+                                   x:Name="secondUser"
                                    Foreground="White"
                                    FontSize="28"
                                    Margin="20,10,10,0"/>
 
                         <TextBlock Text="Second Place"
+                                   Foreground="White"
+                                   FontSize="20"
+                                   Margin="20,10,10,0"/>
+
+                        <TextBlock Text="0 Points"
+                                   x:Name="secondPoints"
                                    Foreground="White"
                                    FontSize="18"
                                    Margin="20,10,10,0"/>
@@ -87,10 +125,15 @@
             </Border>
 
 
-            <Border Width="200"
+        </StackPanel>
+
+        <StackPanel Grid.Row="1"  
+                    Margin="10,0,0,0" Orientation="Horizontal">
+
+            <Border Width="186"
                     Height="150"
                     CornerRadius="10"
-                    Margin="30,0,0,57">
+                    Margin="150,0,0,57">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
                         <GradientStop Color="#4c0121" Offset="0.0"/>
@@ -99,12 +142,19 @@
                 </Border.Background>
                 <Grid>
                     <StackPanel>
-                        <TextBlock Text="Username"
+                        <TextBlock Text="Null"
+                                   x:Name="thirdUser"
                                    Foreground="White"
                                    FontSize="28"
                                    Margin="20,10,10,0"/>
 
                         <TextBlock Text="Third Place"
+                                   Foreground="White"
+                                   FontSize="20"
+                                   Margin="20,10,10,0"/>
+
+                        <TextBlock Text="0 Points"
+                                   x:Name="thirdPoints"
                                    Foreground="White"
                                    FontSize="18"
                                    Margin="20,10,10,0"/>
@@ -113,34 +163,68 @@
             </Border>
 
 
-            <Border Width="150"
+            <Border Width="186"
                     Height="150"
                     CornerRadius="10"
-                    Margin="30,0,0,57">
+                    Margin="25,0,0,57">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
                         <GradientStop Color="#710193" Offset="0.0"/>
-                        <GradientStop Color="#1520a6" Offset="1"/>
+                        <GradientStop Color="#a4508b" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
                 <Grid>
                     <StackPanel>
-                        <TextBlock Text="Leave"
+                        <TextBlock Text="Null"
+                                   x:Name="fourthUser"
                                    Foreground="White"
                                    FontSize="28"
-                                   Margin="38,50,30,0"/>
+                                   Margin="20,10,10,0"/>
 
+                        <TextBlock Text="Fourth Place"
+                                   Foreground="White"
+                                   FontSize="20"
+                                   Margin="20,10,10,0"/>
+
+                        <TextBlock Text="0 Points"
+                                   x:Name="fourthPoints"
+                                   Foreground="White"
+                                   FontSize="18"
+                                   Margin="20,10,10,0"/>
                     </StackPanel>
-
-                    <Button Background="Transparent" 
-                                        BorderThickness="0" 
-                                        BorderBrush="Transparent"
-                                        ForceCursor="true" 
-                                        Cursor="Hand"
-                                        Click="Leave_Click"
-                                        Style="{DynamicResource LowerButton}"/>
                 </Grid>
+            </Border>
 
+            <Border Width="186"
+                    Height="150"
+                    CornerRadius="10"
+                    Margin="25,0,0,57">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                        <GradientStop Color="#a4508b" Offset="0.0"/>
+                        <GradientStop Color="#861657" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Grid>
+                    <StackPanel>
+                        <TextBlock Text="Null"
+                                   x:Name="fifthUser"
+                                   Foreground="White"
+                                   FontSize="28"
+                                   Margin="20,10,10,0"/>
+
+                        <TextBlock Text="Fifth Place"
+                                   Foreground="White"
+                                   FontSize="20"
+                                   Margin="20,10,10,0"/>
+
+                        <TextBlock Text="0 Points"
+                                   x:Name="fifthPoints"
+                                   Foreground="White"
+                                   FontSize="18"
+                                   Margin="20,10,10,0"/>
+                    </StackPanel>
+                </Grid>
             </Border>
 
         </StackPanel>
