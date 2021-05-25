@@ -43,10 +43,14 @@
                     Margin="10,0,0,0"
                     Orientation="Horizontal">
             
+            
+            
             <Border
+                    
                     Height="200"
                     CornerRadius="10"
                     Margin="151,118,30,7" Width="290" RenderTransformOrigin="0.5,0.5">
+                
                 <Border.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -61,6 +65,7 @@
                         <GradientStop Color="#1520a6" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
+                
                 <Grid>
                     <StackPanel>
                         <TextBlock Text="Null"
@@ -80,7 +85,11 @@
                                    FontSize="18"
                                    Margin="20,10,10,0"/>
                     </StackPanel>
+
+                    <Image Source="/Images/gold.png" Width="75"  Margin="215,112,0,10"/>
+
                 </Grid>
+                
             </Border>
 
             <Border
@@ -121,6 +130,9 @@
                                    FontSize="18"
                                    Margin="20,10,10,0"/>
                     </StackPanel>
+
+                    <Image Source="/Images/silver.png" Width="75"  Margin="215,112,0,10"/>
+
                 </Grid>
             </Border>
 
