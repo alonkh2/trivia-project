@@ -19,9 +19,25 @@ namespace Trivia_GUI
     /// </summary>
     public partial class StatsWindow : Window
     {
-        public StatsWindow()
+
+        Communicator communicator;
+        string currUser;
+        public StatsWindow(Communicator communicator_, string username)
         {
             InitializeComponent();
+
+            communicator = communicator_;
+            currUser = username;
+
+            string[] stats = communicator.getPersonalStats(currUser);
+        }
+
+
+        private void Leave_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWin = new MainWindow(communicator, currUser);
+            mainWin.Show();
+            this.Close();
         }
     }
 }
