@@ -56,11 +56,17 @@ namespace Trivia_GUI
             }
         }
 
-        private void Leave_Click(object sender, RoutedEventArgs e)
+        private void Back_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mainWin = new MainWindow(communicator_, username_); ;
             mainWin.Show();
             this.Close();
+        }
+
+        private void Leave_Click(object sender, RoutedEventArgs e)
+        {
+            communicator_.logout();
+            System.Windows.Application.Current.Shutdown();
         }
     }
 }

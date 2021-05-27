@@ -37,6 +37,13 @@ namespace Trivia_GUI
             System.Windows.Application.Current.Shutdown();
         }
 
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            WelcomeWindow welcomeWin = new WelcomeWindow();
+            welcomeWin.Show();
+            this.Close();
+        }
+
         /// <summary>
         /// This function check wether the text boxes are empty, and if not continues to the MainWindow
         /// </summary>

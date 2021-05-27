@@ -57,5 +57,21 @@ namespace Trivia_GUI
             }
             
         }
+
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWin = new MainWindow(communicator_, username_);
+            mainWin.Show();
+            t.Abort();
+            this.Close();
+        }
+
+        private void Leave_Click(object sender, RoutedEventArgs e)
+        {
+            t.Abort();
+            communicator_.logout();
+            System.Windows.Application.Current.Shutdown();
+        }
     }
 }

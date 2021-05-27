@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Trivia_GUI"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Height="600" Width="920"
         WindowStyle="None"
@@ -25,21 +26,47 @@
 
         <Border Background="#272537" CornerRadius="0 0 90 90" Margin="0,0,0,60"/>
 
-        <ListView ItemsSource="{Binding RoomList}" Foreground="White" x:Name="lv">
+        <Button Content="{materialDesign:PackIcon Kind=ArrowBack, Size=32}"
+                    Background="Transparent"
+                    Foreground="White" 
+                    Height="35"
+                    BorderThickness="0"
+                    Style="{DynamicResource LowerButton}"
+                    Click="Back_Click"
+                    ForceCursor="True"
+                    Cursor="Hand" 
+                    Margin="10,10,879,555" 
+                    RenderTransformOrigin="1.558,0.484"/>
+
+        <Button Content="{materialDesign:PackIcon Kind=ExitToApp, Size=32}"
+                    Background="Transparent"
+                    Foreground="White" 
+                    Height="35"
+                    BorderThickness="0"
+                    Style="{DynamicResource LowerButton}"
+                    Click="Leave_Click"
+                    ForceCursor="True"
+                    Cursor="Hand" 
+                    Margin="874,10,10,555" 
+                    RenderTransformOrigin="1.558,0.484"/>
+
+
+
+        <ListView ItemsSource="{Binding RoomList}" Foreground="White" x:Name="lv" Margin="46,0,46,76">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding roomID}" Header="Room Id" Width="150">
+                    <GridViewColumn DisplayMemberBinding="{Binding roomID}" Header="Room Id" Width="138">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Path=roomID}" Foreground="White"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding name}" Header="Name" Width="150"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding timeout}" Header="Timeout" Width="150"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding max}" Header="Max players" Width="150"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding count}" Header="Questions" Width="150"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding isActive}" Header="Active" Width="150"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding name}" Header="Name" Width="138"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding timeout}" Header="Timeout" Width="138"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding max}" Header="Max players" Width="138"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding count}" Header="Questions" Width="138"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding isActive}" Header="Active" Width="138"/>
                 </GridView>
             </ListView.View>
         </ListView>

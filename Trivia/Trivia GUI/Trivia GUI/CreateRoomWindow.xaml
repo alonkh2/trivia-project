@@ -36,12 +36,26 @@
                     Foreground="White" 
                     BorderThickness="0"
                     Style="{DynamicResource LowerButton}"
-                    Click="Leave_Click"
+                    Click="Back_Click"
                     ForceCursor="True"
                     Cursor="Hand" 
                     Margin="10,10,860,255" 
                     RenderTransformOrigin="1.558,0.484"/>
-        
+
+
+        <Button Content="{materialDesign:PackIcon Kind=ExitToApp, Size=32}"
+                    Background="Transparent"
+                    Foreground="White" 
+                    Height="35"
+                    BorderThickness="0"
+                    Style="{DynamicResource LowerButton}"
+                    Click="Leave_Click"
+                    ForceCursor="True"
+                    Cursor="Hand" 
+                    Margin="864,10,10,255" 
+                    RenderTransformOrigin="1.558,0.484"/>
+
+
         <StackPanel Grid.Row="0"  
                     Margin="10,0,0,0"
                     Orientation="Horizontal">
