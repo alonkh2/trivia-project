@@ -39,7 +39,7 @@ namespace Trivia_GUI
             {
                 password = pass,
                 mail = email,
-                username =  name
+                username = name
             };
 
             string json = JsonConvert.SerializeObject(user);
@@ -104,7 +104,8 @@ namespace Trivia_GUI
 
             dynamic data = getJson(json, 'k');
 
-            if (data != null && data.statistics != null) {
+            if (data != null && data.statistics != null)
+            {
                 string stat = data.statistics;
                 string[] stats = stat.Split(',');
                 return stats;
@@ -118,9 +119,9 @@ namespace Trivia_GUI
         /// <returns>The logout status</returns>
         public int logout()
         {
-            User user = new User {};
+            User user = new User { };
             string json = JsonConvert.SerializeObject(user);
-            
+
 
             dynamic reply = getJson(json, 'h');
 
@@ -144,7 +145,7 @@ namespace Trivia_GUI
         /// Gets high scores.
         /// </summary>
         /// <returns>The high scores</returns>
-        public string[] getHighScores() 
+        public string[] getHighScores()
         {
             string json = JsonConvert.SerializeObject(null);
             string data = string.Empty;
@@ -192,6 +193,7 @@ namespace Trivia_GUI
 
                 return null;
             }
+        }
 
         public bool createRoom(string name, double timeout, int max, int count)
         {
@@ -290,7 +292,7 @@ namespace Trivia_GUI
             code = receive(code.Length);
 
             char charicCode = Convert.ToChar(code[0]);
-            
+
 
             len = receive(len.Length);
 
