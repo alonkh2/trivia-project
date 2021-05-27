@@ -267,7 +267,7 @@ RequestResult MenuRequestHandler::createRoom(const RequestInfo& info) const
 	{
 		const auto data = JsonResponsePacketDeserializer::deserializeCreateRoomRequest(info.buffer);
 		const RoomData rd(m_roomManager.getLastId(), data.roomName, data.maxUsers, data.questionCount, data.answerTimeout, 1);
-		m_roomManager.createRoom(m_user, rd);
+		cr.id = m_roomManager.createRoom(m_user, rd);
 
 		cr.status.push_back('1');
 		rr.buffer = JsonResponsePacketSerializer::serializeResponse(cr);

@@ -58,6 +58,7 @@ typedef struct JoinRoomResponse
 typedef struct CreateRoomResponse
 {
 	std::vector<Byte> status;
+	unsigned id;
 } CreateRoomResponse;
 
 class JsonResponsePacketSerializer

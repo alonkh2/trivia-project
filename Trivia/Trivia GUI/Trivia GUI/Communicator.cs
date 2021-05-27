@@ -85,9 +85,6 @@ namespace Trivia_GUI
 
             if (reply.status != null && reply.status == "1")
             {
-                createRoom("alon", 5.5, 11, 3);
-                createRoom("mike", 5.5, 8, 3);
-                createRoom("b", 5.5, 4, 7);
                 return 2; // success 
             }
             return 1; // Login/Signup excpetionstring byteLength = getByteLength(json);
@@ -210,12 +207,8 @@ namespace Trivia_GUI
             return roooms;
         }
 
-        public bool joinRoom(string id)
+        public bool joinRoom(Room room)
         {
-            Room room = new Room
-            {
-                roomID = id
-            };
             string json = JsonConvert.SerializeObject(room);
             string data = string.Empty;
 

@@ -10,7 +10,7 @@ class RoomManager : public Singleton<RoomManager>
 public:
 	~RoomManager() = default;
 
-	void createRoom(const LoggedUser& user, const RoomData& data);
+	unsigned createRoom(const LoggedUser& user, const RoomData& data);
 	void deleteRoom(unsigned id);
 	unsigned getRoomState(unsigned id);
 	std::vector<RoomData> getRooms();

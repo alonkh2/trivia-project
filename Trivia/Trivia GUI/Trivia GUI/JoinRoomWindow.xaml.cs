@@ -61,6 +61,7 @@ namespace Trivia_GUI
         private void JoinRoom(object sender, MouseButtonEventArgs e)
         {
             Room room = (Room)lv.SelectedItems[0]; // Should return the details of the row (room) which got double clicked
+            communicator_.joinRoom(room);
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
