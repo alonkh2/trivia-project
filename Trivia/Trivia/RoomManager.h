@@ -16,11 +16,12 @@ public:
 	std::vector<RoomData> getRooms();
 	std::map<unsigned, Room> getAllRooms() const;
 
-	
+	unsigned getLastId() const;
 private:
-	RoomManager() = default;
+	RoomManager(): m_last_id(100) {}
 	
 	std::map<unsigned, Room> m_rooms;
+	unsigned m_last_id;
 
 	friend class Singleton;
 };

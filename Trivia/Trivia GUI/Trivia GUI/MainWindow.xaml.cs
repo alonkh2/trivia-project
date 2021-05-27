@@ -87,5 +87,13 @@ namespace Trivia_GUI
             statWin.Show();
             this.Close();
         }
+
+        private void Join_Click(object sender, RoutedEventArgs e)
+        {
+
+            JoinRoomWindow joinWin = new JoinRoomWindow(communicator, currUser);
+            joinWin.Show();
+            this.Close();
+        }
     }
 }

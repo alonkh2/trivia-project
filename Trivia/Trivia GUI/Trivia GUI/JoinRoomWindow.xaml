@@ -25,7 +25,7 @@
 
         <Border Background="#272537" CornerRadius="0 0 90 90" Margin="0,0,0,60"/>
 
-        <ListView ItemsSource="{Binding RoomList}" Foreground="White">
+        <ListView ItemsSource="{Binding RoomList}" Foreground="White" x:Name="lv">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding roomID}" Header="Room Id" Width="150">

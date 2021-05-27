@@ -149,6 +149,16 @@
                                    FontSize="18"
                                    Margin="20,10,10,0"/>
                                 </StackPanel>
+
+	                            <Button Background="Transparent"
+	                                    Width="150"
+	                                    Height="150" 
+	                                    BorderThickness="0" 
+	                                    BorderBrush="Transparent"
+	                                    ForceCursor="true" 
+	                                    Cursor="Hand"
+	                                    Click="Join_Click"
+	                                    Style="{DynamicResource LowerButton}"/>
                             </Grid>
                         </Border>
 
