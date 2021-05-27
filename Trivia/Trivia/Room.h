@@ -23,8 +23,8 @@ typedef struct RoomData
 	std::string toString() const
 	{
 		return std::string(
-			std::to_string(id) + ", " + name + ", " + std::to_string(maxPlayers) + ", " + std::to_string(numOfQuestions)
-			+ ", " + std::to_string(timePerQuestion) + ", " + std::to_string(isActive));
+			std::to_string(id) + "," + name + "," + std::to_string(maxPlayers) + "," + std::to_string(numOfQuestions)
+			+ "," + std::to_string(timePerQuestion) + "," + std::to_string(isActive));
 	}
 } RoomData;
 

@@ -165,6 +165,34 @@ namespace Trivia_GUI
             }
         }
 
+        public string[][] getRooms()
+        {
+            string json = JsonConvert.SerializeObject("{}");
+            string data = string.Empty;
+
+            try
+            {
+                data = data + sendAndReceive(json, 'i');
+                dynamic reply = JsonConvert.DeserializeObject(data);
+
+                string rooms = reply.rooms;
+
+                string[] meta = rooms.Split('$');
+
+                string[][] metadata = new string[meta.Length][];
+                for (int i = 0; i < meta.Length; i++)
+                {
+                    metadata[i] = meta[i].Split(',');
+                }
+                return metadata;
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+        }
+
         /// <summary>
         /// Takes in the json request and the request code and generates the result json.
         /// </summary>
