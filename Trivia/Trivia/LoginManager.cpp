@@ -62,7 +62,7 @@ void LoginManager::logout(const std::string& username)
 	m_logged_users.erase(getUserIterator(username));
 }
 
-std::vector<LoggedUser> LoginManager::getLoggedUsers()
+std::vector<LoggedUser> LoginManager::getLoggedUsers() const
 {
 	return m_logged_users;
 }

@@ -23,7 +23,8 @@ namespace Trivia_GUI
 
         ~Communicator()
         {
-            logout();
+            if (socket.Connected)
+                logout();
         }
 
         /// <summary>
@@ -53,6 +54,7 @@ namespace Trivia_GUI
 
             if (reply.status != null && reply.status == "1")
             {
+                
                 return 2; // success 
             }
             return 1; // Login/Signup excpetion
@@ -83,6 +85,8 @@ namespace Trivia_GUI
 
             if (reply.status != null && reply.status == "1")
             {
+                createRoom("a", 5.5, 5, 6);
+                joinRoom("110");
                 return 2; // success 
             }
             return 1; // Login/Signup excpetionstring byteLength = getByteLength(json);
@@ -147,7 +151,7 @@ namespace Trivia_GUI
         /// <returns>The high scores</returns>
         public string[] getHighScores()
         {
-            string json = JsonConvert.SerializeObject(null);
+            string json = JsonConvert.SerializeObject("{}");
             string data = string.Empty;
 
             try
@@ -181,8 +185,8 @@ namespace Trivia_GUI
 
                 string[] meta = rooms.Split('$');
 
-                string[][] metadata = new string[meta.Length][];
-                for (int i = 0; i < meta.Length; i++)
+                string[][] metadata = new string[meta.Length - 1][];
+                for (int i = 0; i < meta.Length - 1; i++)
                 {
                     metadata[i] = meta[i].Split(',');
                 }
@@ -192,6 +196,33 @@ namespace Trivia_GUI
             {
 
                 return null;
+            }
+        }
+
+        public bool joinRoom(string id)
+        {
+            Room room = new Room
+            {
+                roomID = id
+            };
+            string json = JsonConvert.SerializeObject(room);
+            string data = string.Empty;
+
+            try
+            {
+                data = data + sendAndReceive(json, 'm');
+                dynamic reply = JsonConvert.DeserializeObject(data);
+
+                if (reply == null || reply.status == null || reply.status != "1")
+                {
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
             }
         }
 
