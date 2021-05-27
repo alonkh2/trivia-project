@@ -58,9 +58,6 @@ namespace Trivia_GUI
                 default:
                     break;
             }
-           /* WelcomeWindow welcomeWin = new WelcomeWindow();
-            welcomeWin.Show();
-            this.Close();*/
         }
 
         private void High_Click(object sender, RoutedEventArgs e)
