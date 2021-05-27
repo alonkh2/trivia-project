@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -60,9 +60,6 @@ namespace Trivia_GUI
                 default:
                     break;
             }
-           /* WelcomeWindow welcomeWin = new WelcomeWindow();
-            welcomeWin.Show();
-            this.Close();*/
         }
 
         private void High_Click(object sender, RoutedEventArgs e)
@@ -73,6 +70,16 @@ namespace Trivia_GUI
             this.Close();
         }
 
+
+
+        private void Create_Click(object sender, RoutedEventArgs e)
+        {
+            CreateRoomWindow createWin = new CreateRoomWindow(communicator);
+            createWin.Show();
+            this.Close();
+        }
+
+        
         private void Stats_Click(object sender, RoutedEventArgs e)
         {
 

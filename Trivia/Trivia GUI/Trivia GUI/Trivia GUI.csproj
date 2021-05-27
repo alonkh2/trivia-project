@@ -84,12 +84,16 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Communicator.cs" />
+    <Compile Include="CreateRoomWindow.xaml.cs">
+      <DependentUpon>CreateRoomWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="HighScoresWindow.xaml.cs">
       <DependentUpon>HighScoresWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Room.cs" />
     <Compile Include="SignupWindow.xaml.cs">
       <DependentUpon>SignupWindow.xaml</DependentUpon>
     </Compile>
@@ -100,6 +104,10 @@
     <Compile Include="WelcomeWindow.xaml.cs">
       <DependentUpon>WelcomeWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="CreateRoomWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="HighScoresWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

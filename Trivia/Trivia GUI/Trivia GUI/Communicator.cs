@@ -165,6 +165,26 @@ namespace Trivia_GUI
             }
         }
 
+        public bool createRoom(string name, double timeout, int max, int count)
+        {
+            Room room = new Room
+            {
+                name = name,
+                timeout = timeout,
+                max = max,
+                count = count
+            };
+            string json = JsonConvert.SerializeObject(room);
+
+            dynamic reply = getJson(json, 'n');
+
+            if (reply == null || reply.status == null || reply.status != "1")
+            {
+                return false;
+            }
+            return true;
+        }
+
         /// <summary>
         /// Takes in the json request and the request code and generates the result json.
         /// </summary>

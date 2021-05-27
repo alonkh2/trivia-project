@@ -87,7 +87,8 @@
 
                         <!--Create room Button-->
                         <Border Width="400"
-                    Height="200">
+                                Height="200">
+
                             <Border.Background>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
                                     <GradientStop Color="#5bc3ff" Offset="0.0"/>
@@ -109,10 +110,18 @@
                                    Margin="20,10,10,0"/>
 
                                     <TextBlock Text="Choose a name and &#10;amount of players!"
-                                   Foreground="White"
-                                   FontSize="18"
-                                   Margin="20,10,10,0"/>
+                                                Foreground="White"
+                                                FontSize="18"
+                                                Margin="20,10,10,0"/>
                                 </StackPanel>
+
+                                <Button Background="Transparent"
+                                        Click="Create_Click" 
+                                        BorderThickness="0" 
+                                        BorderBrush="Transparent"
+                                        ForceCursor="true" 
+                                        Cursor="Hand"
+                                        Style="{DynamicResource LowerButton}"/>
                             </Grid>
 
                         </Border>
