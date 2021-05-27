@@ -169,11 +169,11 @@ namespace Trivia_GUI
         }
 
 
-        public string[][] getRooms()
+        public List<Room> getRooms()
         {
             string json = JsonConvert.SerializeObject("{}");
             string data = string.Empty;
-
+            List<Room> roooms = new List<Room>();
             try
             {
                 data = data + sendAndReceive(json, 'i');
@@ -187,14 +187,24 @@ namespace Trivia_GUI
                 for (int i = 0; i < meta.Length - 1; i++)
                 {
                     metadata[i] = meta[i].Split(',');
+
+                    roooms.Add(new Room
+                    {
+                        roomID = metadata[i][0],
+                        name = metadata[i][1],
+                        max = int.Parse(metadata[i][2]),
+                        count = int.Parse(metadata[i][3]),
+                        timeout = double.Parse(metadata[i][4]),
+                        isActive = int.Parse(metadata[i][5])
+                    }) ;
                 }
-                return metadata;
             }
             catch (Exception)
             {
 
-                return null;
+                // return null;
             }
+            return roooms;
         }
 
         public bool joinRoom(string id)

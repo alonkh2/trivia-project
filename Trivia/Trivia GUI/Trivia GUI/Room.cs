@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Trivia_GUI
 {
-    class Room
+    public class Room
     {
         public string roomID{ get; set; }
 
@@ -17,5 +17,7 @@ namespace Trivia_GUI
         public int max { get; set; }
         
         public int count { get; set; }
+
+        public int isActive { get; set; }
     }
 }
