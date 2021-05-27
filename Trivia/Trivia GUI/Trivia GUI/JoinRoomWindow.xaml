@@ -52,21 +52,84 @@
 
 
 
-        <ListView ItemsSource="{Binding RoomList}" Foreground="White" x:Name="lv" Margin="46,0,46,95" MouseDoubleClick="JoinRoom">
+        <ListView ItemsSource="{Binding RoomList}" Foreground="White" x:Name="lv" Margin="41,0,41,95" MouseDoubleClick="JoinRoom">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding roomID}" Header="Room Id" Width="138">
+                    <GridViewColumn DisplayMemberBinding="{Binding roomID}" Width="138">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Path=roomID}" Foreground="White"/>
+                                <TextBlock Text="{Binding Path=roomID}" Foreground="White" HorizontalAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
+
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Room id" Foreground="White" TextAlignment="Center"/>
+                        </GridViewColumn.Header>
+                        
                     </GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding name}" Header="Name" Width="130"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding timeout}" Header="Timeout" Width="130"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding max}" Header="Max players" Width="130"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding count}" Header="Questions" Width="130"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding isActive}" Header="Active" Width="130"/>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding name}" Width="135">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=name}" Foreground="White" HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                        
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Name" Foreground="White"/>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding timeout}" Width="135">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=timeout}" Foreground="White" HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Timeout" Foreground="White"/>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding max}" Width="135">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=max}" Foreground="White" HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Max players" Foreground="White"/>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+
+
+                    <GridViewColumn DisplayMemberBinding="{Binding count}" Width="135">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=count}" Foreground="White"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Questions" Foreground="White"/>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+
+
+                    <GridViewColumn DisplayMemberBinding="{Binding isActive}" Width="135">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=isActive}" Foreground="White"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Active" Foreground="White"/>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    
                 </GridView>
             </ListView.View>
         </ListView>
