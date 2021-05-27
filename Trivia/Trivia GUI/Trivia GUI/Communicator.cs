@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -165,6 +165,7 @@ namespace Trivia_GUI
             }
         }
 
+
         public string[][] getRooms()
         {
             string json = JsonConvert.SerializeObject("{}");
@@ -191,6 +192,26 @@ namespace Trivia_GUI
 
                 return null;
             }
+
+        public bool createRoom(string name, double timeout, int max, int count)
+        {
+            Room room = new Room
+            {
+                name = name,
+                timeout = timeout,
+                max = max,
+                count = count
+            };
+            string json = JsonConvert.SerializeObject(room);
+
+            dynamic reply = getJson(json, 'n');
+
+            if (reply == null || reply.status == null || reply.status != "1")
+            {
+                return false;
+            }
+            return true;
+
         }
 
         /// <summary>

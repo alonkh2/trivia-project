@@ -31,7 +31,7 @@ typedef struct CreateRoomRequest
 	std::string roomName;
 	unsigned maxUsers;
 	unsigned questionCount;
-	unsigned answerTimeout;
+	float answerTimeout;
 } CreateRoomRequest;
 
 
