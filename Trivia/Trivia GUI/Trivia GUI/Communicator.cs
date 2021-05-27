@@ -85,8 +85,6 @@ namespace Trivia_GUI
 
             if (reply.status != null && reply.status == "1")
             {
-                createRoom("a", 5.5, 5, 6);
-                joinRoom("110");
                 return 2; // success 
             }
             return 1; // Login/Signup excpetionstring byteLength = getByteLength(json);

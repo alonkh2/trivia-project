@@ -74,7 +74,7 @@ namespace Trivia_GUI
 
         private void Create_Click(object sender, RoutedEventArgs e)
         {
-            CreateRoomWindow createWin = new CreateRoomWindow(communicator);
+            CreateRoomWindow createWin = new CreateRoomWindow(communicator, currUser);
             createWin.Show();
             this.Close();
         }
