@@ -52,7 +52,7 @@
 
 
 
-        <ListView ItemsSource="{Binding RoomList}" Foreground="White" x:Name="lv" Margin="46,0,46,76">
+        <ListView ItemsSource="{Binding RoomList}" Foreground="White" x:Name="lv" Margin="46,0,46,95" MouseDoubleClick="JoinRoom">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding roomID}" Header="Room Id" Width="138">
@@ -70,6 +70,6 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        
+
     </Grid>
 </Window>
