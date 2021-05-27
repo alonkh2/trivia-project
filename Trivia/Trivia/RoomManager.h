@@ -1,6 +1,8 @@
 ﻿#pragma once
 
 #include <map>
+#include <mutex>
+
 
 #include "Singleton.h"
 #include "Room.h"
@@ -14,7 +16,7 @@ public:
 	void deleteRoom(unsigned id);
 	unsigned getRoomState(unsigned id);
 	std::vector<RoomData> getRooms();
-	std::map<unsigned, Room> getAllRooms() const;
+	std::map<unsigned, Room> getAllRooms();
 
 	unsigned getLastId() const;
 private:
@@ -22,6 +24,8 @@ private:
 	
 	std::map<unsigned, Room> m_rooms;
 	unsigned m_last_id;
+
+	std::mutex m_roomMutex;
 
 	friend class Singleton;
 };

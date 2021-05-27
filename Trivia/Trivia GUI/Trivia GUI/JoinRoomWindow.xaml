@@ -62,11 +62,11 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding name}" Header="Name" Width="138"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding timeout}" Header="Timeout" Width="138"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding max}" Header="Max players" Width="138"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding count}" Header="Questions" Width="138"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding isActive}" Header="Active" Width="138"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding name}" Header="Name" Width="130"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding timeout}" Header="Timeout" Width="130"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding max}" Header="Max players" Width="130"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding count}" Header="Questions" Width="130"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding isActive}" Header="Active" Width="130"/>
                 </GridView>
             </ListView.View>
         </ListView>
