@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -23,7 +23,8 @@ namespace Trivia_GUI
 
         ~Communicator()
         {
-            logout();
+            if (socket.Connected)
+                logout();
         }
 
         /// <summary>
@@ -39,7 +40,7 @@ namespace Trivia_GUI
             {
                 password = pass,
                 mail = email,
-                username =  name
+                username = name
             };
 
             string json = JsonConvert.SerializeObject(user);
@@ -53,6 +54,7 @@ namespace Trivia_GUI
 
             if (reply.status != null && reply.status == "1")
             {
+                
                 return 2; // success 
             }
             return 1; // Login/Signup excpetion
@@ -83,6 +85,8 @@ namespace Trivia_GUI
 
             if (reply.status != null && reply.status == "1")
             {
+                createRoom("a", 5.5, 5, 6);
+                joinRoom("110");
                 return 2; // success 
             }
             return 1; // Login/Signup excpetionstring byteLength = getByteLength(json);
@@ -104,7 +108,8 @@ namespace Trivia_GUI
 
             dynamic data = getJson(json, 'k');
 
-            if (data != null && data.statistics != null) {
+            if (data != null && data.statistics != null)
+            {
                 string stat = data.statistics;
                 string[] stats = stat.Split(',');
                 return stats;
@@ -118,9 +123,9 @@ namespace Trivia_GUI
         /// <returns>The logout status</returns>
         public int logout()
         {
-            User user = new User {};
+            User user = new User { };
             string json = JsonConvert.SerializeObject(user);
-            
+
 
             dynamic reply = getJson(json, 'h');
 
@@ -144,9 +149,9 @@ namespace Trivia_GUI
         /// Gets high scores.
         /// </summary>
         /// <returns>The high scores</returns>
-        public string[] getHighScores() 
+        public string[] getHighScores()
         {
-            string json = JsonConvert.SerializeObject(null);
+            string json = JsonConvert.SerializeObject("{}");
             string data = string.Empty;
 
             try
@@ -162,6 +167,62 @@ namespace Trivia_GUI
             catch (Exception)
             {
                 return null;
+            }
+        }
+
+
+        public string[][] getRooms()
+        {
+            string json = JsonConvert.SerializeObject("{}");
+            string data = string.Empty;
+
+            try
+            {
+                data = data + sendAndReceive(json, 'i');
+                dynamic reply = JsonConvert.DeserializeObject(data);
+
+                string rooms = reply.rooms;
+
+                string[] meta = rooms.Split('$');
+
+                string[][] metadata = new string[meta.Length - 1][];
+                for (int i = 0; i < meta.Length - 1; i++)
+                {
+                    metadata[i] = meta[i].Split(',');
+                }
+                return metadata;
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+        }
+
+        public bool joinRoom(string id)
+        {
+            Room room = new Room
+            {
+                roomID = id
+            };
+            string json = JsonConvert.SerializeObject(room);
+            string data = string.Empty;
+
+            try
+            {
+                data = data + sendAndReceive(json, 'm');
+                dynamic reply = JsonConvert.DeserializeObject(data);
+
+                if (reply == null || reply.status == null || reply.status != "1")
+                {
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
             }
         }
 
@@ -183,6 +244,7 @@ namespace Trivia_GUI
                 return false;
             }
             return true;
+
         }
 
         /// <summary>
@@ -261,7 +323,7 @@ namespace Trivia_GUI
             code = receive(code.Length);
 
             char charicCode = Convert.ToChar(code[0]);
-            
+
 
             len = receive(len.Length);
 

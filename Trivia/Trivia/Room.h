@@ -10,11 +10,11 @@ typedef struct RoomData
 	std::string name;
 	unsigned maxPlayers;
 	unsigned numOfQuestions;
-	unsigned timePerQuestion;
+	float timePerQuestion;
 	unsigned isActive;
 
 	RoomData(unsigned id_, std::string name_, unsigned maxPlayers_, unsigned numOfQuestions_,
-	         unsigned timePerQuestion_, unsigned isActive_) : id(id_), name(std::move(name_)), maxPlayers(maxPlayers_),
+	         float timePerQuestion_, unsigned isActive_) : id(id_), name(std::move(name_)), maxPlayers(maxPlayers_),
 	                                                          numOfQuestions(numOfQuestions_),
 	                                                          timePerQuestion(timePerQuestion_), isActive(isActive_)
 	{
@@ -23,8 +23,8 @@ typedef struct RoomData
 	std::string toString() const
 	{
 		return std::string(
-			std::to_string(id) + ", " + name + ", " + std::to_string(maxPlayers) + ", " + std::to_string(numOfQuestions)
-			+ ", " + std::to_string(timePerQuestion) + ", " + std::to_string(isActive));
+			std::to_string(id) + "," + name + "," + std::to_string(maxPlayers) + "," + std::to_string(numOfQuestions)
+			+ "," + std::to_string(timePerQuestion) + "," + std::to_string(isActive));
 	}
 } RoomData;
 
