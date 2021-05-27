@@ -67,5 +67,11 @@ namespace Trivia_GUI
             highWin.Show();
             this.Close();
         }
+
+
+        private void Create_Click(object sender, RoutedEventArgs e)
+        {
+            CreateRoomWindow creatWin = new CreateRoomWindow(communicator)
+        }
     }
 }

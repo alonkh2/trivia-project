@@ -19,9 +19,19 @@ namespace Trivia_GUI
     /// </summary>
     public partial class CreateRoomWindow : Window
     {
-        public CreateRoomWindow()
+        public CreateRoomWindow(Communicator communicator)
         {
             InitializeComponent();
+        }
+
+        private void Sub_Click(object sender, RoutedEventArgs e) // This function needs to check that all the field are valid and then creates a room
+        {
+
+        }
+
+        private void Leave_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

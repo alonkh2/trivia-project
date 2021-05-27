@@ -30,7 +30,18 @@
         <!---Name, time per question, num of people, num of questions-->
 
         <Border Background="#272537" CornerRadius="0 0 90 90" Margin="0,0,0,60" Grid.RowSpan="2"/>
-
+        
+        <Button Content="{materialDesign:PackIcon Kind=ArrowBack, Size=32}"
+                    Background="Transparent"
+                    Foreground="White" 
+                    BorderThickness="0"
+                    Style="{DynamicResource LowerButton}"
+                    Click="Leave_Click"
+                    ForceCursor="True"
+                    Cursor="Hand" 
+                    Margin="10,10,860,255" 
+                    RenderTransformOrigin="1.558,0.484"/>
+        
         <StackPanel Grid.Row="0"  
                     Margin="10,0,0,0"
                     Orientation="Horizontal">
@@ -38,7 +49,7 @@
             <Border
                     Height="150"
                     CornerRadius="10"
-                    Margin="151,140,30,0" Width="290" RenderTransformOrigin="0.5,0.5">
+                    Margin="151,140,30,7" Width="290" RenderTransformOrigin="0.5,0.5">
                 <Border.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -55,22 +66,20 @@
                 </Border.Background>
                 <Grid>
                     <StackPanel>
-                        <TextBlock Text="Null"
-                                   x:Name="firstUser"
+                        <TextBlock Text="Room name"
                                    Foreground="White"
                                    FontSize="28"
                                    Margin="20,10,10,0"/>
-
-                        <TextBlock Text="First Place"
-                                   Foreground="White"
-                                   FontSize="20"
-                                   Margin="20,10,10,0"/>
-
-                        <TextBlock Text="0 Points"
-                                   x:Name="firstPoints"
-                                   Foreground="White"
-                                   FontSize="18"
-                                   Margin="20,10,10,0"/>
+                        
+                        <TextBox x:Name="nameOfRoom" 
+                                 Margin="0,20,0,0" 
+                                 materialDesign:HintAssist.Hint="Enter the name of the room" 
+                                 Foreground="White" 
+                                 Width="275" 
+                                 BorderBrush="White"
+                                 CaretBrush="#4568dc" 
+                                 SelectionBrush="#4568dc"
+                                 materialDesign:TextFieldAssist.UnderlineBrush="#b06ab3"/>
                     </StackPanel>
                 </Grid>
             </Border>
@@ -96,22 +105,20 @@
 
                 <Grid>
                     <StackPanel>
-                        <TextBlock Text="Null"
-                                   x:Name="secondUser"
+                        <TextBlock Text="Time per question"
                                    Foreground="White"
                                    FontSize="28"
                                    Margin="20,10,10,0"/>
-
-                        <TextBlock Text="Second Place"
-                                   Foreground="White"
-                                   FontSize="20"
-                                   Margin="20,10,10,0"/>
-
-                        <TextBlock Text="0 Points"
-                                   x:Name="secondPoints"
-                                   Foreground="White"
-                                   FontSize="18"
-                                   Margin="20,10,10,0"/>
+                        
+                        <TextBox x:Name="timePerQuestion" 
+                                 Margin="0,20,0,0" 
+                                 materialDesign:HintAssist.Hint="Enter the time per question" 
+                                 Foreground="White" 
+                                 Width="275" 
+                                 BorderBrush="White"
+                                 CaretBrush="#4568dc" 
+                                 SelectionBrush="#4568dc"
+                                 materialDesign:TextFieldAssist.UnderlineBrush="#b06ab3"/>
                     </StackPanel>
                 </Grid>
             </Border>
@@ -119,13 +126,13 @@
 
 
         <StackPanel Grid.Row="1"
-                    Margin="10,0,0,0"
+                    Margin="10,0,0,132"
                     Orientation="Horizontal">
 
             <Border
                     Height="150"
                     CornerRadius="10"
-                    Margin="151,0,30,125" Width="290" RenderTransformOrigin="0.5,0.5">
+                    Margin="151,0,30,10" Width="290" RenderTransformOrigin="0.5,0.5">
                 <Border.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -140,24 +147,23 @@
                         <GradientStop Color="#1520a6" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
+
                 <Grid>
                     <StackPanel>
-                        <TextBlock Text="Null"
-                                   
+                        <TextBlock Text="Number of players"
                                    Foreground="White"
                                    FontSize="28"
-                                   Margin="20,10,10,0"/>
+                                   Margin="10,10,10,0"/>
 
-                        <TextBlock Text="First Place"
-                                   Foreground="White"
-                                   FontSize="20"
-                                   Margin="20,10,10,0"/>
-
-                        <TextBlock Text="0 Points"
-                                  
-                                   Foreground="White"
-                                   FontSize="18"
-                                   Margin="20,10,10,0"/>
+                        <TextBox x:Name="numOfPlayers" 
+                                 Margin="0,20,0,0" 
+                                 materialDesign:HintAssist.Hint="Enter the number of players" 
+                                 Foreground="White" 
+                                 Width="275" 
+                                 BorderBrush="White"
+                                 CaretBrush="#4568dc" 
+                                 SelectionBrush="#4568dc"
+                                 materialDesign:TextFieldAssist.UnderlineBrush="#b06ab3"/>
                     </StackPanel>
                 </Grid>
             </Border>
@@ -165,7 +171,7 @@
             <Border
                     Height="150"
                     CornerRadius="10"
-                    Margin="0,0,0,125" Width="290" RenderTransformOrigin="0.5,0.5">
+                    Margin="0,0,0,10" Width="290" RenderTransformOrigin="0.5,0.5">
                 <Border.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -184,16 +190,15 @@
                 <Grid>
                     <StackPanel>
                         <TextBlock Text="Number of questions"
-                                  
                                    Foreground="White"
                                    FontSize="28"
                                    Margin="10,10,10,0"/>
 
-                        <TextBox x:Name="txtUsername" 
-                                 Margin="10, 20" 
-                                 materialDesign:HintAssist.Hint=" " 
+                        <TextBox x:Name="numOfQuestions" 
+                                 Margin="0,20,0,0" 
+                                 materialDesign:HintAssist.Hint="Enter the number of questions" 
                                  Foreground="White" 
-                                 Width="250" 
+                                 Width="275" 
                                  BorderBrush="White"
                                  CaretBrush="#4568dc" 
                                  SelectionBrush="#4568dc"
@@ -201,11 +206,21 @@
                     </StackPanel>
                 </Grid>
             </Border>
-
-
         </StackPanel>
 
-
-
+        <StackPanel Grid.Row="1" Margin="0,168,0,60">
+            <Button Width="100" 
+                    Height="40" 
+                    Style="{StaticResource MaterialDesignRaisedButton}" 
+                    materialDesign:ButtonAssist.CornerRadius="10" 
+                    BorderThickness="2" 
+                    BorderBrush="Transparent"
+                    Background="#4c0121" 
+                    Foreground="White" 
+                    ToolTip="Login" 
+                    x:Name="Sub" 
+                    Content="Create"
+                    Click="Sub_Click" Margin="410,15"/>
+        </StackPanel>
     </Grid>
 </Window>
