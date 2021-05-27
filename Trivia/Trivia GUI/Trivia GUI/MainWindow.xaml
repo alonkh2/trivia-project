@@ -183,6 +183,18 @@
                                             FontSize="17"
                                             Margin="10,10,10,0"/>
                                     </StackPanel>
+
+                                    <Button Background="Transparent"
+                                        Width="150"
+                                        Height="150" 
+                                        BorderThickness="0" 
+                                        BorderBrush="Transparent"
+                                        ForceCursor="true" 
+                                        Cursor="Hand"
+                                        Click="Stats_Click"
+                                        Style="{DynamicResource LowerButton}"/>
+
+
                                 </Grid>
                             </Border>
 

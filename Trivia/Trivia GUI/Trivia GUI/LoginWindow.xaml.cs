@@ -61,7 +61,7 @@ namespace Trivia_GUI
                         MessageBox.Show("Login error");
                         break;
                     case 2:
-                        MainWindow main = new MainWindow(communicator);
+                        MainWindow main = new MainWindow(communicator, txtUsername.Text);
                         main.Show();
                         this.Close();
                         break;

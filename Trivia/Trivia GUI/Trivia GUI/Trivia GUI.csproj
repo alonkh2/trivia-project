@@ -97,6 +97,9 @@
     <Compile Include="SignupWindow.xaml.cs">
       <DependentUpon>SignupWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StatsWindow.xaml.cs">
+      <DependentUpon>StatsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="User.cs" />
     <Compile Include="WelcomeWindow.xaml.cs">
       <DependentUpon>WelcomeWindow.xaml</DependentUpon>
@@ -126,6 +129,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="SignupWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StatsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -171,6 +178,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\c18.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\gold.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\silver.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets')" />
