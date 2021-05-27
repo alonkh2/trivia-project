@@ -19,9 +19,12 @@ namespace Trivia_GUI
     /// </summary>
     public partial class CreateRoomWindow : Window
     {
+
+        Communicator communicator_;
         public CreateRoomWindow(Communicator communicator)
         {
             InitializeComponent();
+            communicator_ = communicator;
         }
 
         private void Sub_Click(object sender, RoutedEventArgs e) // This function needs to check that all the field are valid and then creates a room
@@ -31,7 +34,9 @@ namespace Trivia_GUI
 
         private void Leave_Click(object sender, RoutedEventArgs e)
         {
-
+            MainWindow mainWin = new MainWindow(communicator_);
+            mainWin.Show();
+            this.Close();
         }
     }
 }

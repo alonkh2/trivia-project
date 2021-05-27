@@ -217,7 +217,7 @@
                     BorderBrush="Transparent"
                     Background="#4c0121" 
                     Foreground="White" 
-                    ToolTip="Login" 
+                    ToolTip="Submit" 
                     x:Name="Sub" 
                     Content="Create"
                     Click="Sub_Click" Margin="410,15"/>
