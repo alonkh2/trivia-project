@@ -1,0 +1,48 @@
+﻿<Window x:Class="Trivia_GUI.JoinRoomWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Trivia_GUI"
+        mc:Ignorable="d"
+        Height="600" Width="920"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid>
+        <Grid.Background>
+            <!--The gradient at the bottom-->
+            <LinearGradientBrush StartPoint="0.1,0" EndPoint="0.9,1">
+                <GradientStop Color="#b06ab3" Offset="1" />
+                <GradientStop Color="#4568dc   " Offset="0" />
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <!---Name, time per question, num of people, num of questions-->
+
+        <Border Background="#272537" CornerRadius="0 0 90 90" Margin="0,0,0,60"/>
+
+        <ListView ItemsSource="{Binding RoomList}" Foreground="White">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding roomID}" Header="Room Id" Width="150">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=roomID}" Foreground="White"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding name}" Header="Name" Width="150"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding timeout}" Header="Timeout" Width="150"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding max}" Header="Max players" Width="150"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding count}" Header="Questions" Width="150"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding isActive}" Header="Active" Width="150"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        
+    </Grid>
+</Window>
