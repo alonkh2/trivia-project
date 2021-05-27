@@ -62,7 +62,7 @@ getPlayersInRoomRequest JsonResponsePacketDeserializer::deserializeGetPlayersReq
 
 	try
 	{
-		gpirReq.roomId = strtol(msg.at("roomID").dump().c_str(), nullptr, 10);
+		gpirReq.roomId = strtol(strip(msg.at("roomID").dump()).c_str(), nullptr, 10);
 	}
 	catch (...)
 	{
@@ -83,7 +83,7 @@ JoinRoomRequest JsonResponsePacketDeserializer::deserializeJoinRoomRequest(const
 
 	try
 	{
-		jrReq.roomId = strtol(msg.at("roomID").dump().c_str(), nullptr, 10);
+		jrReq.roomId = strtol(strip(msg.at("roomID").dump()).c_str(), nullptr, 10);
 	}
 	catch (...)
 	{

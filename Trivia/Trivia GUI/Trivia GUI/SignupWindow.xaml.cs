@@ -29,7 +29,6 @@ namespace Trivia_GUI
 
 
         Communicator communicator;
-        Task taskOfReceiveData;
 
         public SignupWindow(Communicator communicator_)
         {
@@ -49,6 +48,12 @@ namespace Trivia_GUI
             System.Windows.Application.Current.Shutdown();
         }
 
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            WelcomeWindow welcomeWin = new WelcomeWindow();
+            welcomeWin.Show();
+            this.Close();
+        }
 
         /// <summary>
         /// This function checks if an email is valid
@@ -60,23 +65,6 @@ namespace Trivia_GUI
             return new EmailAddressAttribute().IsValid(source);
         }
 
-        private string ToBytes(byte[] bytes)
-        {
-            string byteLength = String.Empty;
-
-            for(int i = 0; i < 4; i++)
-            {
-
-                
-                byteLength += Encoding.ASCII.GetString(new byte[] { bytes[i] });
-
-
-                byteLength += "\\";
-            }
-            byteLength = byteLength.Remove(byteLength.Length - 1);
-
-            return byteLength;
-        }
 
         /// <summary>
         /// This function check wether the Input Boxes are empty or invalid, and if not continues to the MainWindow

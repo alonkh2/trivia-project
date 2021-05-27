@@ -30,22 +30,28 @@
 
         <Border Background="#272537" CornerRadius="0 0 90 90" Margin="0,0,0,60" Grid.RowSpan="2"/>
 
-
-        <TextBlock x:Name="userNameText" 
-                   Text="Your Stats" 
-                   Foreground="White" 
-                   FontSize="35" 
-                   Margin="10,10,751,265"/>
-
         <Button Content="{materialDesign:PackIcon Kind=ExitToApp, Size=32}"
                     Background="Transparent"
                     Foreground="White" 
+                    Height="35"
                     BorderThickness="0"
                     Style="{DynamicResource LowerButton}"
                     Click="Leave_Click"
                     ForceCursor="True"
                     Cursor="Hand" 
-                    Margin="870,0,0,265" 
+                    Margin="860,10,10,280" 
+                    RenderTransformOrigin="1.558,0.484"/>
+
+        <Button Content="{materialDesign:PackIcon Kind=ArrowBack, Size=32}"
+                    Background="Transparent"
+                    Foreground="White" 
+                    Height="35"
+                    BorderThickness="0"
+                    Style="{DynamicResource LowerButton}"
+                    Click="Back_Click"
+                    ForceCursor="True"
+                    Cursor="Hand" 
+                    Margin="10,10,860,280" 
                     RenderTransformOrigin="1.558,0.484"/>
 
         <StackPanel Grid.Row="0"  

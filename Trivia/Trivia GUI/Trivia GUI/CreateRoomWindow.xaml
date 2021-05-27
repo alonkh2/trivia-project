@@ -36,12 +36,26 @@
                     Foreground="White" 
                     BorderThickness="0"
                     Style="{DynamicResource LowerButton}"
-                    Click="Leave_Click"
+                    Click="Back_Click"
                     ForceCursor="True"
                     Cursor="Hand" 
                     Margin="10,10,860,255" 
                     RenderTransformOrigin="1.558,0.484"/>
-        
+
+
+        <Button Content="{materialDesign:PackIcon Kind=ExitToApp, Size=32}"
+                    Background="Transparent"
+                    Foreground="White" 
+                    Height="35"
+                    BorderThickness="0"
+                    Style="{DynamicResource LowerButton}"
+                    Click="Leave_Click"
+                    ForceCursor="True"
+                    Cursor="Hand" 
+                    Margin="864,10,10,255" 
+                    RenderTransformOrigin="1.558,0.484"/>
+
+
         <StackPanel Grid.Row="0"  
                     Margin="10,0,0,0"
                     Orientation="Horizontal">
@@ -69,8 +83,9 @@
                         <TextBlock Text="Room name"
                                    Foreground="White"
                                    FontSize="28"
-                                   Margin="20,10,10,0"/>
-                        
+                                   HorizontalAlignment="Center"
+                                   Margin="10"/>
+
                         <TextBox x:Name="nameOfRoom" 
                                  Margin="0,20,0,0" 
                                  materialDesign:HintAssist.Hint="Enter the name of the room" 
@@ -108,7 +123,8 @@
                         <TextBlock Text="Time per question"
                                    Foreground="White"
                                    FontSize="28"
-                                   Margin="20,10,10,0"/>
+                                   HorizontalAlignment="Center"
+                                   Margin="10"/>
                         
                         <TextBox x:Name="timePerQuestion" 
                                  Margin="0,20,0,0" 
@@ -153,7 +169,8 @@
                         <TextBlock Text="Number of players"
                                    Foreground="White"
                                    FontSize="28"
-                                   Margin="10,10,10,0"/>
+                                   HorizontalAlignment="Center"
+                                   Margin="10"/>
 
                         <TextBox x:Name="numOfPlayers" 
                                  Margin="0,20,0,0" 
@@ -192,8 +209,8 @@
                         <TextBlock Text="Number of questions"
                                    Foreground="White"
                                    FontSize="28"
-                                   Margin="10,10,10,0"/>
-
+                                   HorizontalAlignment="Center"
+                                   Margin="10"/>
                         <TextBox x:Name="numOfQuestions" 
                                  Margin="0,20,0,0" 
                                  materialDesign:HintAssist.Hint="Enter the number of questions" 
