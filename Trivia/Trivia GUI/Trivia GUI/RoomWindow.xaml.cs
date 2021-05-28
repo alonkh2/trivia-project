@@ -79,6 +79,7 @@ namespace Trivia_GUI
                 {
                     UserList = communicator_.getPlayersInRoom(room_);
                     adminName.Text = UserList.First().username;
+                    UserList.RemoveAt(0);
                     playerList.ItemsSource = UserList;
                     
                     DataContext = this;
