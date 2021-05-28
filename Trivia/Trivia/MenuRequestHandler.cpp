@@ -233,7 +233,7 @@ RequestResult MenuRequestHandler::joinRoom(const RequestInfo& info) const
 	{
 		const auto data = JsonResponsePacketDeserializer::deserializeJoinRoomRequest(info.buffer);
 		m_roomManager.getAllRooms().at(data.roomId).addUser(m_user);
-
+		
 		jr.status.push_back('1');
 		rr.buffer = JsonResponsePacketSerializer::serializeResponse(jr);
 		rr.newHandler = nullptr; // Room handler.

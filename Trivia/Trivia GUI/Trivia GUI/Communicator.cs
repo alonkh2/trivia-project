@@ -230,25 +230,39 @@ namespace Trivia_GUI
             }
         }
 
-        public bool createRoom(string name, double timeout, int max, int count)
+        public int createRoom(Room room)
         {
-            Room room = new Room
-            {
-                name = name,
-                timeout = timeout,
-                max = max,
-                count = count
-            };
+            
             string json = JsonConvert.SerializeObject(room);
 
             dynamic reply = getJson(json, 'n');
 
-            if (reply == null || reply.status == null || reply.status != "1")
+            if (reply == null || reply.status == null || reply.status != "1" || reply.id == null)
             {
-                return false;
+                return 0;
             }
-            return true;
+            return reply.id;
 
+        }
+
+        public List<User> getPlayersInRoom(Room room)
+        {
+            string json = JsonConvert.SerializeObject(room);
+            dynamic reply = getJson(json, 'j');
+
+            if (reply == null || reply.players == null)
+            {
+                return null;
+            }
+            List<User> users = new List<User>();
+            string players = reply.players;
+
+            string[] usernames = players.Split(',');
+            for (int i = 0; i < usernames.Length - 1; i++)
+            {
+                users.Add(new User { username = usernames[i] });
+            }
+            return users;
         }
 
         /// <summary>

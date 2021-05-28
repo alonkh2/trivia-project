@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Xceed.Wpf.AvalonDock.Layout;
+using System.Threading;
 
 namespace Trivia_GUI
 {
@@ -21,44 +21,70 @@ namespace Trivia_GUI
     public partial class RoomWindow : Window
     {
         List<User> UserList { get; set; }
-        string username;
-        Communicator communicator;
-        public RoomWindow(Communicator communicator_, string username_)
+        string username_;
+        Communicator communicator_;
+        Room room_;
+        Thread t_;
+        public RoomWindow(Communicator communicator, string username, bool admin, Room room)
         {
             InitializeComponent();
 
-            communicator = communicator_;
-            username = username_;
+            communicator_ = communicator;
+            username_ = username;
+            room_ = room;
 
 
             /*
              * If admin then this
              */
-            var adminButton = new Button();
-            var bc = new BrushConverter();
 
-            Style style = this.FindResource("MaterialDesignRaisedButton") as Style;
-            adminButton.Style = style;
+            if (admin)
+            {
+                var adminButton = new Button();
+                var bc = new BrushConverter();
 
-            adminButton.Margin = new Thickness(725, 479, 95, 80); 
-            adminButton.Width = 100;
-            adminButton.Height = 40;
-            adminButton.BorderThickness = new Thickness(0);
-            adminButton.BorderBrush = Brushes.Transparent;
-            adminButton.Background = (Brush)bc.ConvertFrom("#4c0121");
-            adminButton.Foreground = Brushes.White;
-            adminButton.Click += new RoutedEventHandler(Start_Click);
-            adminButton.Content = "Start";
-            adminButton.HorizontalContentAlignment = System.Windows.HorizontalAlignment.Center;
-            adminButton.UseLayoutRounding = true;
-            grid.Children.Add(adminButton);
-            
+                Style style = this.FindResource("MaterialDesignRaisedButton") as Style;
+                adminButton.Style = style;
+
+                adminButton.Margin = new Thickness(725, 479, 95, 80);
+                adminButton.Width = 100;
+                adminButton.Height = 40;
+                adminButton.BorderThickness = new Thickness(0);
+                adminButton.BorderBrush = Brushes.Transparent;
+                adminButton.Background = (Brush)bc.ConvertFrom("#4c0121");
+                adminButton.Foreground = Brushes.White;
+                adminButton.Click += new RoutedEventHandler(Start_Click);
+                adminButton.Content = "Start";
+                adminButton.HorizontalContentAlignment = System.Windows.HorizontalAlignment.Center;
+                adminButton.UseLayoutRounding = true;
+                grid.Children.Add(adminButton);
+            }
+
+            t_ = new Thread(updateList);
+            t_.Start();
         }
 
 
         private void Start_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("nice");
+        }
+
+        private void updateList()
+        {
+            while (true)
+            {
+                this.Dispatcher.BeginInvoke(new Action(delegate ()
+                {
+                    UserList = communicator_.getPlayersInRoom(room_);
+
+                    playerList.ItemsSource = UserList;
+
+                    DataContext = this;
+                }));
+
+                Thread.Sleep(3000);
+            }
         }
     }
 }

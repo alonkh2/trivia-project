@@ -36,11 +36,8 @@ namespace Trivia_GUI
         /// <param name="e"></param>
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
-            //communicator.logout();
-            //System.Windows.Application.Current.Shutdown();
-            RoomWindow roomWin = new RoomWindow(communicator, currUser);
-            roomWin.Show();
-            this.Close();
+            communicator.logout();
+            System.Windows.Application.Current.Shutdown();
         }
 
         public void LogOut_Click(object sender, RoutedEventArgs e)
