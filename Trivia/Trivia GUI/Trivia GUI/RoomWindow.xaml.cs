@@ -33,13 +33,14 @@ namespace Trivia_GUI
             username_ = username;
             room_ = room;
 
-
+            roomName.Text = room_.name;
             /*
              * If admin then this
              */
 
             if (admin)
             {
+                adminName.Text = username;
                 var adminButton = new Button();
                 var bc = new BrushConverter();
 
@@ -77,9 +78,9 @@ namespace Trivia_GUI
                 this.Dispatcher.BeginInvoke(new Action(delegate ()
                 {
                     UserList = communicator_.getPlayersInRoom(room_);
-
+                    adminName.Text = UserList.First().username;
                     playerList.ItemsSource = UserList;
-
+                    
                     DataContext = this;
                 }));
 
