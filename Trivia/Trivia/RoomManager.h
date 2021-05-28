@@ -18,6 +18,8 @@ public:
 	std::vector<RoomData> getRooms();
 	std::map<unsigned, Room> getAllRooms();
 
+	void addPlayerToRoom(const LoggedUser& user, int id);
+
 	unsigned getLastId() const;
 private:
 	RoomManager(): m_last_id(100) {}

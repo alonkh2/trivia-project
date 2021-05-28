@@ -1,5 +1,7 @@
 ﻿#include "RoomManager.h"
 
+#include "CommunicationException.h"
+
 
 /**
  * \brief Creates a new room.
@@ -10,7 +12,7 @@ unsigned RoomManager::createRoom(const LoggedUser& user, const RoomData& data)
 {
 	if (m_rooms.find(data.id) != m_rooms.end())
 	{
-		throw std::exception("There's already a room with this name! ");
+		throw CommunicationException("There's already a room with this name", EXSTS);
 	}
 	std::lock_guard<std::mutex> lock(m_roomMutex);
 	Room room(user, data);
@@ -30,7 +32,7 @@ void RoomManager::deleteRoom(unsigned id)
 		m_rooms.erase(id);
 		return;
 	}
-	throw std::exception("There's no such room! ");
+	throw CommunicationException("Room doesn't exist", DSNT_EXST);
 }
 
 /**
@@ -45,7 +47,7 @@ unsigned RoomManager::getRoomState(unsigned id)
 	{
 		return m_rooms.at(id).getRoomData().isActive;
 	}
-	throw std::exception("There's no such room! ");
+	throw CommunicationException("Room doesn't exist", DSNT_EXST);
 }
 
 /**
@@ -71,6 +73,17 @@ std::map<unsigned, Room> RoomManager::getAllRooms()
 {
 	std::lock_guard<std::mutex> lock(m_roomMutex);
 	return m_rooms;
+}
+
+void RoomManager::addPlayerToRoom(const LoggedUser& user, int id)
+{
+	std::lock_guard<std::mutex> lock(m_roomMutex);
+	if (m_rooms.find(id) != m_rooms.end())
+	{
+		m_rooms.at(id).addUser(user);
+		return;
+	}
+	throw CommunicationException("Room doesn't exist", DSNT_EXST);
 }
 
 unsigned RoomManager::getLastId() const
