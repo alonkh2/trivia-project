@@ -45,10 +45,21 @@ namespace Trivia_GUI
                 MessageBox.Show("Invalid parameters! Please try again");
                 return;
             }
-
-            if (communicator_.createRoom(name, timeout, max, count))
+            Room room = new Room
             {
-                MessageBox.Show("Success");
+                name = name,
+                timeout = timeout,
+                max = max,
+                count = count
+            };
+
+            int id = communicator_.createRoom(room);
+            if (id != 0)
+            {
+                room.roomID = id.ToString();
+                RoomWindow rw = new RoomWindow(communicator_, username_, true, room);
+                rw.Show();
+                this.Close();
             }
             else
             {

@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include <mutex>
 #include <utility>
 #include <vector>
 
@@ -44,4 +45,5 @@ private:
 	std::vector<LoggedUser> m_users;
 
 	std::vector<LoggedUser>::iterator getUserIterator(const LoggedUser& user);
+	
 };

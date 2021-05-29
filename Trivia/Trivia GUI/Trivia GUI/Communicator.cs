@@ -152,20 +152,16 @@ namespace Trivia_GUI
             string json = JsonConvert.SerializeObject("{}");
             string data = string.Empty;
 
-            try
-            {
-                data = data + sendAndReceive(json, 'l');
-                dynamic reply = JsonConvert.DeserializeObject(data);
+            dynamic reply = getJson(json, 'l');
 
-                string stat = reply.statistics;
-                string[] stats = stat.Split(',');
-
-                return stats;
-            }
-            catch (Exception)
+            if (reply == null || reply.statistics == null)
             {
                 return null;
             }
+            string stat = reply.statistics;
+            string[] stats = stat.Split(',');
+
+            return stats;
         }
 
 
@@ -174,11 +170,11 @@ namespace Trivia_GUI
             string json = JsonConvert.SerializeObject("{}");
             string data = string.Empty;
             List<Room> roooms = new List<Room>();
-            try
-            {
-                data = data + sendAndReceive(json, 'i');
-                dynamic reply = JsonConvert.DeserializeObject(data);
 
+            dynamic reply = getJson(json, 'i');
+
+            if (reply != null && reply.rooms != null)
+            {
                 string rooms = reply.rooms;
 
                 string[] meta = rooms.Split('$');
@@ -196,14 +192,10 @@ namespace Trivia_GUI
                         count = int.Parse(metadata[i][3]),
                         timeout = double.Parse(metadata[i][4]),
                         isActive = int.Parse(metadata[i][5])
-                    }) ;
+                    });
                 }
             }
-            catch (Exception)
-            {
 
-                // return null;
-            }
             return roooms;
         }
 
@@ -211,44 +203,48 @@ namespace Trivia_GUI
         {
             string json = JsonConvert.SerializeObject(room);
             string data = string.Empty;
-
-            try
-            {
-                data = data + sendAndReceive(json, 'm');
-                dynamic reply = JsonConvert.DeserializeObject(data);
-
-                if (reply == null || reply.status == null || reply.status != "1")
-                {
-                    return false;
-                }
-                return true;
-            }
-            catch (Exception)
-            {
-
-                return false;
-            }
-        }
-
-        public bool createRoom(string name, double timeout, int max, int count)
-        {
-            Room room = new Room
-            {
-                name = name,
-                timeout = timeout,
-                max = max,
-                count = count
-            };
-            string json = JsonConvert.SerializeObject(room);
-
-            dynamic reply = getJson(json, 'n');
+            dynamic reply = getJson(json, 'm');
 
             if (reply == null || reply.status == null || reply.status != "1")
             {
                 return false;
             }
             return true;
+        }
 
+        public int createRoom(Room room)
+        {
+            
+            string json = JsonConvert.SerializeObject(room);
+
+            dynamic reply = getJson(json, 'n');
+
+            if (reply == null || reply.status == null || reply.status != "1" || reply.id == null)
+            {
+                return 0;
+            }
+            return reply.id;
+
+        }
+
+        public List<User> getPlayersInRoom(Room room)
+        {
+            string json = JsonConvert.SerializeObject(room);
+            dynamic reply = getJson(json, 'j');
+
+            if (reply == null || reply.players == null)
+            {
+                return null;
+            }
+            List<User> users = new List<User>();
+            string players = reply.players;
+
+            string[] usernames = players.Split(',');
+            for (int i = 0; i < usernames.Length - 1; i++)
+            {
+                users.Add(new User { username = usernames[i] });
+            }
+            return users;
         }
 
         /// <summary>
