@@ -63,6 +63,7 @@ namespace Trivia_GUI
             Room room = (Room)lv.SelectedItems[0]; // Should return the details of the row (room) which got double clicked
             if (communicator_.joinRoom(room))
             {
+                t.Abort();
                 RoomWindow rw = new RoomWindow(communicator_, username_, false, room);
                 rw.Show();
                 this.Close();

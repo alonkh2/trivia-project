@@ -92,14 +92,14 @@ namespace Trivia_GUI
         {
             t_.Abort();
 
-            if (admin_) // If admin go back to CreateRoom
+            if (admin_) // If the current user is the admin go back to CreateRoom
             {
                 CreateRoomWindow createWin = new CreateRoomWindow(communicator_, username_);
                 createWin.Show();
                 this.Close();
             }
 
-            else // If player go back to JoinRoom
+            else // If the current user is a regular player go back to JoinRoom
             {
                 JoinRoomWindow joinRoom = new JoinRoomWindow(communicator_, username_);
                 joinRoom.Show();
