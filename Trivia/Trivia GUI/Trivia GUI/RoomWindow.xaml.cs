@@ -36,11 +36,9 @@ namespace Trivia_GUI
             admin_ = admin;
 
             roomName.Text = room_.name;
-            /*
-             * If admin then this
-             */
 
-            if (admin_)
+
+            if (admin_) // If the current user is the admin, add a start game button
             {
                 adminName.Text = username;
                 var adminButton = new Button();
@@ -71,21 +69,37 @@ namespace Trivia_GUI
         private void Start_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("nice");
-        }   
-        
+        }
+
+        /// <summary>
+        /// This function exits the program
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Leave_Click(object sender, RoutedEventArgs e)
+        {
+            t_.Abort();
+            communicator_.logout();
+            System.Windows.Application.Current.Shutdown();
+        }
+
+        /// <summary>
+        /// This function returns the user to his previous window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             t_.Abort();
 
-            if (admin_)
+            if (admin_) // If admin go back to CreateRoom
             {
                 CreateRoomWindow createWin = new CreateRoomWindow(communicator_, username_);
                 createWin.Show();
                 this.Close();
             }
 
-
-            else
+            else // If player go back to JoinRoom
             {
                 JoinRoomWindow joinRoom = new JoinRoomWindow(communicator_, username_);
                 joinRoom.Show();
@@ -93,6 +107,7 @@ namespace Trivia_GUI
             }
         }
 
+        
         private void updateList()
         {
             while (true)

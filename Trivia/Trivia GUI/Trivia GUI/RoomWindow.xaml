@@ -68,17 +68,6 @@
                    FontSize="25" Margin="422,220,425,345"
                    HorizontalAlignment="Center"/>
 
-        <Separator Margin="-1,263,1,311" RenderTransformOrigin="0.5,0.5">
-            <Separator.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform ScaleY="-1"/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Separator.RenderTransform>
-        </Separator>
-
         <ListView ItemsSource="{Binding UserList}" Foreground="White" x:Name="playerList" Margin="302,279,302,60" RenderTransformOrigin="0.503,0.497">
             <ListView.View>
                 <GridView>
