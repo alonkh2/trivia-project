@@ -25,6 +25,7 @@ namespace Trivia_GUI
         Communicator communicator_;
         Room room_;
         Thread t_;
+        bool admin_;
         public RoomWindow(Communicator communicator, string username, bool admin, Room room)
         {
             InitializeComponent();
@@ -32,13 +33,14 @@ namespace Trivia_GUI
             communicator_ = communicator;
             username_ = username;
             room_ = room;
+            admin_ = admin;
 
             roomName.Text = room_.name;
             /*
              * If admin then this
              */
 
-            if (admin)
+            if (admin_)
             {
                 adminName.Text = username;
                 var adminButton = new Button();
@@ -69,6 +71,26 @@ namespace Trivia_GUI
         private void Start_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("nice");
+        }   
+        
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            t_.Abort();
+
+            if (admin_)
+            {
+                CreateRoomWindow createWin = new CreateRoomWindow(communicator_, username_);
+                createWin.Show();
+                this.Close();
+            }
+
+
+            else
+            {
+                JoinRoomWindow joinRoom = new JoinRoomWindow(communicator_, username_);
+                joinRoom.Show();
+                this.Close();
+            }
         }
 
         private void updateList()

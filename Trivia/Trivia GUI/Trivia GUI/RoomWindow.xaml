@@ -25,6 +25,32 @@
 
         <Border Background="#272537" CornerRadius="90 90 90 90" Margin="20,60,20,60" x:Name="border"/>
 
+
+        <Button Content="{materialDesign:PackIcon Kind=ArrowBack, Size=32}"
+                    Background="Transparent"
+                    Foreground="White" 
+                    Height="35"
+                    BorderThickness="0"
+                    Style="{DynamicResource LowerButton}"
+                    Click="Back_Click"
+                    ForceCursor="True"
+                    Cursor="Hand" 
+                    Margin="10,10,879,555" 
+                    RenderTransformOrigin="1.558,0.484"/>
+
+        <Button Content="{materialDesign:PackIcon Kind=ExitToApp, Size=32}"
+                    Background="Transparent"
+                    Foreground="White" 
+                    Height="35"
+                    BorderThickness="0"
+                    Style="{DynamicResource LowerButton}"
+                    Click="Leave_Click"
+                    ForceCursor="True"
+                    Cursor="Hand" 
+                    Margin="874,10,10,555" 
+                    RenderTransformOrigin="1.558,0.484"/>
+
+
         <TextBlock x:Name="roomName"
                    Text="Room Name"
                    Foreground="White"
