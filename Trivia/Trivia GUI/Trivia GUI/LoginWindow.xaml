@@ -22,12 +22,14 @@
             </LinearGradientBrush>
         </Grid.Background>
 
+        <!--The grey color of the page-->
         <Border Height="540" 
-                    Width="920"
-                    VerticalAlignment="Top" 
-                    CornerRadius="0 0 90 90" 
-                    Background="#272537"/>
+                Width="920"
+                VerticalAlignment="Top" 
+                CornerRadius="0 0 90 90" 
+                Background="#272537"/>
 
+        <!--Back button in the top left-->
         <Button Content="{materialDesign:PackIcon Kind=ArrowBack, Size=32}"
                     Background="Transparent"
                     Foreground="White" 
@@ -50,13 +52,7 @@
             </StackPanel>
             <StackPanel Width="570" >
 
-                <!--Exit button-->
-
-                <!--Stack panel containing the input fields-->
-                <!--Exit button-->
-
-                <!--Stack panel containing the input fields-->
-                <!--Exit button-->
+                <!--Exit button in the top right-->
                 <Button Content="{materialDesign:PackIcon Kind=ExitToApp, Size=32}"
                     Background="Transparent"
                     Foreground="White" 

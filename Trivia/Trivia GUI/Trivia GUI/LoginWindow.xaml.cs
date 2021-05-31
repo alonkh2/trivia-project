@@ -20,6 +20,11 @@ namespace Trivia_GUI
     public partial class LoginWindow : Window
     {
         Communicator communicator;
+
+        /// <summary>
+        /// Constructor of the LoginWindow
+        /// </summary>
+        /// <param name="communicator_">The Communicator of the user</param>
         public LoginWindow(Communicator communicator_)
         {
             InitializeComponent();
@@ -37,6 +42,11 @@ namespace Trivia_GUI
             System.Windows.Application.Current.Shutdown();
         }
 
+        /// <summary>
+        /// This functin returns the user back to the WelcomeWindow
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             WelcomeWindow welcomeWin = new WelcomeWindow();
@@ -59,7 +69,7 @@ namespace Trivia_GUI
             {
                 int result = communicator.signin(txtUsername.Text, txtPassword.Password);
 
-                switch (result)
+                switch (result) // Checking the different error codes
                 {
                     case 0:
                         MessageBox.Show("Server error");
