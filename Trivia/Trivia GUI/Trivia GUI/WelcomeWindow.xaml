@@ -12,70 +12,78 @@
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen">
 
-    <Border Background="#272537" CornerRadius="20">
-        <Grid>
-            <Grid.Background>
-                <LinearGradientBrush StartPoint="0.1,0" EndPoint="0.9,1.1">
-                    <GradientStop Color="#b06ab3" Offset="1" />
-                    <GradientStop Color="#4568dc" Offset="0" />
-                </LinearGradientBrush>
-            </Grid.Background>
-            <Border Height="540" 
+    <!--The background of the window-->
+
+
+    <Grid>
+        <!--The gradient of the bottom of the screen-->
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0.1,0" EndPoint="0.9,1.1">
+                <GradientStop Color="#b06ab3" Offset="1" />
+                <GradientStop Color="#4568dc" Offset="0" />
+            </LinearGradientBrush>
+        </Grid.Background>
+        
+        <!--The background of the window-->
+        <Border Height="540" 
                     Width="920"
                     VerticalAlignment="Top" 
                     CornerRadius="0 0 90 90" 
                     Background="#272537">
-            </Border>
+        </Border>
 
-            <Image Source="/Images/c18.png" Margin="71,98,577,157"/>
+        <!--Image on the side-->
+        <Image Source="/Images/c18.png" Margin="71,98,577,157"/>
 
-            <TextBlock Text="Trivia" 
-                       FontSize="56" 
-                       Foreground="White" 
-                       Margin="559,98,98,429"
-                       TextAlignment="Center"/>
-
-            <Button Width="100"
-                    Height="40"
-                    Style="{StaticResource MaterialDesignRaisedButton}" 
-                    materialDesign:ButtonAssist.CornerRadius="10"
-                    BorderThickness="2" 
-                    BorderBrush="Transparent"
-                    Background="#4568dc"
-                    Foreground="White"
-                    ToolTip="Login"
-                    Content="Login"
-                    Margin="583,267,237,293"
-                     Click="LoginButton_Click"/>
-
-
-            <Button Width="100"
-                    Height="40"
-                    Style="{StaticResource MaterialDesignRaisedButton}" 
-                    materialDesign:ButtonAssist.CornerRadius="10"
-                    BorderThickness="2" 
-                    BorderBrush="Transparent"
-                    Background="#b06ab3"
-                    Foreground="White"
-                    ToolTip="Sign up" 
-                    Content="Sign up"
-                    Click="SignupButton_Click"
-                    Margin="705,267,115,293"/>
-
-
-            <TextBlock TextAlignment="Center" FontSize="18" Foreground="White" Margin="559,171,98,331"><Run Text="By Mike Segal and "/><LineBreak/><Run Text="Alon Kedar Haspel"/></TextBlock>
-            <Button Content="{materialDesign:PackIcon Kind=ExitToApp, Size=32}"
-                    Background="Transparent"
+        <TextBlock Text="Trivia" 
+                    FontSize="56" 
                     Foreground="White" 
-                    RenderTransformOrigin="0.577,0.439" 
-                    Margin="871,0,10,545"
-                    BorderThickness="0"
-                    Style="{DynamicResource LowerButton}"
-                    Click="ExitButton_Click"
-                    ForceCursor="True"
-                    Cursor="Hand"/>
+                    Margin="559,98,98,429"
+                    TextAlignment="Center"/>
+
+        <!--Login button-->
+        <Button Width="100"
+                Height="40"
+                Style="{StaticResource MaterialDesignRaisedButton}" 
+                materialDesign:ButtonAssist.CornerRadius="10"
+                BorderThickness="2" 
+                BorderBrush="Transparent"
+                Background="#4568dc"
+                Foreground="White"
+                ToolTip="Login"
+                Content="Login"
+                Margin="583,267,237,293"
+                Click="LoginButton_Click"/>
+
+        <!--Signup button-->
+        <Button Width="100"
+                Height="40"
+                Style="{StaticResource MaterialDesignRaisedButton}" 
+                materialDesign:ButtonAssist.CornerRadius="10"
+                BorderThickness="2" 
+                BorderBrush="Transparent"
+                Background="#b06ab3"
+                Foreground="White"
+                ToolTip="Sign up" 
+                Content="Sign up"
+                Click="SignupButton_Click"
+                Margin="705,267,115,293"/>
 
 
-        </Grid>
-    </Border>
+        <TextBlock TextAlignment="Center" FontSize="18" Foreground="White" Margin="559,171,98,331"><Run Text="By Mike Segal and "/><LineBreak/><Run Text="Alon Kedar Haspel"/></TextBlock>
+        
+        <!--Exit button-->
+        <Button Content="{materialDesign:PackIcon Kind=ExitToApp, Size=32}"
+                Background="Transparent"
+                Foreground="White" 
+                RenderTransformOrigin="0.577,0.439" 
+                Margin="871,0,10,545"
+                BorderThickness="0"
+                Style="{DynamicResource LowerButton}"
+                Click="ExitButton_Click"
+                ForceCursor="True"
+                Cursor="Hand"/>
+
+
+    </Grid>
 </Window>

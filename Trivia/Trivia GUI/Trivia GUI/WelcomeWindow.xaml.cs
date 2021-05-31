@@ -21,6 +21,9 @@ namespace Trivia_GUI
     {
         Communicator communicator;
 
+        /// <summary>
+        /// This function constructs the WelcomeWindow
+        /// </summary>
         public WelcomeWindow()
         {
             InitializeComponent();
