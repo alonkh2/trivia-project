@@ -27,28 +27,27 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <!--The background of the window-->
         <Border Background="#272537" CornerRadius="0 0 90 90" Margin="0,0,0,60" Grid.RowSpan="2"/>
 
+        <!--The return button at the top left-->
         <Button Content="{materialDesign:PackIcon Kind=ArrowBack, Size=32}"
-                    Background="Transparent"
-                    Foreground="White" 
-                    BorderThickness="0"
-                    Style="{DynamicResource LowerButton}"
-                    Click="Leave_Click"
-                    ForceCursor="True"
-                    Cursor="Hand" 
-                    Margin="10,10,860,255" 
-                    RenderTransformOrigin="1.558,0.484"/>
+                Background="Transparent"
+                Foreground="White" 
+                BorderThickness="0"
+                Style="{DynamicResource LowerButton}"
+                Click="Leave_Click"
+                ForceCursor="True"
+                Cursor="Hand" 
+                Margin="10,10,860,255" 
+                RenderTransformOrigin="1.558,0.484"/>
 
         <StackPanel Grid.Row="0"  
                     Margin="10,0,0,0"
                     Orientation="Horizontal">
-            
-            
-            
-            <Border
-                    
-                    Height="200"
+
+            <!--First place-->
+            <Border Height="200"
                     CornerRadius="10"
                     Margin="151,118,30,7" Width="290" RenderTransformOrigin="0.5,0.5">
                 
@@ -86,17 +85,17 @@
                                    FontSize="18"
                                    Margin="20,10,10,0"/>
                     </StackPanel>
-
                     <Image Source="/Images/gold.png" Width="75"  Margin="215,112,0,10"/>
-
                 </Grid>
                 
             </Border>
 
-            <Border
-                    Height="200"
+            
+            <!--Second Place-->
+            <Border Height="200"
                     CornerRadius="10"
                     Margin="0,118,450,7" Width="290" RenderTransformOrigin="0.5,0.5">
+
                 <Border.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -111,7 +110,7 @@
                         <GradientStop Color="#4c0121" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
-                
+
                 <Grid>
                     <StackPanel>
                         <TextBlock Text="Null"
@@ -136,13 +135,12 @@
 
                 </Grid>
             </Border>
-
-
         </StackPanel>
 
         <StackPanel Grid.Row="1"  
                     Margin="10,0,0,0" Orientation="Horizontal">
 
+            <!--Third place-->
             <Border Width="186"
                     Height="150"
                     CornerRadius="10"
@@ -175,7 +173,7 @@
                 </Grid>
             </Border>
 
-
+            <!--Fourth place-->
             <Border Width="186"
                     Height="150"
                     CornerRadius="10"
@@ -208,6 +206,7 @@
                 </Grid>
             </Border>
 
+            <!--Fifth place-->
             <Border Width="186"
                     Height="150"
                     CornerRadius="10"

@@ -22,6 +22,11 @@ namespace Trivia_GUI
         Communicator communicator;
         string currUser;
 
+        /// <summary>
+        /// This function initalizes the HighScoresWindow
+        /// </summary>
+        /// <param name="communicator_">The communicator</param>
+        /// <param name="username">The username of the current user</param>
         public HighScoresWindow(Communicator communicator_, string username)
         {
             InitializeComponent();
@@ -31,7 +36,9 @@ namespace Trivia_GUI
 
             string[] stats = communicator.getHighScores();
 
-            if(stats.Length > 1 && !string.IsNullOrEmpty(stats[0]) && !string.IsNullOrEmpty(stats[1]))
+            // Checking if there are enough players to fill the entire window, and if not, fill it up to a certain point
+
+            if (stats.Length > 1 && !string.IsNullOrEmpty(stats[0]) && !string.IsNullOrEmpty(stats[1]))
             {
                 firstUser.Text = stats[0];
                 firstPoints.Text = stats[1];
@@ -64,6 +71,11 @@ namespace Trivia_GUI
 
         }
 
+        /// <summary>
+        /// This fuction returns the user to the main window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Leave_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mainWin = new MainWindow(communicator, currUser);
