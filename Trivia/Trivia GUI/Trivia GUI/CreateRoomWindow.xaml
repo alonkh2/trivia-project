@@ -28,9 +28,11 @@
         </Grid.RowDefinitions>
         
         <!---Name, time per question, num of people, num of questions-->
-
+        
+        <!--The grey color all over the screen-->
         <Border Background="#272537" CornerRadius="0 0 90 90" Margin="0,0,0,60" Grid.RowSpan="2"/>
         
+        <!--The return button in the top left-->
         <Button Content="{materialDesign:PackIcon Kind=ArrowBack, Size=32}"
                     Background="Transparent"
                     Foreground="White" 
@@ -42,7 +44,7 @@
                     Margin="10,10,860,255" 
                     RenderTransformOrigin="1.558,0.484"/>
 
-
+        <!--The exit button in the top right-->
         <Button Content="{materialDesign:PackIcon Kind=ExitToApp, Size=32}"
                     Background="Transparent"
                     Foreground="White" 
@@ -55,13 +57,14 @@
                     Margin="864,10,10,255" 
                     RenderTransformOrigin="1.558,0.484"/>
 
-
+        <!--Stack panel containing the top two inputs-->
         <StackPanel Grid.Row="0"  
                     Margin="10,0,0,0"
                     Orientation="Horizontal">
 
-            <Border
-                    Height="150"
+            
+            <!--Room name input-->
+            <Border Height="150"
                     CornerRadius="10"
                     Margin="151,140,30,7" Width="290" RenderTransformOrigin="0.5,0.5">
                 <Border.RenderTransform>
@@ -98,7 +101,8 @@
                     </StackPanel>
                 </Grid>
             </Border>
-
+            
+            <!--Time input-->
             <Border
                     Height="150"
                     CornerRadius="10"
@@ -140,11 +144,12 @@
             </Border>
         </StackPanel>
 
-
+        <!--Stack Panel containing the second row of inputs-->
         <StackPanel Grid.Row="1"
                     Margin="10,0,0,132"
                     Orientation="Horizontal">
 
+            <!--Number of players input-->
             <Border
                     Height="150"
                     CornerRadius="10"
@@ -184,7 +189,8 @@
                     </StackPanel>
                 </Grid>
             </Border>
-
+            
+            <!--Number of questions input-->
             <Border
                     Height="150"
                     CornerRadius="10"
@@ -225,6 +231,7 @@
             </Border>
         </StackPanel>
 
+        <!--Create room button-->
         <StackPanel Grid.Row="1" Margin="0,168,0,60">
             <Button Width="100" 
                     Height="40" 

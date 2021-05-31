@@ -22,10 +22,11 @@
             </LinearGradientBrush>
         </Grid.Background>
 
-        <!---Name, time per question, num of people, num of questions-->
-
+        
+        <!--The grey color all over the screen-->
         <Border Background="#272537" CornerRadius="0 0 90 90" Margin="0,0,0,60"/>
 
+        <!--The return button in the top left-->
         <Button Content="{materialDesign:PackIcon Kind=ArrowBack, Size=32}"
                     Background="Transparent"
                     Foreground="White" 
@@ -38,6 +39,7 @@
                     Margin="10,10,879,555" 
                     RenderTransformOrigin="1.558,0.484"/>
 
+        <!--The exit button in the top right-->
         <Button Content="{materialDesign:PackIcon Kind=ExitToApp, Size=32}"
                     Background="Transparent"
                     Foreground="White" 
@@ -51,10 +53,11 @@
                     RenderTransformOrigin="1.558,0.484"/>
 
 
-
+        <!--The ListView containing the rooms-->
         <ListView ItemsSource="{Binding RoomList}" Foreground="White" x:Name="lv" Margin="41,0,41,95" MouseDoubleClick="JoinRoom">
             <ListView.View>
                 <GridView>
+                    <!--Room ID column-->
                     <GridViewColumn DisplayMemberBinding="{Binding roomID}" Width="138">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -68,6 +71,7 @@
                         
                     </GridViewColumn>
 
+                    <!--Name column-->
                     <GridViewColumn DisplayMemberBinding="{Binding name}" Width="135">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -79,7 +83,8 @@
                             <TextBlock Text="Name" Foreground="White"/>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-
+                    
+                    <!--Timeout column-->
                     <GridViewColumn DisplayMemberBinding="{Binding timeout}" Width="135">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -92,6 +97,8 @@
                         </GridViewColumn.Header>
                     </GridViewColumn>
 
+
+                    <!--Max players column-->
                     <GridViewColumn DisplayMemberBinding="{Binding max}" Width="135">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -104,7 +111,7 @@
                         </GridViewColumn.Header>
                     </GridViewColumn>
 
-
+                    <!--Count column-->
                     <GridViewColumn DisplayMemberBinding="{Binding count}" Width="135">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -117,7 +124,7 @@
                         </GridViewColumn.Header>
                     </GridViewColumn>
 
-
+                    <!--Active column-->
                     <GridViewColumn DisplayMemberBinding="{Binding isActive}" Width="135">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>

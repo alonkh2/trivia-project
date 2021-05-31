@@ -22,6 +22,12 @@ namespace Trivia_GUI
 
         Communicator communicator_;
         string username_;
+
+        /// <summary>
+        /// Create room constructor
+        /// </summary>
+        /// <param name="communicator">The communicator</param>
+        /// <param name="username">The username of the current user</param>
         public CreateRoomWindow(Communicator communicator, string username)
         {
             InitializeComponent();
@@ -29,6 +35,11 @@ namespace Trivia_GUI
             username_ = username;
         }
 
+        /// <summary>
+        /// This fuction tries to create the room, and if successful moves the user to RoomView as an admin
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Sub_Click(object sender, RoutedEventArgs e) // This function needs to check that all the field are valid and then creates a room
         {
             string name = nameOfRoom.Text;
@@ -40,11 +51,13 @@ namespace Trivia_GUI
             double timeout;
             int max, count;
 
+            // Checking that the paramaters are valid
             if (!double.TryParse(time, out timeout) || !int.TryParse(users, out max) || !int.TryParse(questions, out count) || string.IsNullOrEmpty(name))
             {
                 MessageBox.Show("Invalid parameters! Please try again");
                 return;
             }
+
             Room room = new Room
             {
                 name = name,
@@ -54,19 +67,26 @@ namespace Trivia_GUI
             };
 
             int id = communicator_.createRoom(room);
-            if (id != 0)
+
+            if (id != 0) // If the creation is successful
             {
                 room.roomID = id.ToString();
                 RoomWindow rw = new RoomWindow(communicator_, username_, true, room);
                 rw.Show();
                 this.Close();
             }
-            else
+
+            else // If the creation isn't successful
             {
                 MessageBox.Show("Not success");
             }
         }
 
+        /// <summary>
+        /// This fuction returns the user to the MainWindow
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mainWin = new MainWindow(communicator_, username_); ;
@@ -74,6 +94,11 @@ namespace Trivia_GUI
             this.Close();
         }
 
+        /// <summary>
+        /// This function leaves the program
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Leave_Click(object sender, RoutedEventArgs e)
         {
             communicator_.logout();

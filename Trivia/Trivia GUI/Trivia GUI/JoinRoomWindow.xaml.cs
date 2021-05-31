@@ -26,21 +26,25 @@ namespace Trivia_GUI
         string username_;
 
         Thread t;
+
+        /// <summary>
+        /// JoinRoom constructor
+        /// </summary>
+        /// <param name="communicator"></param>
+        /// <param name="username"></param>
         public JoinRoomWindow(Communicator communicator, string username)
         {
             InitializeComponent();
             communicator_ = communicator;
             username_ = username;
 
-            /*RoomList = communicator_.getRooms();
-
-            DataContext = this;*/
-
             t = new Thread(updateRooms);
             t.Start();
         }
 
-
+        /// <summary>
+        /// This function updates the room list
+        /// </summary>
         public void updateRooms()
         {
             while (true)
@@ -58,9 +62,14 @@ namespace Trivia_GUI
             
         }
 
+        /// <summary>
+        /// This function joins a room, and send the user to RoomView
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void JoinRoom(object sender, MouseButtonEventArgs e)
         {
-            Room room = (Room)lv.SelectedItems[0]; // Should return the details of the row (room) which got double clicked
+            Room room = (Room)lv.SelectedItems[0];
             if (communicator_.joinRoom(room))
             {
                 t.Abort();
@@ -75,6 +84,11 @@ namespace Trivia_GUI
 
         }
 
+        /// <summary>
+        /// This function returns the user back to the main window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mainWin = new MainWindow(communicator_, username_);
@@ -83,6 +97,11 @@ namespace Trivia_GUI
             this.Close();
         }
 
+        /// <summary>
+        /// This function leaves the program
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Leave_Click(object sender, RoutedEventArgs e)
         {
             t.Abort();
