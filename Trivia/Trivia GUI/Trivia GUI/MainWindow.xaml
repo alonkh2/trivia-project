@@ -20,7 +20,9 @@
             </LinearGradientBrush>
         </Grid.Background>
 
+        <!--The background of the window-->
         <Border Background="#272537" CornerRadius="0 0 90 90" Margin="0,0,0,60">
+
             <Grid Margin="0,0,0,10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="200"/>
@@ -42,6 +44,8 @@
 
                 <!--Stack Panel containnig the menu buttons-->
                 <StackPanel Grid.Row="1" Margin="0,0,0,60">
+
+                    <!--Home button in the left of the screen-->
                     <RadioButton Content="Home"
                                 Height="50"
                                 Foreground="White"
@@ -52,6 +56,7 @@
                                 ForceCursor="True"
                                 Cursor="Hand"/>
 
+                    <!--Log out button in the left of the screen-->
                     <RadioButton Content="Log Out"
                                 Height="50"
                                 Foreground="White"
@@ -61,6 +66,7 @@
                                 ForceCursor="True"
                                 Cursor="Hand"/>
 
+                    <!--Exit button in the left of the screen-->
                     <RadioButton Content="Exit"
                                 Height="50"
                                 Foreground="White"
@@ -128,9 +134,9 @@
 
                         <!--Join room button-->
                         <Border Width="200"
-                    Height="200"
-                    CornerRadius="10"
-                    Margin="45,0,0,0">
+                                Height="200"
+                                CornerRadius="10"
+                                Margin="45,0,0,0">
                             <Border.Background>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
                                     <GradientStop Color="#ffc554" Offset="0.0"/>
@@ -150,9 +156,7 @@
                                    Margin="20,10,10,0"/>
                                 </StackPanel>
 
-	                            <Button Background="Transparent"
-	                                    Width="150"
-	                                    Height="150" 
+                                <Button Background="Transparent" 
 	                                    BorderThickness="0" 
 	                                    BorderBrush="Transparent"
 	                                    ForceCursor="true" 
@@ -161,9 +165,9 @@
 	                                    Style="{DynamicResource LowerButton}"/>
                             </Grid>
                         </Border>
-
                     </StackPanel>
 
+                    <!--Bottom StackPanel-->
                     <StackPanel>
                         <StackPanel.Resources>
                             <Style TargetType="{x:Type Border}">
@@ -177,10 +181,11 @@
 
                             <!--Statistics button-->
                             <Border Width="150"
-                                Height="150"
-                                Background="#844eff"
-                                CornerRadius="10"
-                                Margin="0">
+                                    Height="150"
+                                    Background="#844eff"
+                                    CornerRadius="10"
+                                    Margin="0">
+                                
                                 <Grid>
                                     <StackPanel>
                                         <TextBlock Text="Statistics"
@@ -203,8 +208,6 @@
                                         Cursor="Hand"
                                         Click="Stats_Click"
                                         Style="{DynamicResource LowerButton}"/>
-
-
                                 </Grid>
                             </Border>
 

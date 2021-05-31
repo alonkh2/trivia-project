@@ -20,7 +20,12 @@ namespace Trivia_GUI
     {
         Communicator communicator;
         string currUser;
-        ///Initializes the MainWindow
+        
+        /// <summary>
+        /// This fuction constructs the MainWindow
+        /// </summary>
+        /// <param name="communicator_">The communicator</param>
+        /// <param name="username">The username of the current user</param>
         public MainWindow(Communicator communicator_, string username)
         {
             InitializeComponent();
@@ -40,6 +45,11 @@ namespace Trivia_GUI
             System.Windows.Application.Current.Shutdown();
         }
 
+        /// <summary>
+        /// This function logs the user out of the program
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void LogOut_Click(object sender, RoutedEventArgs e)
         {
             int result = communicator.logout();
@@ -62,6 +72,11 @@ namespace Trivia_GUI
             }
         }
 
+        /// <summary>
+        /// This function sends the user to the HighScoresWindow
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void High_Click(object sender, RoutedEventArgs e)
         {
             
@@ -70,8 +85,11 @@ namespace Trivia_GUI
             this.Close();
         }
 
-
-
+        /// <summary>
+        /// This function send the user to the CreateRoomWindow
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Create_Click(object sender, RoutedEventArgs e)
         {
             CreateRoomWindow createWin = new CreateRoomWindow(communicator, currUser);
@@ -79,7 +97,11 @@ namespace Trivia_GUI
             this.Close();
         }
 
-        
+        /// <summary>
+        /// This function send the user to the StatsWindow
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Stats_Click(object sender, RoutedEventArgs e)
         {
 
@@ -88,6 +110,11 @@ namespace Trivia_GUI
             this.Close();
         }
 
+        /// <summary>
+        /// This function send the user to the JoinRoomWindow
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Join_Click(object sender, RoutedEventArgs e)
         {
 

@@ -74,14 +74,17 @@ namespace Trivia_GUI
                     case 0:
                         MessageBox.Show("Server error");
                         break;
+
                     case 1:
                         MessageBox.Show("Login error");
                         break;
+
                     case 2:
                         MainWindow main = new MainWindow(communicator, txtUsername.Text);
                         main.Show();
                         this.Close();
                         break;
+
                     default:
                         break;
                 }
