@@ -29,6 +29,7 @@ namespace Trivia_GUI
             InitializeComponent();
 
             communicator = new Communicator();
+
         }
 
         /// <summary>
@@ -48,6 +49,9 @@ namespace Trivia_GUI
         /// <param name="e"></param>
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
+            App.Current.Properties["verticalDis"] = this.Top;
+            App.Current.Properties["horizontalDis"] = this.Left;
+
             LoginWindow loginWin = new LoginWindow(communicator);
             loginWin.Show();
             this.Close();
@@ -60,6 +64,9 @@ namespace Trivia_GUI
         /// <param name="e"></param>
         private void SignupButton_Click(object sender, RoutedEventArgs e)
         {
+            App.Current.Properties["verticalDis"] = this.Top;
+            App.Current.Properties["horizontalDis"] = this.Left;
+
             SignupWindow signupWin = new SignupWindow(communicator);
             signupWin.Show();
             this.Close();
@@ -76,6 +83,9 @@ namespace Trivia_GUI
             {
                 this.DragMove();
             }
+
+            App.Current.Properties["verticalDis"] = this.Top;
+            App.Current.Properties["horizontalDis"] = this.Left;
         }
     }
 }

@@ -38,6 +38,9 @@ namespace Trivia_GUI
             communicator_ = communicator;
             username_ = username;
 
+            this.Top = (double)App.Current.Properties["verticalDis"];
+            this.Left = (double)App.Current.Properties["horizontalDis"];
+
             t = new Thread(updateRooms);
             t.Start();
         }
@@ -120,6 +123,9 @@ namespace Trivia_GUI
             {
                 this.DragMove();
             }
+
+            App.Current.Properties["verticalDis"] = this.Top;
+            App.Current.Properties["horizontalDis"] = this.Left;
         }
     }
 }
