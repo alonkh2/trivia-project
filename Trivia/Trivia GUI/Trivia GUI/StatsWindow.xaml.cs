@@ -22,6 +22,12 @@ namespace Trivia_GUI
 
         Communicator communicator;
         string currUser;
+
+        /// <summary>
+        /// This function constructs the StatsWindow
+        /// </summary>
+        /// <param name="communicator_">The communicator</param>
+        /// <param name="username">The username of the current user</param>
         public StatsWindow(Communicator communicator_, string username)
         {
             InitializeComponent();
@@ -29,10 +35,10 @@ namespace Trivia_GUI
             communicator = communicator_;
             currUser = username;
 
-            string[] stats = communicator.getPersonalStats(currUser); // This does not work alon (stats.length = 1)
+            string[] stats = communicator.getPersonalStats(currUser);
 
 
-            if (stats.Length < 5)
+            if (stats.Length < 5) // If there is no data on the user
             {
                 totalGames.Text = "No data";
                 correctAnswers.Text = "No data";
@@ -51,7 +57,11 @@ namespace Trivia_GUI
             }
         }
 
-
+        /// <summary>
+        /// This function returns the user to the MainWindow
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mainWin = new MainWindow(communicator, currUser);
@@ -59,6 +69,11 @@ namespace Trivia_GUI
             this.Close();
         }
 
+        /// <summary>
+        /// This function exits the program
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Leave_Click(object sender, RoutedEventArgs e)
         {
             communicator.logout();

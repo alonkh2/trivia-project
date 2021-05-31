@@ -28,40 +28,41 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <!--The background of the window-->
         <Border Background="#272537" CornerRadius="0 0 90 90" Margin="0,0,0,60" Grid.RowSpan="2"/>
 
+        <!--The exit button at the top right-->
         <Button Content="{materialDesign:PackIcon Kind=ExitToApp, Size=32}"
-                    Background="Transparent"
-                    Foreground="White" 
-                    Height="35"
-                    BorderThickness="0"
-                    Style="{DynamicResource LowerButton}"
-                    Click="Leave_Click"
-                    ForceCursor="True"
-                    Cursor="Hand" 
-                    Margin="860,10,10,280" 
-                    RenderTransformOrigin="1.558,0.484"/>
+                Background="Transparent"
+                Foreground="White" 
+                Height="35"
+                BorderThickness="0"
+                Style="{DynamicResource LowerButton}"
+                Click="Leave_Click"
+                ForceCursor="True"
+                Cursor="Hand" 
+                Margin="860,10,10,280" 
+                RenderTransformOrigin="1.558,0.484"/>
 
+        <!--The return button at the top left-->
         <Button Content="{materialDesign:PackIcon Kind=ArrowBack, Size=32}"
-                    Background="Transparent"
-                    Foreground="White" 
-                    Height="35"
-                    BorderThickness="0"
-                    Style="{DynamicResource LowerButton}"
-                    Click="Back_Click"
-                    ForceCursor="True"
-                    Cursor="Hand" 
-                    Margin="10,10,860,280" 
-                    RenderTransformOrigin="1.558,0.484"/>
+                Background="Transparent"
+                Foreground="White" 
+                Height="35"
+                BorderThickness="0"
+                Style="{DynamicResource LowerButton}"
+                Click="Back_Click"
+                ForceCursor="True"
+                Cursor="Hand" 
+                Margin="10,10,860,280" 
+                RenderTransformOrigin="1.558,0.484"/>
 
         <StackPanel Grid.Row="0"  
                     Margin="10,0,0,0"
                     Orientation="Horizontal">
 
-
-
-            <Border  
-                    Height="200"
+            <!--Total games display-->
+            <Border Height="200"
                     CornerRadius="10"
                     Margin="151,118,30,7" Width="290" RenderTransformOrigin="0.5,0.5">
 
@@ -97,11 +98,11 @@
 
             </Border>
 
-            <Border
-                    Height="200"
+            <!--Correct answers display-->
+            <Border Height="200"
                     CornerRadius="10"
                     Margin="0,118,450,7" Width="290" RenderTransformOrigin="0.5,0.5">
-                
+
                 <Border.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -130,16 +131,14 @@
                                    FontSize="28"
                                    Margin="20,10,10,0"/>
                     </StackPanel>
-
                 </Grid>
             </Border>
-
-
         </StackPanel>
 
         <StackPanel Grid.Row="1"  
                     Margin="10,0,0,0" Orientation="Horizontal">
 
+            <!--Total answers display-->
             <Border Width="186"
                     Height="150"
                     CornerRadius="10"
@@ -167,7 +166,7 @@
                 </Grid>
             </Border>
 
-
+            <!--Average time display-->
             <Border Width="186"
                     Height="150"
                     CornerRadius="10"
@@ -194,6 +193,7 @@
                 </Grid>
             </Border>
 
+            <!--Total points display-->
             <Border Width="186"
                     Height="150"
                     CornerRadius="10"
