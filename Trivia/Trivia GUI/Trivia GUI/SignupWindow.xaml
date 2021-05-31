@@ -76,7 +76,7 @@
                                TextAlignment="Center"
                                FontSize="38"/>
 
-                    <!--StackPanel containing the Username TextBox-->
+                    <!--StackPanel containing the Email TextBox-->
                     <StackPanel Orientation="Horizontal"
                                 Margin="10">
 
@@ -84,6 +84,7 @@
                                                  Width="25" 
                                                  Height="25" 
                                                  Foreground="White"/>
+                        <!--Email input box-->
                         <TextBox x:Name="txtEmail" 
                                  Margin="10 0" 
                                  materialDesign:HintAssist.Hint="Enter Email" 
@@ -95,6 +96,7 @@
                                  materialDesign:TextFieldAssist.UnderlineBrush="#4568dc"/>
                     </StackPanel>
 
+                    <!--StackPanel containing the username TextBox-->
                     <StackPanel Orientation="Horizontal"
                                 Margin="10">
 
@@ -102,6 +104,8 @@
                                                  Width="25" 
                                                  Height="25" 
                                                  Foreground="White"/>
+                        
+                        <!--username input TextBox-->
                         <TextBox x:Name="txtUsername" 
                                  Margin="10 0" 
                                  materialDesign:HintAssist.Hint="Enter Username" 
@@ -113,16 +117,16 @@
                                  materialDesign:TextFieldAssist.UnderlineBrush="#4568dc"/>
                     </StackPanel>
 
-                    <!--Stack panel containing the PasswordBox-->
+                    <!--Stack panel containing the Password TextBox-->
                     <StackPanel 
                         Orientation="Horizontal"
                         Margin="10">
-                        <materialDesign:PackIcon 
-                            Kind="Lock" 
-                            Width="25" 
-                            Height="25" 
-                            Foreground="White"/>
-
+                        <materialDesign:PackIcon Kind="Lock" 
+                                                 Width="25" 
+                                                 Height="25" 
+                                                 Foreground="White"/>
+                        
+                        <!--password input TextBox-->
                         <PasswordBox x:Name="txtPassword"
                                      Margin="10 0" 
                                      materialDesign:HintAssist.Hint="********" 
@@ -133,7 +137,7 @@
                                      materialDesign:TextFieldAssist.UnderlineBrush="#4568dc"/>
                     </StackPanel>
 
-                    <!--The login button-->
+                    <!--The Signup button-->
                     <StackPanel Margin="10" HorizontalAlignment="Center">
                         <Button Width="100" 
                                 Height="40" 
