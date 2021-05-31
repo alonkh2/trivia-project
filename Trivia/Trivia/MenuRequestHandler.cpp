@@ -69,6 +69,7 @@ RequestResult MenuRequestHandler::signout(const RequestInfo& info) const
 		lr.status.push_back('1');
 		rr.buffer = JsonResponsePacketSerializer::serializeResponse(lr);
 		rr.newHandler = m_handlerFactory.createLoginRequestHandler();
+		std::cout << "logged out" << std::endl;
 	}
 	catch (CommunicationException& e)
 	{
@@ -231,8 +232,9 @@ RequestResult MenuRequestHandler::joinRoom(const RequestInfo& info) const
 	try
 	{
 		const auto data = JsonResponsePacketDeserializer::deserializeJoinRoomRequest(info.buffer);
-		m_roomManager.getAllRooms().at(data.roomId).addUser(m_user);
-
+		// m_roomManager.getAllRooms().at(data.roomId).addUser(m_user);
+		m_roomManager.addPlayerToRoom(m_user, data.roomId);
+		
 		jr.status.push_back('1');
 		rr.buffer = JsonResponsePacketSerializer::serializeResponse(jr);
 		rr.newHandler = nullptr; // Room handler.
@@ -265,8 +267,8 @@ RequestResult MenuRequestHandler::createRoom(const RequestInfo& info) const
 	try
 	{
 		const auto data = JsonResponsePacketDeserializer::deserializeCreateRoomRequest(info.buffer);
-		const RoomData rd(info.id, data.roomName, data.maxUsers, data.questionCount, data.answerTimeout, 1);
-		m_roomManager.createRoom(m_user, rd);
+		const RoomData rd(m_roomManager.getLastId(), data.roomName, data.maxUsers, data.questionCount, data.answerTimeout, 1);
+		cr.id = m_roomManager.createRoom(m_user, rd);
 
 		cr.status.push_back('1');
 		rr.buffer = JsonResponsePacketSerializer::serializeResponse(cr);

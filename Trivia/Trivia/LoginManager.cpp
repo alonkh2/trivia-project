@@ -32,9 +32,6 @@ void LoginManager::signup(const std::string& username, const std::string& passwo
  */
 void LoginManager::login(const std::string& username, const std::string& password)
 {
-	/*
-	 * Temporary, will replace with exceptions of my own.
-	 */
 	if (!m_database.doesUserExist(username))
 	{
 		throw CommunicationException("User doesn't exist! Please signup instead", DSNT_EXST);
@@ -65,7 +62,7 @@ void LoginManager::logout(const std::string& username)
 	m_logged_users.erase(getUserIterator(username));
 }
 
-std::vector<LoggedUser> LoginManager::getLoggedUsers()
+std::vector<LoggedUser> LoginManager::getLoggedUsers() const
 {
 	return m_logged_users;
 }

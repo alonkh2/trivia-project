@@ -41,7 +41,7 @@ std::vector<std::string> Room::getAllUsers()
 	std::vector<std::string> names;
 	for (const auto& user : m_users)
 	{
-		names.push_back(user.getUsername());
+		names.push_back(user.getUsername() + ",");
 	}
 	return names;
 }

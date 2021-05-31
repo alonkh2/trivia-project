@@ -64,7 +64,7 @@ std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const GetRooms
 	std::vector<std::string> data;
 	for (const auto& room : response.rooms)
 	{
-		data.push_back(room.toString());
+		data.push_back(room.toString() + "$");
 	}
 	const nlohmann::json msg = {
 		{"status", std::string(response.status.begin(), response.status.end())},
@@ -122,7 +122,7 @@ std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const JoinRoom
 std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const CreateRoomResponse& response)
 {
 	const Byte code = CR_CD;
-	const nlohmann::json msg = {{"status", std::string(response.status.begin(), response.status.end())}};
+	const nlohmann::json msg = {{"status", std::string(response.status.begin(), response.status.end())}, {"id", std::to_string(response.id)}};
 	return serialize(msg, code);
 }
 

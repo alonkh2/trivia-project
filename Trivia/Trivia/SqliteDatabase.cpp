@@ -91,10 +91,10 @@ int SqliteDatabase::stringVectorCallback(void* used, int argc, char** argv, char
 	{
 		for (auto i = 0; i < argc; ++i)
 		{
-			if (!strcmp(az_col_name[i], "score"))
+			if (!strcmp(az_col_name[i], "score") || !strcmp(az_col_name[i], "username"))
 			{
-				val->push_back(std::string(argv[i]));
-			}
+				val->push_back(std::string(argv[i]) + ",");
+			}	
 		}
 	}
 	return 0;
@@ -119,7 +119,7 @@ Statistic SqliteDatabase::getStats(const std::string& username)
  */
 std::vector<std::string> SqliteDatabase::getHighScore()
 {
-	const std::string query = "SELECT score FROM statistics ORDER BY score LIMIT 5";
+	const std::string query = "SELECT username, score FROM statistics ORDER BY score DESC LIMIT 5";
 	std::vector<std::string> scores;
 	execCommand(query, stringVectorCallback, &scores);
 	return scores;
@@ -152,7 +152,7 @@ SqliteDatabase::SqliteDatabase(): _db(nullptr)
 		"CREATE TABLE IF NOT EXISTS QUESTIONS (question TEXT PRIMARY KEY, ans1 TEXT, ans2 TEXT, ans3 TEXT, ans4 TEXT, correct INTEGER, room_id INTEGER);";
 	execCommand<int>(createTableQuery, nullptr, nullptr);
 	createTableQuery =
-		"CREATE TABLE IF NOT EXISTS STATISTICS (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, username TEXT NOT NULL, average REAL, correct INTEGER, total INTEGER, games INTEGER, score INTEGER, FOREIGN KEY(username) REFERENCES USERS(username));";
+		"CREATE TABLE IF NOT EXISTS STATISTICS (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, username TEXT NOT NULL, average REAL DEFAULT 0, correct INTEGER DEFAULT 0, total INTEGER DEFAULT 0, games INTEGER DEFAULT 0, score INTEGER DEFAULT 0, FOREIGN KEY(username) REFERENCES USERS(username));";
 	execCommand<int>(createTableQuery, nullptr, nullptr);
 }
 
@@ -171,7 +171,7 @@ SqliteDatabase::~SqliteDatabase()
  */
 bool SqliteDatabase::doesUserExist(const std::string& username)
 {
-	auto sqlQuery = "SELECT username FROM USERS WHERE username = '" + username + "';";
+	const auto sqlQuery = "SELECT username FROM USERS WHERE username = '" + username + "';";
 	std::string dbResp;
 
 	execCommand(sqlQuery, stringCallback, &dbResp);
@@ -188,13 +188,8 @@ bool SqliteDatabase::doesUserExist(const std::string& username)
 bool SqliteDatabase::doesPasswordMatch(const std::string& username, const std::string& password)
 {
 	std::string dbResp;
-	auto passwordQuery = "SELECT password FROM USERS WHERE username = '" + username + "';";
-
-	if (!doesUserExist(username))
-	{
-		auto errMsg = "User: " + username + " does not exist!";
-		throw CommunicationException(std::string("User: " + username + " does not exist!"), DSNT_EXST);
-	}
+	const auto passwordQuery = "SELECT password FROM USERS WHERE username = '" + username + "';";
+	
 	execCommand(passwordQuery, stringCallback, &dbResp);
 
 	return dbResp == password;
@@ -211,10 +206,9 @@ void SqliteDatabase::addNewUser(const std::string& username, const std::string& 
 	auto addUserQuery = "INSERT INTO USERS (username, password, email) VALUES ('" + username + "', '" + password +
 		"', '" + email + "');";
 
-	if (doesUserExist(username))
-	{
-		throw CommunicationException(std::string("User: " + username + " already exists!"), EXSTS);
-	}
+	execCommand<int>(addUserQuery, nullptr, nullptr);
+
+	addUserQuery = "INSERT INTO STATISTICS (username) VALUES ('" + username + "');";
 
 	execCommand<int>(addUserQuery, nullptr, nullptr);
 }
@@ -264,7 +258,7 @@ float SqliteDatabase::getPlayerAverageAnswerTime(const std::string& username)
  */
 std::list<Question> SqliteDatabase::getQuestions(int roomID)
 {
-	const auto query = "SELECT * FROM questions WHERE room_id = " + std::to_string(roomID) + ";";
+	const auto query = "SELECT * FROM QUESTIONS WHERE room_id = " + std::to_string(roomID) + ";";
 	auto questions = std::list<Question>();
 	execCommand(query, questionCallback, &questions);
 	return questions;

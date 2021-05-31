@@ -106,9 +106,9 @@ CreateRoomRequest JsonResponsePacketDeserializer::deserializeCreateRoomRequest(c
 	try
 	{
 		crReq.roomName = strip(msg.at("name").dump());
-		crReq.answerTimeout = strtol(strip(msg.at("timeout").dump()).c_str(), nullptr, 10);
-		crReq.maxUsers = strtol(strip(msg.at("max").dump()).c_str(), nullptr, 10);
-		crReq.questionCount = strtol(strip(msg.at("count").dump()).c_str(), nullptr, 10);
+		crReq.answerTimeout = strtof(msg.at("timeout").dump().c_str(), nullptr);
+		crReq.maxUsers = strtol(msg.at("max").dump().c_str(), nullptr, 10);
+		crReq.questionCount = strtol(msg.at("count").dump().c_str(), nullptr, 10);
 	}
 	catch (...)
 	{
