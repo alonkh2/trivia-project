@@ -23,67 +23,76 @@
             </LinearGradientBrush>
         </Grid.Background>
 
+        <!--The background of rhe window-->
         <Border Background="#272537" CornerRadius="90 90 90 90" Margin="20,60,20,60" x:Name="border"/>
 
-
+        <!--The leave button at the top left-->
         <Button Content="{materialDesign:PackIcon Kind=ArrowBack, Size=32}"
-                    Background="Transparent"
-                    Foreground="White" 
-                    Height="35"
-                    BorderThickness="0"
-                    Style="{DynamicResource LowerButton}"
-                    Click="Back_Click"
-                    ForceCursor="True"
-                    Cursor="Hand" 
-                    Margin="10,10,879,555" 
-                    RenderTransformOrigin="1.558,0.484"/>
+                Background="Transparent"
+                Foreground="White" 
+                Height="35"
+                BorderThickness="0"
+                Style="{DynamicResource LowerButton}"
+                Click="Back_Click"
+                ForceCursor="True"
+                Cursor="Hand" 
+                Margin="10,10,879,555" 
+                RenderTransformOrigin="1.558,0.484"/>
 
+        <!--The exit button at the top right-->
         <Button Content="{materialDesign:PackIcon Kind=ExitToApp, Size=32}"
-                    Background="Transparent"
-                    Foreground="White" 
-                    Height="35"
-                    BorderThickness="0"
-                    Style="{DynamicResource LowerButton}"
-                    Click="Leave_Click"
-                    ForceCursor="True"
-                    Cursor="Hand" 
-                    Margin="874,10,10,555" 
-                    RenderTransformOrigin="1.558,0.484"/>
+                Background="Transparent"
+                Foreground="White" 
+                Height="35"
+                BorderThickness="0"
+                Style="{DynamicResource LowerButton}"
+                Click="Leave_Click"
+                ForceCursor="True"
+                Cursor="Hand" 
+                Margin="874,10,10,555" 
+                RenderTransformOrigin="1.558,0.484"/>
 
-
+        <!--The TextBlock containing the room window-->
         <TextBlock x:Name="roomName"
                    Text="Room Name"
                    Foreground="White"
                    FontSize="32" Margin="20,70,20,481"
                    TextAlignment="Center"/>
 
+        <!--Crown icon next to the admin-->
         <materialDesign:PackIcon Kind="Crown" 
-                                                 Width="35" 
-                                                 Height="35" 
-                                                 Foreground="White" Margin="368,220,0,0" RenderTransformOrigin="0.854,0.613"/>
+                                 Width="35" 
+                                 Height="35" 
+                                 Foreground="White" Margin="368,220,0,0" RenderTransformOrigin="0.854,0.613"/>
 
+        <!--TextBlock containing the name of the room admin-->
         <TextBlock x:Name="adminName"
                    Text="Admin"
                    Foreground="White"
                    FontSize="25" Margin="422,220,425,345"
                    HorizontalAlignment="Center"/>
 
+        <!--The list containing the list of users-->
         <ListView ItemsSource="{Binding UserList}" Foreground="White" x:Name="playerList" Margin="302,279,302,60" RenderTransformOrigin="0.503,0.497">
             <ListView.View>
                 <GridView>
+                    
+                    <!--Removing the header-->
                     <GridView.ColumnHeaderContainerStyle>
                         <Style TargetType="GridViewColumnHeader">
                             <Setter Property="Visibility" Value="Collapsed" />
                         </Style>
                     </GridView.ColumnHeaderContainerStyle>
+                    
+                    <!--username column-->
                     <GridViewColumn DisplayMemberBinding="{Binding username}" Width="138">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Path=username}" Foreground="White" TextAlignment="Center"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
-
                     </GridViewColumn>
+                    
                 </GridView>
             </ListView.View>
         </ListView>

@@ -26,6 +26,14 @@ namespace Trivia_GUI
         Room room_;
         Thread t_;
         bool admin_;
+
+        /// <summary>
+        /// This function constructs a RoomWindow
+        /// </summary>
+        /// <param name="communicator">The communicator</param>
+        /// <param name="username">The username of the current user</param>
+        /// <param name="admin">Wether the current user is the admin of the room</param>
+        /// <param name="room">The current room</param>
         public RoomWindow(Communicator communicator, string username, bool admin, Room room)
         {
             InitializeComponent();
@@ -108,6 +116,9 @@ namespace Trivia_GUI
         }
 
         
+        /// <summary>
+        /// This function updates the user list every three seconds
+        /// </summary>
         private void updateList()
         {
             while (true)
