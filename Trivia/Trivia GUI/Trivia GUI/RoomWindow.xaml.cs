@@ -136,5 +136,18 @@ namespace Trivia_GUI
                 Thread.Sleep(3000);
             }
         }
+
+        /// <summary>
+        /// This function allows the window to be dragged across the screen
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                this.DragMove();
+            }
+        }
     }
 }
