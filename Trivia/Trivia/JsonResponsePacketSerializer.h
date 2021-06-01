@@ -80,6 +80,11 @@ typedef struct GetRoomStateResponse
 	float answerTimeout;
 } GetRoomStateResponse;
 
+typedef struct LeaveRoomResponse
+{
+	std::vector<Byte> status;
+};
+
 class JsonResponsePacketSerializer
 {
 public:
@@ -96,6 +101,7 @@ public:
 	static std::vector<Byte> serializeResponse(const CloseRoomResponse& response);
 	static std::vector<Byte> serializeResponse(const StartGameResponse& response);
 	static std::vector<Byte> serializeResponse(const GetRoomStateResponse& response);
+	static std::vector<Byte> serializeResponse(const LeaveRoomResponse& response);
 
 private:
 	static std::vector<Byte> serialize(const nlohmann::json& msg, Byte code);

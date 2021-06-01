@@ -75,6 +75,16 @@ std::map<unsigned, Room> RoomManager::getAllRooms()
 	return m_rooms;
 }
 
+Room& RoomManager::getRoom(unsigned id)
+{
+	std::lock_guard<std::mutex> lock(m_roomMutex);
+	if (m_rooms.find(id) != m_rooms.end())
+	{
+		return m_rooms.at(id);
+	}
+	throw CommunicationException("Room doesn't exist", DSNT_EXST);
+}
+
 void RoomManager::addPlayerToRoom(const LoggedUser& user, int id)
 {
 	std::lock_guard<std::mutex> lock(m_roomMutex);

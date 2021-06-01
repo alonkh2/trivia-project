@@ -18,13 +18,15 @@ public:
 	std::vector<RoomData> getRooms();
 	std::map<unsigned, Room> getAllRooms();
 
+	Room& getRoom(unsigned id);
+
 	void addPlayerToRoom(const LoggedUser& user, int id);
 
 	unsigned getLastId() const;
 private:
 	RoomManager(): m_last_id(100) {}
 	
-	std::map<unsigned, Room> m_rooms;
+	std::map<unsigned, Room&> m_rooms;
 	unsigned m_last_id;
 
 	std::mutex m_roomMutex;

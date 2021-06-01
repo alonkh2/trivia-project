@@ -189,6 +189,15 @@ std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const GetRoomS
 	};
 }
 
+std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const LeaveRoomResponse& response)
+{
+	const Byte code = SG_CD;
+	const nlohmann::json msg = {
+		{"status", std::string(response.status.begin(), response.status.end())}
+	};
+	return serialize(msg, SG_CD);
+}
+
 /**
  * \brief Serializes a response.
  * \param msg The message to serialize.

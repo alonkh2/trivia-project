@@ -28,6 +28,17 @@ MenuRequestHandler* RequestHandlerFactory::createMenuRequestHandler(const std::s
 	return nullptr;
 }
 
+RoomAdminRequestHandler* RequestHandlerFactory::createRoomAdminRequestHandler(const Room& room, const LoggedUser& user)
+{
+	return new RoomAdminRequestHandler(room, user, *this);
+}
+
+RoomMemberRequestHandler* RequestHandlerFactory::createRoomMemberRequestHandler(
+	const Room& room, const LoggedUser& user)
+{
+	return new RoomMemberRequestHandler(room, user, *this);
+}
+
 /**
  * \brief loginManager getter.
  * \return The login manager.
