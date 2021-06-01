@@ -122,7 +122,9 @@ std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const JoinRoom
 std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const CreateRoomResponse& response)
 {
 	const Byte code = CR_CD;
-	const nlohmann::json msg = {{"status", std::string(response.status.begin(), response.status.end())}, {"id", std::to_string(response.id)}};
+	const nlohmann::json msg = {
+		{"status", std::string(response.status.begin(), response.status.end())}, {"id", std::to_string(response.id)}
+	};
 	return serialize(msg, code);
 }
 
@@ -139,6 +141,52 @@ std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const GetPerso
 		{"statistics", std::accumulate(response.statistics.begin(), response.statistics.end(), std::string{})}
 	};
 	return serialize(msg, code);
+}
+
+
+/**
+ * \brief Serializes a response.
+ * \param response The response to be sent.
+ * \return A byte representation of the message.
+ */
+std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const CloseRoomResponse& response)
+{
+	const Byte code = CLR_CD;
+	const nlohmann::json msg = {
+		{"status", std::string(response.status.begin(), response.status.end())}
+	};
+	return serialize(msg, code);
+}
+
+/**
+ * \brief Serializes a response.
+ * \param response The response to be sent.
+ * \return A byte representation of the message.
+ */
+std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const StartGameResponse& response)
+{
+	const Byte code = SG_CD;
+	const nlohmann::json msg = {
+		{"status", std::string(response.status.begin(), response.status.end())}
+	};
+	return serialize(msg, SG_CD);
+}
+
+/**
+ * \brief Serializes a response.
+ * \param response The response to be sent.
+ * \return A byte representation of the message.
+ */
+std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const GetRoomStateResponse& response)
+{
+	const Byte code = GRS_CD;
+	const nlohmann::json msg = {
+		{"status", std::string(response.status.begin(), response.status.end())},
+		{"players", std::accumulate(response.players.begin(), response.players.end(), std::string{})},
+		{"state", std::string(response.hasGameBegun ? "true" : "false")},
+		{"count", std::to_string(response.questionCount)},
+		{"timeout", std::to_string(response.answerTimeout)}
+	};
 }
 
 /**
