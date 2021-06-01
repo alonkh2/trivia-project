@@ -33,6 +33,9 @@ namespace Trivia_GUI
         {
             InitializeComponent();
 
+            this.Top = (double)App.Current.Properties["verticalDis"];
+            this.Left = (double)App.Current.Properties["horizontalDis"];
+
             communicator = communicator_;
             username = username_;
 
