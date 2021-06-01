@@ -187,6 +187,7 @@ std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const GetRoomS
 		{"count", std::to_string(response.questionCount)},
 		{"timeout", std::to_string(response.answerTimeout)}
 	};
+	return serialize(msg, code);
 }
 
 std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const LeaveRoomResponse& response)

@@ -69,7 +69,7 @@ std::vector<RoomData> RoomManager::getRooms()
  * \brief I do not know.
  * \return I do not know.
  */
-std::map<unsigned, Room> RoomManager::getAllRooms()
+std::map<unsigned, Room&> RoomManager::getAllRooms()
 {
 	std::lock_guard<std::mutex> lock(m_roomMutex);
 	return m_rooms;

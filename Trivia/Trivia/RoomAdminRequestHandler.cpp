@@ -109,4 +109,5 @@ bool RoomAdminRequestHandler::isRequestRelevant(const RequestInfo& info)
 RequestResult RoomAdminRequestHandler::startGame(const RequestInfo& info)
 {
 	// I don't know what goes here.
+	return RequestResult{};
 }

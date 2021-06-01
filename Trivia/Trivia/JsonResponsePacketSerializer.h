@@ -83,7 +83,7 @@ typedef struct GetRoomStateResponse
 typedef struct LeaveRoomResponse
 {
 	std::vector<Byte> status;
-};
+} LeaveRoomResponse;
 
 class JsonResponsePacketSerializer
 {

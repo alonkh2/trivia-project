@@ -16,7 +16,7 @@ public:
 	void deleteRoom(unsigned id);
 	unsigned getRoomState(unsigned id);
 	std::vector<RoomData> getRooms();
-	std::map<unsigned, Room> getAllRooms();
+	std::map<unsigned, Room&> getAllRooms();
 
 	Room& getRoom(unsigned id);
 
