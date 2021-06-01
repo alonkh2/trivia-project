@@ -27,29 +27,34 @@ namespace Trivia_GUI
     {
         DispatcherTimer _timer;
         TimeSpan _time;
-
-        public QuestionWindow()
+        Communicator communicator;
+        string username;
+        public QuestionWindow(Communicator communicator_, string username_)
         {
             InitializeComponent();
 
+            communicator = communicator_;
+            username = username_;
+
+            
 
             //idk what this does, looks important tho
 
-            //_time = TimeSpan.FromSeconds(10);
+            _time = TimeSpan.FromSeconds(100);
 
-            //_timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
-            //{
-            //    timer.Text = _time.ToString("c");
+            _timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
+            {
+                timer.Text = _time.ToString();
 
-            //    if (_time == TimeSpan.Zero)
-            //    {
-            //        _timer.Stop();
-            //    }
+                if (_time == TimeSpan.Zero)
+                {
+                    _timer.Stop();
+                }
 
-            //    _time = _time.Add(TimeSpan.FromSeconds(-1));
-            //}, Application.Current.Dispatcher);
+                _time = _time.Add(TimeSpan.FromSeconds(-1));
+            }, Application.Current.Dispatcher);
 
-            //_timer.Start();
+            _timer.Start();
         }
 
         private void Ans_Click(object sender, RoutedEventArgs e)
@@ -58,6 +63,54 @@ namespace Trivia_GUI
             {
                 // do stuff
             }
+
+            else if(sender == ans2)
+            {
+                // do more stuff
+            }
+        }
+
+
+
+
+        /// <summary>
+        /// This function returns the user to his previous window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWin = new MainWindow(communicator, username);
+            mainWin.Show();
+            this.Close();
+        }
+
+
+        /// <summary>
+        /// This function exits the application when the 'Exit' radio button is toggled
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Leave_Click(object sender, RoutedEventArgs e)
+        {
+            communicator.logout();
+            System.Windows.Application.Current.Shutdown();
+        }
+
+        /// <summary>
+        /// This function allows the window to be dragged across the screen
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                this.DragMove();
+            }
+
+            App.Current.Properties["verticalDis"] = this.Top;
+            App.Current.Properties["horizontalDis"] = this.Left;
         }
     }
 
