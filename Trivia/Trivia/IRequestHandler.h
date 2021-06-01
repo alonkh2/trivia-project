@@ -16,6 +16,8 @@ typedef struct RequestResult
 {
 	std::vector<Byte> buffer;
 	IRequestHandler* newHandler;
+
+	RequestResult() : newHandler(nullptr) {}
 } RequestResult;
 
 class IRequestHandler

@@ -6,8 +6,44 @@ SERVER_ADDR = "127.0.0.1", 2410
 BUFF = 1024
 SIZEOF_INT = 4
 
+OPERATIONS = [
+    "login", "signup", "error", "signout", "get rooms", "get players in room", "get player's stats", "get high score",
+    "join room", "create room"
+]
+
+CODES = {}
+
+
+def fill_codes():
+    global CODES
+    code = 101
+    for i in OPERATIONS:
+        CODES[i] = chr(code).encode()
+        code += 1
+
+
+def create_message(kind: str, message: dict) -> bytes:
+    return CODES[kind] + len(json.dumps(message)).to_bytes(SIZEOF_INT, 'little') + json.dumps(
+        message).encode()
+
+
+def send_message(message: bytes, sock: socket.socket):
+    print("Message:", message)
+    sock.sendall(message)
+    response = sock.recv(BUFF)
+    print("Response:", response)
+
+
+def create_sock_and_send(messages: list, address: tuple):
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+        sock.connect(address)
+        for msg in messages:
+            send_message(msg, sock)
+
 
 def main():
+    fill_codes()
+    print(CODES)
 
     real_signup_msg = {
         "username": "alonkh2",
@@ -20,41 +56,38 @@ def main():
         "password": "1234"
     }
 
+    real_create_room_msg = {
+        "name": "try",
+        "timeout": "100",
+        "max": "5",
+        "count": "6"
+    }
+
     fake_login_msg = {
         "username": "mikeseg",
         "password": "1234"
     }
 
-    real_signup_msg = b"f" + len(json.dumps(real_signup_msg)).to_bytes(SIZEOF_INT, 'little') + json.dumps(real_signup_msg).encode()
-    real_login_msg = b"e" + len(json.dumps(real_login_msg)).to_bytes(SIZEOF_INT, 'little') + json.dumps(real_login_msg).encode()
+    real_signout_msg = {
+        "username": "alonkh2"
+    }
 
-    fake_login_msg = b"e" + len(json.dumps(fake_login_msg)).to_bytes(SIZEOF_INT, 'little') + json.dumps(fake_login_msg).encode()
+    real_signup_msg = create_message("signup", real_signup_msg)
 
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as real_signup_sock:  # Sending real signup message
-        real_signup_sock.connect(SERVER_ADDR)
+    real_login_msg = create_message("login", real_login_msg)
 
-        print("Real Signup msg: ", real_signup_msg)
-        real_signup_sock.sendall(real_signup_msg)
-        server_resp = real_signup_sock.recv(BUFF)
-        print("Server message: ", server_resp)
+    real_create_room_msg = create_message("create room", real_create_room_msg)
+    
+    real_signout_msg = create_message("signout", real_signout_msg)
+    
+    fake_login_msg = create_message("login", fake_login_msg)
 
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as real_login_sock:  # Sending real login message
-        real_login_sock.connect(SERVER_ADDR)
+    create_sock_and_send([real_signup_msg], SERVER_ADDR)
 
-        print("Real login msg: ", real_login_msg)
-        real_login_sock.sendall(real_login_msg)
-        server_resp = real_login_sock.recv(BUFF)
-        print("Server message: ", server_resp)
+    create_sock_and_send([real_login_msg, real_create_room_msg, real_signout_msg], SERVER_ADDR)
 
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as fake_login_sock:  # Sending fake login message
-        fake_login_sock.connect(SERVER_ADDR)
-
-        print("Fake login msg: ", fake_login_msg)
-        fake_login_sock.sendall(fake_login_msg)
-        server_resp = fake_login_sock.recv(BUFF)
-        print("Server message: ", server_resp)
+    create_sock_and_send([fake_login_msg], SERVER_ADDR)
 
 
 if __name__ == '__main__':
     main()
-

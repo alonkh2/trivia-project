@@ -6,7 +6,7 @@
 #include "Singleton.h"
 #include "IDatabase.h"
 #include "LoggedUser.h"
-#include "LoginException.h"
+#include "CommunicationException.h"
 
 
 class LoginManager : public Singleton<LoginManager>
@@ -16,7 +16,9 @@ public:
 	void signup(const std::string& username, const std::string& password, const std::string& email);
 	void login(const std::string& username, const std::string& password);
 	void logout(const std::string& username);
-	
+
+	std::vector<LoggedUser> getLoggedUsers() const;
+
 private:
 
 	// C'tor. Private because of singleton

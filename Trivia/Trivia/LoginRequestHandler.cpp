@@ -1,9 +1,10 @@
 ﻿#include "LoginRequestHandler.h"
 
 #include "JsonResponsePacketSerializer.h"
+#include "MenuRequestHandler.h"
 
 LoginRequestHandler::LoginRequestHandler(RequestHandlerFactory& handlerFactory, LoginManager& loginManager) :
-	m_handlerFactory(handlerFactory), m_loginManager(loginManager)
+	m_loginManager(loginManager), m_handlerFactory(handlerFactory)
 {
 }
 
@@ -25,7 +26,7 @@ bool LoginRequestHandler::isRequestRelevant(const RequestInfo& info)
  */
 RequestResult LoginRequestHandler::handleRequest(const RequestInfo& info)
 {
-	RequestResult rr;
+	RequestResult rr{};
 	switch (info.id)
 	{
 	case LGN_CD:
@@ -33,10 +34,8 @@ RequestResult LoginRequestHandler::handleRequest(const RequestInfo& info)
 	case SU_CD:
 		return signup(info);
 	default:
-		break;
+		return rr;
 	}
-	rr.newHandler = nullptr;
-	return rr;
 }
 
 /**
@@ -46,19 +45,19 @@ RequestResult LoginRequestHandler::handleRequest(const RequestInfo& info)
  */
 RequestResult LoginRequestHandler::login(const RequestInfo& info) const
 {
-	RequestResult rr;
-	LoginResponse lr;
-	rr.newHandler = nullptr;
+	RequestResult rr{};
+	LoginResponse lr{};
+	
 	try
 	{
 		const auto data = JsonResponsePacketDeserializer::deserializeLoginRequest(info.buffer);
 		m_loginManager.login(data.username, data.password);
 		lr.status.push_back('1');
 		rr.buffer = JsonResponsePacketSerializer::serializeResponse(lr);
-		rr.newHandler = nullptr;
-		// rr.newHandler = m_handlerFactory.createMenuRequestHandler();
+		// rr.newHandler = nullptr;
+		rr.newHandler = m_handlerFactory.createMenuRequestHandler(data.username);
 	}
-	catch (LoginException& e)
+	catch (CommunicationException& e)
 	{
 		ErrorResponse er;
 		er.message = std::string(e.what());
@@ -80,20 +79,27 @@ RequestResult LoginRequestHandler::login(const RequestInfo& info) const
  */
 RequestResult LoginRequestHandler::signup(const RequestInfo& info)
 {
-	SignupResponse sr;
+	RequestResult rr{};
+	SignupResponse sr{};
 	try
 	{
 		const auto data = JsonResponsePacketDeserializer::deserializeSingupRequest(info.buffer);
 		m_loginManager.signup(data.username, data.password, data.email);
 		sr.status.push_back('1');
+		rr.newHandler = m_handlerFactory.createMenuRequestHandler(data.username);
+		rr.buffer = JsonResponsePacketSerializer::serializeResponse(sr);
+	}
+	catch (CommunicationException& e)
+	{
+		ErrorResponse er;
+		er.message = std::string(e.what());
+		rr.newHandler = m_handlerFactory.createLoginRequestHandler();
+		rr.buffer = JsonResponsePacketSerializer::serializeResponse(er);
 	}
 	catch (std::exception& e)
 	{
 		sr.status.push_back('0');
 		std::cout << e.what() << std::endl;
 	}
-	RequestResult rr;
-	rr.newHandler = nullptr;
-	rr.buffer = JsonResponsePacketSerializer::serializeResponse(sr);
 	return rr;
 }
