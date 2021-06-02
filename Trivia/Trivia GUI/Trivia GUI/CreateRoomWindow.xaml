@@ -97,6 +97,7 @@
                                  BorderBrush="White"
                                  CaretBrush="#4568dc" 
                                  SelectionBrush="#4568dc"
+                                 MaxLength="20"
                                  materialDesign:TextFieldAssist.UnderlineBrush="#b06ab3"/>
                     </StackPanel>
                 </Grid>

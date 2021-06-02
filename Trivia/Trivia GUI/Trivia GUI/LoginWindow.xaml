@@ -86,6 +86,7 @@
                                                  Foreground="White"/>
                         <TextBox x:Name="txtUsername" 
                                  Margin="10 0" 
+                                 MaxLength="20"
                                  materialDesign:HintAssist.Hint="Enter Username" 
                                  Foreground="White" 
                                  Width="250" 
@@ -106,6 +107,7 @@
                             Foreground="White"/>
 
                         <PasswordBox x:Name="txtPassword"
+                                     MaxLength="12"
                                      Margin="10 0" 
                                      materialDesign:HintAssist.Hint="********" 
                                      Foreground="White"
