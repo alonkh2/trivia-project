@@ -47,7 +47,7 @@ namespace Trivia_GUI
 
             _timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
             {
-                timer.Text = _time.ToString();
+                timer.Text = _time.ToString(@"mm\:ss");
 
                 if (_time == TimeSpan.Zero)
                 {
@@ -83,6 +83,7 @@ namespace Trivia_GUI
         /// <param name="e"></param>
         private void Back_Click(object sender, RoutedEventArgs e)
         {
+            _timer.Stop();
             MainWindow mainWin = new MainWindow(communicator, username);
             mainWin.Show();
             this.Close();
@@ -96,6 +97,7 @@ namespace Trivia_GUI
         /// <param name="e"></param>
         private void Leave_Click(object sender, RoutedEventArgs e)
         {
+            _timer.Stop();
             communicator.logout();
             System.Windows.Application.Current.Shutdown();
         }

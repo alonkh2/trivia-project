@@ -52,14 +52,15 @@
                 Margin="874,10,10,555" 
                 RenderTransformOrigin="1.558,0.484"/>
 
-
+        <!--Question TextBlock-->
         <TextBlock x:Name="question"
                    Text="Question"
                    Margin="78,70,91,435"
                    Foreground="White"
                    FontSize="32"
                    TextAlignment="Center"/>
-
+        
+        <!--Timer display-->
         <TextBlock x:Name="timer"
                    Text="0"
                    Margin="654,9,46,555"

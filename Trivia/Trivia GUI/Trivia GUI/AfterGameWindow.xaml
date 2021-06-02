@@ -62,7 +62,7 @@
                     Margin="10,0,0,0"
                     Orientation="Horizontal">
 
-            <!--Total games display-->
+            <!--First place display-->
             <Border Height="200"
                     CornerRadius="10"
                     Margin="151,118,20,7" Width="190" RenderTransformOrigin="0.5,0.5">
@@ -99,7 +99,7 @@
 
             </Border>
 
-            <!--Correct answers display-->
+            <!--Second place display-->
             <Border Height="200"
                     CornerRadius="10"
                     Margin="0,118,20,7" Width="190" 
@@ -136,7 +136,7 @@
                 </Grid>
             </Border>
 
-
+            <!--Third place display-->
             <Border Height="200"
                     CornerRadius="10"
                     Margin="0,118,450,7" Width="190" 
@@ -177,7 +177,7 @@
         <StackPanel Grid.Row="1"  
                     Margin="10,0,0,0" Orientation="Horizontal">
 
-            <!--Total answers display-->
+            <!--Position display-->
             <Border Width="186"
                     Height="150"
                     CornerRadius="10"
