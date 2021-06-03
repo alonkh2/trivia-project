@@ -19,5 +19,7 @@ namespace Trivia_GUI
         public int count { get; set; }
 
         public int isActive { get; set; }
+
+        public List<User> users { get; set; }
     }
 }

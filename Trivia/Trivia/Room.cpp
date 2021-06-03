@@ -55,6 +55,16 @@ RoomData Room::getRoomData() const
 	return m_metadata;
 }
 
+void Room::start()
+{
+	m_metadata.isActive = 2;
+}
+
+void Room::close()
+{
+	m_metadata.isActive = 0;
+}
+
 /**
  * \brief Gets a user's iterator.
  * \param user The user to find.

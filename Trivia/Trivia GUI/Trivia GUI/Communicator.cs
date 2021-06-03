@@ -247,6 +247,77 @@ namespace Trivia_GUI
             return users;
         }
 
+        Room getRoomState(Room room)
+        {
+            string json = JsonConvert.SerializeObject("{}");
+            dynamic reply = getJson(json, 'p');
+
+            if (reply == null || reply.players == null || reply.status == null || reply.state == null || reply.count == null || reply.timeout == null || reply.status != "1")
+            {
+                return null;
+            }
+
+            try
+            {
+                List<User> users = new List<User>();
+                string players = reply.players;
+
+                string[] usernames = players.Split(',');
+                for (int i = 0; i < usernames.Length - 1; i++)
+                {
+                    users.Add(new User { username = usernames[i] });
+                }
+
+                room.users = users;
+                room.isActive = reply.state == "true";
+                room.count = int.Parse(reply.count);
+                room.timeout = double.Parse(reply.timeout);
+
+                return room;
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+        }
+
+        bool leaveRoom()
+        {
+            string json = JsonConvert.SerializeObject("{}");
+            dynamic reply = getJson(json, 'r');
+
+            if (reply == null || reply.status == null || reply.status != "1")
+            {
+                return false;
+            }
+            return true;
+        }
+
+        bool closeRoom()
+        {
+            string json = JsonConvert.SerializeObject("{}");
+            dynamic reply = getJson(json, 'o');
+
+            if (reply == null || reply.status == null || reply.status != "1")
+            {
+                return false;
+            }
+            return true;
+        }
+
+        bool startGame()
+        {
+            string json = JsonConvert.SerializeObject("{}");
+            dynamic reply = getJson(json, 'q');
+
+            if (reply == null || reply.status == null || reply.status != "1")
+            {
+                return false;
+            }
+            return true;
+        }
+
         /// <summary>
         /// Takes in the json request and the request code and generates the result json.
         /// </summary>

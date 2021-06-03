@@ -55,7 +55,7 @@ RequestResult RoomAdminRequestHandler::getRoomState(const RequestInfo& info)
 	{
 		rs.players = m_room.getAllUsers();
 		rs.answerTimeout = m_room.getRoomData().timePerQuestion;
-		rs.hasGameBegun = m_room.getRoomData().isActive == 1;
+		rs.hasGameBegun = m_room.getRoomData().isActive == 2;
 		rs.questionCount = m_room.getRoomData().numOfQuestions;
 		rs.status.push_back('1');
 
@@ -108,6 +108,28 @@ bool RoomAdminRequestHandler::isRequestRelevant(const RequestInfo& info)
 
 RequestResult RoomAdminRequestHandler::startGame(const RequestInfo& info)
 {
-	// I don't know what goes here.
-	return RequestResult{};
+	RequestResult rr;
+	StartGameResponse sg;
+
+	rr.newHandler = m_handlerFactory.createRoomAdminRequestHandler(m_room, m_user);
+
+	try
+	{
+		m_room.start();
+		sg.status.push_back('1');
+		rr.buffer = JsonResponsePacketSerializer::serializeResponse(sg);
+	}
+	catch (CommunicationException& e)
+	{
+		ErrorResponse er;
+		er.message = e.what();
+		rr.buffer = JsonResponsePacketSerializer::serializeResponse(er);
+	}
+	catch (std::exception& e)
+	{
+		rr.newHandler = nullptr;
+		std::cout << e.what() << std::endl;
+	}
+
+	return rr;
 }

@@ -29,6 +29,7 @@ void RoomManager::deleteRoom(unsigned id)
 	std::lock_guard<std::mutex> lock(m_roomMutex);
 	if (m_rooms.find(id) != m_rooms.end())
 	{
+		m_rooms.at(id).close();
 		m_rooms.erase(id);
 		return;
 	}
