@@ -107,12 +107,8 @@ namespace Trivia_GUI
         /// <param name="e"></param>
         private void Stats_Click(object sender, RoutedEventArgs e)
         {
-            //StatsWindow statWin = new StatsWindow(communicator, currUser);
-            //statWin.Show();
-            //this.Close();
-
-            QuestionWindow questWin = new QuestionWindow(communicator, currUser);
-            questWin.Show();
+            StatsWindow statWin = new StatsWindow(communicator, currUser);
+            statWin.Show();
             this.Close();
         }
 
