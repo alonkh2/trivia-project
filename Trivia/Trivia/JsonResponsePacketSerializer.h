@@ -74,7 +74,7 @@ typedef struct StartGameResponse
 typedef struct GetRoomStateResponse
 {
 	std::vector<Byte> status;
-	bool hasGameBegun;
+	int state;
 	std::vector<std::string> players;
 	unsigned questionCount;
 	float answerTimeout;

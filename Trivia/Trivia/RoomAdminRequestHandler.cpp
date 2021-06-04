@@ -2,7 +2,7 @@
 
 #include <utility>
 
-RoomAdminRequestHandler::RoomAdminRequestHandler(const Room& room, LoggedUser user, RequestHandlerFactory& handlerFactory):
+RoomAdminRequestHandler::RoomAdminRequestHandler(Room& room, LoggedUser user, RequestHandlerFactory& handlerFactory):
 	m_room(room), m_user(std::move(user)), m_roomManager(handlerFactory.getRoomManager()), m_handlerFactory(handlerFactory)
 {
 }
@@ -20,6 +20,7 @@ RequestResult RoomAdminRequestHandler::closeRoom(const RequestInfo& info) const
 	try
 	{
 		m_roomManager.deleteRoom(m_room.getRoomData().id);
+		m_room.removeUser(m_user);
 		cr.status.push_back('1');
 		rr.buffer = JsonResponsePacketSerializer::serializeResponse(cr);
 		rr.newHandler = m_handlerFactory.createMenuRequestHandler(m_user.getUsername());
@@ -45,7 +46,7 @@ RequestResult RoomAdminRequestHandler::closeRoom(const RequestInfo& info) const
  * \param info The request's info.
  * \return The request's result.
  */
-RequestResult RoomAdminRequestHandler::getRoomState(const RequestInfo& info)
+RequestResult RoomAdminRequestHandler::getRoomState(const RequestInfo& info) const
 {
 	RequestResult rr;
 	GetRoomStateResponse rs;
@@ -55,7 +56,7 @@ RequestResult RoomAdminRequestHandler::getRoomState(const RequestInfo& info)
 	{
 		rs.players = m_room.getAllUsers();
 		rs.answerTimeout = m_room.getRoomData().timePerQuestion;
-		rs.hasGameBegun = m_room.getRoomData().isActive == 2;
+		rs.state = m_room.getRoomData().isActive;
 		rs.questionCount = m_room.getRoomData().numOfQuestions;
 		rs.status.push_back('1');
 
@@ -106,7 +107,7 @@ bool RoomAdminRequestHandler::isRequestRelevant(const RequestInfo& info)
 	return info.id >= CLR_CD && info.id <= SG_CD;
 }
 
-RequestResult RoomAdminRequestHandler::startGame(const RequestInfo& info)
+RequestResult RoomAdminRequestHandler::startGame(const RequestInfo& info) const
 {
 	RequestResult rr;
 	StartGameResponse sg;

@@ -247,7 +247,7 @@ namespace Trivia_GUI
             return users;
         }
 
-        Room getRoomState(Room room)
+        public Room getRoomState(Room room)
         {
             string json = JsonConvert.SerializeObject("{}");
             dynamic reply = getJson(json, 'p');
@@ -269,9 +269,9 @@ namespace Trivia_GUI
                 }
 
                 room.users = users;
-                room.isActive = reply.state == "true";
-                room.count = int.Parse(reply.count);
-                room.timeout = double.Parse(reply.timeout);
+                room.isActive = reply.state;
+                room.count = reply.count;
+                room.timeout = reply.timeout;
 
                 return room;
             }
@@ -282,7 +282,7 @@ namespace Trivia_GUI
             }
         }
 
-        bool leaveRoom()
+        public bool leaveRoom()
         {
             string json = JsonConvert.SerializeObject("{}");
             dynamic reply = getJson(json, 'r');
@@ -294,7 +294,7 @@ namespace Trivia_GUI
             return true;
         }
 
-        bool closeRoom()
+        public bool closeRoom()
         {
             string json = JsonConvert.SerializeObject("{}");
             dynamic reply = getJson(json, 'o');
@@ -306,7 +306,7 @@ namespace Trivia_GUI
             return true;
         }
 
-        bool startGame()
+        public bool startGame()
         {
             string json = JsonConvert.SerializeObject("{}");
             dynamic reply = getJson(json, 'q');

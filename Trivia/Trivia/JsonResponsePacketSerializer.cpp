@@ -183,7 +183,7 @@ std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const GetRoomS
 	const nlohmann::json msg = {
 		{"status", std::string(response.status.begin(), response.status.end())},
 		{"players", std::accumulate(response.players.begin(), response.players.end(), std::string{})},
-		{"state", std::string(response.hasGameBegun ? "true" : "false")},
+		{"state", std::to_string(response.state)},
 		{"count", std::to_string(response.questionCount)},
 		{"timeout", std::to_string(response.answerTimeout)}
 	};

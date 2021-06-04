@@ -79,6 +79,8 @@ namespace Trivia_GUI
 
         private void Start_Click(object sender, RoutedEventArgs e)
         {
+            communicator_.startGame();
+            // here we go to questions menu too.
             MessageBox.Show("nice");
         }
 
@@ -90,6 +92,14 @@ namespace Trivia_GUI
         private void Leave_Click(object sender, RoutedEventArgs e)
         {
             t_.Abort();
+            if (admin_)
+            {
+                communicator_.closeRoom();
+            }
+            else
+            {
+                communicator_.leaveRoom();
+            }
             communicator_.logout();
             System.Windows.Application.Current.Shutdown();
         }
@@ -105,6 +115,7 @@ namespace Trivia_GUI
 
             if (admin_) // If the current user is the admin go back to CreateRoom
             {
+                communicator_.closeRoom();
                 CreateRoomWindow createWin = new CreateRoomWindow(communicator_, username_);
                 createWin.Show();
                 this.Close();
@@ -112,6 +123,7 @@ namespace Trivia_GUI
 
             else // If the current user is a regular player go back to JoinRoom
             {
+                communicator_.leaveRoom();
                 JoinRoomWindow joinRoom = new JoinRoomWindow(communicator_, username_);
                 joinRoom.Show();
                 this.Close();
@@ -128,12 +140,27 @@ namespace Trivia_GUI
             {
                 this.Dispatcher.BeginInvoke(new Action(delegate ()
                 {
-                    UserList = communicator_.getPlayersInRoom(room_);
-                    adminName.Text = UserList.First().username;
+                    room_ = communicator_.getRoomState(room_);
+
+                    UserList = room_.users;
+                    adminName.Text = room_.users.First().username;
                     UserList.RemoveAt(0);
                     playerList.ItemsSource = UserList;
-                    
+
                     DataContext = this;
+
+                    if (room_.isActive == 2)
+                    {
+                        // here we go to the questions window.
+                    }
+                    else if (room_.isActive == 0)
+                    {
+                        t_.Abort();
+                        communicator_.leaveRoom();
+                        JoinRoomWindow joinRoom = new JoinRoomWindow(communicator_, username_);
+                        joinRoom.Show();
+                        this.Close();
+                    }
                 }));
 
                 Thread.Sleep(3000);

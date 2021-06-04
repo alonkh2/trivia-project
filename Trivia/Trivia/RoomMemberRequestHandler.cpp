@@ -1,25 +1,27 @@
 ﻿#include "RoomMemberRequestHandler.h"
 
+#include <utility>
+
 
 /**
  * \brief Handles a getRoomState request.
  * \param info The request's info.
  * \return The request's result.
  */
-RequestResult RoomMemberRequestHandler::getRoomState(const RequestInfo& info)
+RequestResult RoomMemberRequestHandler::getRoomState(const RequestInfo& info) const
 {
 	RequestResult rr;
 	GetRoomStateResponse rs;
-	rr.newHandler = m_handlerFactory.createRoomAdminRequestHandler(m_room, m_user);
+	rr.newHandler = m_handlerFactory.createRoomMemberRequestHandler(m_room, m_user);
 
 	try
 	{
 		rs.players = m_room.getAllUsers();
 		rs.answerTimeout = m_room.getRoomData().timePerQuestion;
-		rs.hasGameBegun = m_room.getRoomData().isActive == 1;
+		rs.state = m_room.getRoomData().isActive;
 		rs.questionCount = m_room.getRoomData().numOfQuestions;
 		rs.status.push_back('1');
-
+		
 		rr.buffer = JsonResponsePacketSerializer::serializeResponse(rs);
 	}
 	catch (CommunicationException& e)
@@ -66,7 +68,7 @@ bool RoomMemberRequestHandler::isRequestRelevant(const RequestInfo& info)
 	return info.id == LR_CD || info.id == GRS_CD;
 }
 
-RequestResult RoomMemberRequestHandler::leaveRoom(const RequestInfo& info)
+RequestResult RoomMemberRequestHandler::leaveRoom(const RequestInfo& info) const
 {
 	RequestResult rr;
 	LeaveRoomResponse lr;
@@ -74,6 +76,7 @@ RequestResult RoomMemberRequestHandler::leaveRoom(const RequestInfo& info)
 	try
 	{
 		m_room.removeUser(m_user);
+		m_roomManager.deleteRoom(m_room.getRoomData().id);
 
 		lr.status.push_back('1');
 		rr.buffer = JsonResponsePacketSerializer::serializeResponse(lr);
@@ -95,7 +98,7 @@ RequestResult RoomMemberRequestHandler::leaveRoom(const RequestInfo& info)
 	return rr;
 }
 
-RoomMemberRequestHandler::RoomMemberRequestHandler(const Room& room, const LoggedUser& user,
-	RequestHandlerFactory& handlerFactory): m_room(room), m_user(user), m_roomManager(handlerFactory.getRoomManager()), m_handlerFactory(handlerFactory)
+RoomMemberRequestHandler::RoomMemberRequestHandler(Room& room, LoggedUser user,
+	RequestHandlerFactory& handlerFactory): m_room(room), m_user(std::move(user)), m_roomManager(handlerFactory.getRoomManager()), m_handlerFactory(handlerFactory)
 {
 }

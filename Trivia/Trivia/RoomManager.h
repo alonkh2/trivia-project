@@ -16,7 +16,7 @@ public:
 	void deleteRoom(unsigned id);
 	unsigned getRoomState(unsigned id);
 	std::vector<RoomData> getRooms();
-	std::map<unsigned, Room&> getAllRooms();
+	std::map<unsigned, Room> getAllRooms();
 
 	Room& getRoom(unsigned id);
 
@@ -26,7 +26,7 @@ public:
 private:
 	RoomManager(): m_last_id(100) {}
 	
-	std::map<unsigned, Room&> m_rooms;
+	std::map<unsigned, Room> m_rooms;
 	unsigned m_last_id;
 
 	std::mutex m_roomMutex;

@@ -30,7 +30,10 @@ void RoomManager::deleteRoom(unsigned id)
 	if (m_rooms.find(id) != m_rooms.end())
 	{
 		m_rooms.at(id).close();
-		m_rooms.erase(id);
+		if (m_rooms.at(id).getAllUsers().empty())
+		{
+			m_rooms.erase(id);
+		}
 		return;
 	}
 	throw CommunicationException("Room doesn't exist", DSNT_EXST);
@@ -70,13 +73,13 @@ std::vector<RoomData> RoomManager::getRooms()
  * \brief I do not know.
  * \return I do not know.
  */
-std::map<unsigned, Room&> RoomManager::getAllRooms()
+std::map<unsigned, Room> RoomManager::getAllRooms()
 {
 	std::lock_guard<std::mutex> lock(m_roomMutex);
 	return m_rooms;
 }
 
-Room& RoomManager::getRoom(unsigned id)
+Room& RoomManager::getRoom(const unsigned id)
 {
 	std::lock_guard<std::mutex> lock(m_roomMutex);
 	if (m_rooms.find(id) != m_rooms.end())

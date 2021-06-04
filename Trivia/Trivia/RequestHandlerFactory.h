@@ -22,8 +22,8 @@ public:
 	// Functions and methods
 	LoginRequestHandler* createLoginRequestHandler();
 	MenuRequestHandler* createMenuRequestHandler(const std::string& username);
-	RoomAdminRequestHandler* createRoomAdminRequestHandler(const Room& room, const LoggedUser& user);
-	RoomMemberRequestHandler* createRoomMemberRequestHandler(const Room& room, const LoggedUser& user);
+	RoomAdminRequestHandler* createRoomAdminRequestHandler(Room& room, const LoggedUser& user);
+	RoomMemberRequestHandler* createRoomMemberRequestHandler(Room& room, const LoggedUser& user);
 	
 	LoginManager& getLoginManager() const;
 	RoomManager& getRoomManager() const;
