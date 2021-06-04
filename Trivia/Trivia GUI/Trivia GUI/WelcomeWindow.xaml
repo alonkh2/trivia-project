@@ -44,7 +44,7 @@
         <!--Login button-->
         <Button Width="100"
                 Height="40"
-                Style="{StaticResource MaterialDesignRaisedButton}" 
+                Style="{StaticResource MaterialDesignFlatButton}" 
                 materialDesign:ButtonAssist.CornerRadius="10"
                 BorderThickness="2" 
                 BorderBrush="Transparent"
@@ -58,7 +58,7 @@
         <!--Signup button-->
         <Button Width="100"
                 Height="40"
-                Style="{StaticResource MaterialDesignRaisedButton}" 
+                Style="{StaticResource MaterialDesignFlatButton}" 
                 materialDesign:ButtonAssist.CornerRadius="10"
                 BorderThickness="2" 
                 BorderBrush="Transparent"

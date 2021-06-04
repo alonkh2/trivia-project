@@ -63,27 +63,28 @@
         <materialDesign:PackIcon Kind="Crown" 
                                  Width="35" 
                                  Height="35" 
-                                 Foreground="White" Margin="368,220,0,0" RenderTransformOrigin="0.854,0.613"/>
+                                 Foreground="White" Margin="302,220,0,0" RenderTransformOrigin="0.854,0.613"/>
 
         <!--TextBlock containing the name of the room admin-->
         <TextBlock x:Name="adminName"
                    Text="Admin"
                    Foreground="White"
-                   FontSize="25" Margin="422,220,425,345"
-                   HorizontalAlignment="Center"/>
+                   FontSize="25" Margin="337,220,334,345"
+                   HorizontalAlignment="Center"
+                   TextAlignment="Center" Width="249"/>
 
         <!--The list containing the list of users-->
         <ListView ItemsSource="{Binding UserList}" Foreground="White" x:Name="playerList" Margin="302,279,302,60" RenderTransformOrigin="0.503,0.497">
             <ListView.View>
                 <GridView>
-                    
+
                     <!--Removing the header-->
                     <GridView.ColumnHeaderContainerStyle>
                         <Style TargetType="GridViewColumnHeader">
                             <Setter Property="Visibility" Value="Collapsed" />
                         </Style>
                     </GridView.ColumnHeaderContainerStyle>
-                    
+
                     <!--username column-->
                     <GridViewColumn DisplayMemberBinding="{Binding username}" Width="138">
                         <GridViewColumn.CellTemplate>
@@ -92,7 +93,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    
+
                 </GridView>
             </ListView.View>
         </ListView>

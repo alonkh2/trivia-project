@@ -1,0 +1,265 @@
+﻿<Window x:Class="Trivia_GUI.AfterGameWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Trivia_GUI"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Height="600" Width="920"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True"
+        MouseDown="Window_MouseDown">
+    
+    
+    <Grid>
+        <Grid.Background>
+            <!--The gradient at the bottom-->
+            <LinearGradientBrush StartPoint="0.1,0" EndPoint="0.9,1">
+                <GradientStop Color="#b06ab3" Offset="1" />
+                <GradientStop Color="#4568dc   " Offset="0" />
+            </LinearGradientBrush>
+        </Grid.Background>
+
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="325"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <!--The background of the window-->
+        <Border Background="#272537" CornerRadius="0 0 90 90" Margin="0,0,0,60" Grid.RowSpan="2"/>
+
+        <!--The exit button at the top right-->
+        <Button Content="{materialDesign:PackIcon Kind=ExitToApp, Size=32}"
+                Background="Transparent"
+                Foreground="White" 
+                Height="35"
+                BorderThickness="0"
+                Style="{DynamicResource LowerButton}"
+                Click="Leave_Click"
+                ForceCursor="True"
+                Cursor="Hand" 
+                Margin="860,10,10,280" 
+                RenderTransformOrigin="1.558,0.484"/>
+
+        <!--The return button at the top left-->
+        <Button Content="{materialDesign:PackIcon Kind=ArrowBack, Size=32}"
+                Background="Transparent"
+                Foreground="White" 
+                Height="35"
+                BorderThickness="0"
+                Style="{DynamicResource LowerButton}"
+                Click="Back_Click"
+                ForceCursor="True"
+                Cursor="Hand" 
+                Margin="10,10,860,280" 
+                RenderTransformOrigin="1.558,0.484"/>
+
+        <StackPanel Grid.Row="0"  
+                    Margin="10,0,0,0"
+                    Orientation="Horizontal">
+
+            <!--First place display-->
+            <Border Height="200"
+                    CornerRadius="10"
+                    Margin="151,118,20,7" Width="190" RenderTransformOrigin="0.5,0.5">
+
+                <Border.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleY="0.114"/>
+                        <RotateTransform/>
+                        <TranslateTransform Y="0.609"/>
+                    </TransformGroup>
+                </Border.RenderTransform>
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                        <GradientStop Color="#c31432" Offset="0.0"/>
+                        <GradientStop Color="#1520a6" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+
+                <Grid>
+                    <StackPanel>
+                        <TextBlock Text="First"
+                                   Foreground="White"
+                                   FontSize="32"
+                                   Margin="20,10,10,0"/>
+                        <TextBlock Text="Null"
+                                   x:Name="firstPlaces"
+                                   Foreground="White"
+                                   FontSize="20"
+                                   Margin="20,10,10,0"/>
+                    </StackPanel>
+
+                </Grid>
+
+            </Border>
+
+            <!--Second place display-->
+            <Border Height="200"
+                    CornerRadius="10"
+                    Margin="0,118,20,7" Width="190" 
+                    RenderTransformOrigin="0.5,0.5">
+
+                <Border.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleY="0.114"/>
+                        <RotateTransform/>
+                        <TranslateTransform Y="0.609"/>
+                    </TransformGroup>
+                </Border.RenderTransform>
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                        <GradientStop Color="#1520a6" Offset="0.0"/>
+                        <GradientStop Color="#4c0121" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+
+                <Grid>
+                    <StackPanel>
+                        <TextBlock Text="Second"
+                                   Foreground="White"
+                                   FontSize="32"
+                                   Margin="20,10,10,0"/>
+
+                        <TextBlock Text="Null"
+                                   x:Name="secondPlace"
+                                   Foreground="White"
+                                   FontSize="20"
+                                   Margin="20,10,10,0"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!--Third place display-->
+            <Border Height="200"
+                    CornerRadius="10"
+                    Margin="0,118,450,7" Width="190" 
+                    RenderTransformOrigin="0.5,0.5">
+
+                <Border.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleY="0.114"/>
+                        <RotateTransform/>
+                        <TranslateTransform Y="0.609"/>
+                    </TransformGroup>
+                </Border.RenderTransform>
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                        <GradientStop Color="#6441A5" Offset="0.0"/>
+                        <GradientStop Color="#2a0845" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+
+                <Grid>
+                    <StackPanel>
+                        <TextBlock Text="Third"
+                                   Foreground="White"
+                                   FontSize="32"
+                                   Margin="20,10,10,0"/>
+
+                        <TextBlock Text="Null"
+                                   x:Name="thirdPlace"
+                                   Foreground="White"
+                                   FontSize="20"
+                                   Margin="20,10,10,0"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1"  
+                    Margin="10,0,0,0" Orientation="Horizontal">
+
+            <!--Position display-->
+            <Border Width="186"
+                    Height="150"
+                    CornerRadius="10"
+                    Margin="150,0,0,57">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                        <GradientStop Color="#4c0121" Offset="0.0"/>
+                        <GradientStop Color="#710193" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+
+                <Grid>
+                    <StackPanel>
+                        <TextBlock Text="Postion"
+                                   Foreground="White"
+                                   FontSize="25"
+                                   Margin="20,10,10,0"/>
+
+                        <TextBlock Text="Null"
+                                   x:Name="position"
+                                   Foreground="White"
+                                   FontSize="20"
+                                   Margin="20,10,10,0"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!--Average time display-->
+            <Border Width="186"
+                    Height="150"
+                    CornerRadius="10"
+                    Margin="25,0,0,57">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                        <GradientStop Color="#710193" Offset="0.0"/>
+                        <GradientStop Color="#a4508b" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Grid>
+                    <StackPanel>
+                        <TextBlock Text="Average time"
+                                   Foreground="White"
+                                   FontSize="25"
+                                   Margin="20,10,10,0"/>
+
+                        <TextBlock Text="Null"
+                                   x:Name="avgTime"
+                                   Foreground="White"
+                                   FontSize="20"
+                                   Margin="20,10,10,0"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!--Total points display-->
+            <Border Width="186"
+                    Height="150"
+                    CornerRadius="10"
+                    Margin="25,0,0,57">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                        <GradientStop Color="#a4508b" Offset="0.0"/>
+                        <GradientStop Color="#861657" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Grid>
+                    <StackPanel>
+                        <TextBlock Text="Total Points"
+                                   Foreground="White"
+                                   FontSize="25"
+                                   Margin="20,10,10,0"/>
+
+                        <TextBlock Text="Null"
+                                   x:Name="totalPoints"
+                                   Foreground="White"
+                                   FontSize="20"
+                                   Margin="20,10,10,0"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+        </StackPanel>
+
+    </Grid>
+</Window>

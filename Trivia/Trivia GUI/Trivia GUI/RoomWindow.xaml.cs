@@ -55,8 +55,10 @@ namespace Trivia_GUI
                 var adminButton = new Button();
                 var bc = new BrushConverter();
 
-                Style style = this.FindResource("MaterialDesignRaisedButton") as Style;
+                Style style = this.FindResource("MaterialDesignFlatButton") as Style;
                 adminButton.Style = style;
+
+                MaterialDesignThemes.Wpf.ButtonAssist.SetCornerRadius(adminButton, new CornerRadius(10));
 
                 adminButton.Margin = new Thickness(725, 479, 95, 80);
                 adminButton.Width = 100;

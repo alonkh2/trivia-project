@@ -86,7 +86,8 @@
                                                  Foreground="White"/>
                         <!--Email input box-->
                         <TextBox x:Name="txtEmail" 
-                                 Margin="10 0" 
+                                 Margin="10 0"
+                                 MaxLength="30"
                                  materialDesign:HintAssist.Hint="Enter Email" 
                                  Foreground="White" 
                                  Width="250" 
@@ -107,7 +108,8 @@
                         
                         <!--username input TextBox-->
                         <TextBox x:Name="txtUsername" 
-                                 Margin="10 0" 
+                                 Margin="10 0"
+                                 MaxLength="20"
                                  materialDesign:HintAssist.Hint="Enter Username" 
                                  Foreground="White" 
                                  Width="250" 
@@ -129,6 +131,7 @@
                         <!--password input TextBox-->
                         <PasswordBox x:Name="txtPassword"
                                      Margin="10 0" 
+                                     MaxLength="12"
                                      materialDesign:HintAssist.Hint="********" 
                                      Foreground="White"
                                      Width="250" 
@@ -141,7 +144,7 @@
                     <StackPanel Margin="10" HorizontalAlignment="Center">
                         <Button Width="100" 
                                 Height="40" 
-                                Style="{StaticResource MaterialDesignRaisedButton}" 
+                                Style="{StaticResource MaterialDesignFlatButton}" 
                                 materialDesign:ButtonAssist.CornerRadius="10" 
                                 BorderThickness="2" 
                                 BorderBrush="Transparent"

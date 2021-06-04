@@ -97,6 +97,7 @@
                                  BorderBrush="White"
                                  CaretBrush="#4568dc" 
                                  SelectionBrush="#4568dc"
+                                 MaxLength="20"
                                  materialDesign:TextFieldAssist.UnderlineBrush="#b06ab3"/>
                     </StackPanel>
                 </Grid>
@@ -235,7 +236,7 @@
         <StackPanel Grid.Row="1" Margin="0,168,0,60">
             <Button Width="100" 
                     Height="40" 
-                    Style="{StaticResource MaterialDesignRaisedButton}" 
+                    Style="{StaticResource MaterialDesignFlatButton}" 
                     materialDesign:ButtonAssist.CornerRadius="10" 
                     BorderThickness="2" 
                     BorderBrush="Transparent"
