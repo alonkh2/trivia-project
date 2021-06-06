@@ -27,18 +27,19 @@ namespace Trivia_GUI
     {
         DispatcherTimer _timer;
         TimeSpan _time;
-        Communicator communicator;
-        string username;
-        public QuestionWindow(Communicator communicator_, string username_)
+        Communicator communicator_;
+        string username_;
+        bool admin_;
+        public QuestionWindow(Communicator communicator, string username, bool admin)
         {
             InitializeComponent();
 
             this.Top = (double)App.Current.Properties["verticalDis"];
             this.Left = (double)App.Current.Properties["horizontalDis"];
 
-            communicator = communicator_;
-            username = username_;
-
+            communicator_ = communicator;
+            username_ = username;
+            admin_ = admin;
             
 
             //idk what this does, looks important tho
@@ -84,7 +85,15 @@ namespace Trivia_GUI
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             _timer.Stop();
-            MainWindow mainWin = new MainWindow(communicator, username);
+            if (admin_)
+            {
+                communicator_.closeRoom();
+            }
+            else
+            {
+                communicator_.leaveRoom();
+            }
+            MainWindow mainWin = new MainWindow(communicator_, username_);
             mainWin.Show();
             this.Close();
         }
@@ -97,8 +106,16 @@ namespace Trivia_GUI
         /// <param name="e"></param>
         private void Leave_Click(object sender, RoutedEventArgs e)
         {
+            if (admin_)
+            {
+                communicator_.closeRoom();
+            }
+            else
+            {
+                communicator_.leaveRoom();
+            }
             _timer.Stop();
-            communicator.logout();
+            communicator_.logout();
             System.Windows.Application.Current.Shutdown();
         }
 

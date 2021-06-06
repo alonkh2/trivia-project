@@ -82,8 +82,11 @@ namespace Trivia_GUI
         private void Start_Click(object sender, RoutedEventArgs e)
         {
             communicator_.startGame();
-            // here we go to questions menu too.
-            MessageBox.Show("nice");
+            QuestionWindow questionWindow = new QuestionWindow(communicator_, username_, admin_);
+            t_.Abort();
+            questionWindow.Show();
+            this.Close();
+            // MessageBox.Show("nice");
         }
 
         /// <summary>
@@ -153,7 +156,10 @@ namespace Trivia_GUI
 
                     if (room_.isActive == 2)
                     {
-                        // here we go to the questions window.
+                        t_.Abort();
+                        QuestionWindow questionWindow = new QuestionWindow(communicator_, username_, admin_);
+                        questionWindow.Show();
+                        this.Close();
                     }
                     else if (room_.isActive == 0)
                     {

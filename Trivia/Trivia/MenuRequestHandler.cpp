@@ -105,7 +105,7 @@ RequestResult MenuRequestHandler::getRooms(const RequestInfo& info) const
 	
 	try
 	{
-		gr.rooms = m_roomManager.getRooms();
+		gr.rooms = m_roomManager.getNotActiveRooms();
 		gr.status.push_back('1');
 		rr.buffer = JsonResponsePacketSerializer::serializeResponse(gr);
 	}

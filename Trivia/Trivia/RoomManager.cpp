@@ -70,6 +70,24 @@ std::vector<RoomData> RoomManager::getRooms()
 }
 
 /**
+ * \brief Gets the data of all of the not playing rooms.
+ * \return All of the not playing rooms' metadata.
+ */
+std::vector<RoomData> RoomManager::getNotActiveRooms()
+{
+	std::lock_guard<std::mutex> lock(m_roomMutex);
+	std::vector<RoomData> rooms;
+	for (const auto& room : m_rooms)
+	{
+		if (room.second.getRoomData().isActive != 2)
+		{
+			rooms.push_back(room.second.getRoomData());
+		}
+	}
+	return rooms;
+}
+
+/**
  * \brief I do not know.
  * \return I do not know.
  */
