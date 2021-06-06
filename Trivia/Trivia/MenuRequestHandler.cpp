@@ -137,7 +137,8 @@ RequestResult MenuRequestHandler::getPlayersInRoom(const RequestInfo& info) cons
 	try
 	{
 		const auto data = JsonResponsePacketDeserializer::deserializeGetPlayersRequest(info.buffer);
-		gr.players = m_roomManager.getAllRooms().at(data.roomId).getAllUsers();
+		// gr.players = m_roomManager.getAllRooms().at(data.roomId).getAllUsers();
+		m_roomManager.getRoom(data.roomId).getAllUsers();
 		rr.buffer = JsonResponsePacketSerializer::serializeResponse(gr);
 	}
 	catch (CommunicationException& e)
@@ -237,7 +238,7 @@ RequestResult MenuRequestHandler::joinRoom(const RequestInfo& info) const
 		
 		jr.status.push_back('1');
 		rr.buffer = JsonResponsePacketSerializer::serializeResponse(jr);
-		rr.newHandler = nullptr; // Room handler.
+		rr.newHandler = m_handlerFactory.createRoomMemberRequestHandler(m_roomManager.getRoom(data.roomId), m_user); // Room handler.
 	}
 	catch (CommunicationException& e)
 	{
@@ -272,7 +273,8 @@ RequestResult MenuRequestHandler::createRoom(const RequestInfo& info) const
 
 		cr.status.push_back('1');
 		rr.buffer = JsonResponsePacketSerializer::serializeResponse(cr);
-		rr.newHandler = m_handlerFactory.createMenuRequestHandler(m_user.getUsername()); // room admin
+		Room& room = m_roomManager.getRoom(rd.id);
+		rr.newHandler = m_handlerFactory.createRoomAdminRequestHandler(room, m_user); // room admin
 	}
 	catch (CommunicationException& e)
 	{

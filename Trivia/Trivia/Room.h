@@ -40,6 +40,9 @@ public:
 	std::vector<std::string> getAllUsers();
 	RoomData getRoomData() const;
 
+	void start();
+	void close();
+
 private:
 	RoomData m_metadata;
 	std::vector<LoggedUser> m_users;

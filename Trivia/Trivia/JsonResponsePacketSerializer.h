@@ -74,11 +74,16 @@ typedef struct StartGameResponse
 typedef struct GetRoomStateResponse
 {
 	std::vector<Byte> status;
-	bool hasGameBegun;
+	int state;
 	std::vector<std::string> players;
 	unsigned questionCount;
 	float answerTimeout;
 } GetRoomStateResponse;
+
+typedef struct LeaveRoomResponse
+{
+	std::vector<Byte> status;
+} LeaveRoomResponse;
 
 class JsonResponsePacketSerializer
 {
@@ -96,6 +101,7 @@ public:
 	static std::vector<Byte> serializeResponse(const CloseRoomResponse& response);
 	static std::vector<Byte> serializeResponse(const StartGameResponse& response);
 	static std::vector<Byte> serializeResponse(const GetRoomStateResponse& response);
+	static std::vector<Byte> serializeResponse(const LeaveRoomResponse& response);
 
 private:
 	static std::vector<Byte> serialize(const nlohmann::json& msg, Byte code);

@@ -7,10 +7,14 @@
 #include "StatisticsManager.h"
 #include "RoomManager.h"
 #include "MenuRequestHandler.h"
+#include "RoomAdminRequestHandler.h"
+#include "RoomMemberRequestHandler.h"
 
 
 class MenuRequestHandler;
 class LoginRequestHandler;
+class RoomAdminRequestHandler;
+class RoomMemberRequestHandler;
 
 class RequestHandlerFactory : public Singleton<RequestHandlerFactory>
 {	
@@ -18,7 +22,9 @@ public:
 	// Functions and methods
 	LoginRequestHandler* createLoginRequestHandler();
 	MenuRequestHandler* createMenuRequestHandler(const std::string& username);
-
+	RoomAdminRequestHandler* createRoomAdminRequestHandler(Room& room, const LoggedUser& user);
+	RoomMemberRequestHandler* createRoomMemberRequestHandler(Room& room, const LoggedUser& user);
+	
 	LoginManager& getLoginManager() const;
 	RoomManager& getRoomManager() const;
 	StatisticsManager& getStatisticsManager() const;
