@@ -29,7 +29,6 @@ void RoomManager::deleteRoom(unsigned id)
 	std::lock_guard<std::mutex> lock(m_roomMutex);
 	if (m_rooms.find(id) != m_rooms.end())
 	{
-		m_rooms.at(id).close();
 		if (m_rooms.at(id).getAllUsers().empty())
 		{
 			m_rooms.erase(id);
@@ -37,6 +36,15 @@ void RoomManager::deleteRoom(unsigned id)
 		return;
 	}
 	throw CommunicationException("Room doesn't exist", DSNT_EXST);
+}
+
+void RoomManager::closeRoom(unsigned id)
+{
+	std::lock_guard<std::mutex> lock(m_roomMutex);
+	if (m_rooms.find(id) != m_rooms.end())
+	{
+		m_rooms.at(id).close();
+	}
 }
 
 /**

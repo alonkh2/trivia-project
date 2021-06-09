@@ -19,6 +19,7 @@ RequestResult RoomAdminRequestHandler::closeRoom(const RequestInfo& info) const
 	
 	try
 	{
+		m_roomManager.closeRoom(m_room.getRoomData().id);
 		m_roomManager.deleteRoom(m_room.getRoomData().id);
 		m_room.removeUser(m_user);
 		cr.status.push_back('1');

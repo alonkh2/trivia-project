@@ -14,6 +14,7 @@ public:
 
 	unsigned createRoom(const LoggedUser& user, const RoomData& data);
 	void deleteRoom(unsigned id);
+	void closeRoom(unsigned id);
 	unsigned getRoomState(unsigned id);
 	std::vector<RoomData> getRooms();
 	std::vector<RoomData> getNotActiveRooms();
