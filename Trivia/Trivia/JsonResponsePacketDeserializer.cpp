@@ -51,7 +51,7 @@ SignupRequest JsonResponsePacketDeserializer::deserializeSingupRequest(const std
 }
 
 /**
- * \brief Deserializes a signup request.
+ * \brief Deserializes a get players request.
  * \param buffer The request to deserialize.
  * \return A formatted GetPlayersRequest.
  */
@@ -72,7 +72,7 @@ getPlayersInRoomRequest JsonResponsePacketDeserializer::deserializeGetPlayersReq
 }
 
 /**
- * \brief Deserializes a signup request.
+ * \brief Deserializes a join room request.
  * \param buffer The request to deserialize.
  * \return A formatted JoinRoomRequest.
  */
@@ -93,7 +93,7 @@ JoinRoomRequest JsonResponsePacketDeserializer::deserializeJoinRoomRequest(const
 }
 
 /**
- * \brief Deserializes a signup request.
+ * \brief Deserializes a create room request.
  * \param buffer The request to deserialize.
  * \return A formatted CreateRoomRequest.
  */
@@ -115,6 +115,28 @@ CreateRoomRequest JsonResponsePacketDeserializer::deserializeCreateRoomRequest(c
 		throw CommunicationException("Error deserializing CreateRoomRequest", DSRL);
 	}
 	return crReq;
+}
+
+/**
+ * \brief Deserializes a submit answer request.
+ * \param buffer The request to deserialize.
+ * \return A formatted CreateRoomRequest.
+ */
+SubmitAnswerRequest JsonResponsePacketDeserializer::deserializeSubmitAnswerRequest(const std::vector<Byte>& buffer)
+{
+	SubmitAnswerRequest srReq;
+
+	const auto msg = toJson(buffer);
+
+	try
+	{
+		srReq.answer = strtol(msg.at("answer").dump().c_str(), nullptr, 10);
+	}
+	catch (...)
+	{
+		throw CommunicationException("Error deserializing SubmitAnswerRequest", DSRL);
+	}
+	return srReq;
 }
 
 /**

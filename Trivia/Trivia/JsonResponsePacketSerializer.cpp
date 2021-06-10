@@ -190,6 +190,11 @@ std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const GetRoomS
 	return serialize(msg, code);
 }
 
+/**
+ * \brief Serializes a response.
+ * \param response The response to be sent.
+ * \return A byte representation of the message.
+ */
 std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const LeaveRoomResponse& response)
 {
 	const Byte code = SG_CD;
@@ -197,6 +202,76 @@ std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const LeaveRoo
 		{"status", std::string(response.status.begin(), response.status.end())}
 	};
 	return serialize(msg, SG_CD);
+}
+
+/**
+ * \brief Serializes a response.
+ * \param response The response to be sent.
+ * \return A byte representation of the message.
+ */
+std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const LeaveGameResponse& response)
+{
+	const Byte code = LG_CD;
+	const nlohmann::json msg = {
+		{"status", std::string(response.status.begin(), response.status.end())}
+	};
+	return serialize(msg, code);
+}
+
+/**
+ * \brief Serializes a response.
+ * \param response The response to be sent.
+ * \return A byte representation of the message.
+ */
+std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const GetQuestionResponse& response)
+{
+	const Byte code = GQ_CD;
+	std::string answers;
+	for (const auto& answer : response.answers)
+	{
+		answers += std::to_string(answer.first) + "," + answer.second + "$";
+	}
+	const nlohmann::json msg = {
+		{"status", std::string(response.status.begin(), response.status.end())},
+		{"question", response.question},
+		{"answers", answers.substr(0, answers.size() - 1)}
+	};
+	return serialize(msg, code);
+}
+
+/**
+ * \brief Serializes a response.
+ * \param response The response to be sent.
+ * \return A byte representation of the message.
+ */
+std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const SubmitAnswerResponse& response)
+{
+	const Byte code = SA_CD;
+	const nlohmann::json msg = {
+		{"status", std::string(response.status.begin(), response.status.end())},
+		{"correct", std::to_string(response.correctAnswer)}
+	};
+	return serialize(msg, code);
+}
+
+/**
+ * \brief Serializes a response.
+ * \param response The response to be sent.
+ * \return A byte representation of the message.
+ */
+std::vector<Byte> JsonResponsePacketSerializer::serializeResponse(const GetGameResultsResponse& response)
+{
+	const Byte code = GG_CD;
+	std::string results;
+	for (auto result : response.results)
+	{
+		results += result.toString() + "$";
+	}
+	const nlohmann::json msg = {
+		{"status", std::string(response.status.begin(), response.status.end())},
+		{"results", results.substr(0, results.size() - 1)}
+	};
+	return serialize(msg, code);
 }
 
 /**

@@ -7,6 +7,20 @@
 #include "Room.h"
 
 
+typedef struct PlayerResults
+{
+	std::string username;
+	unsigned correctAnswerCount;
+	unsigned wrongAnswerCount;
+	float averageAnswerTime;
+
+	std::string toString() const
+	{
+		return username + "," + std::to_string(correctAnswerCount) + "," + std::to_string(wrongAnswerCount) + "," +
+			std::to_string(averageAnswerTime);
+	}
+} PlayerResults;
+
 typedef struct ErrorResponse
 {
 	std::string message;
@@ -85,6 +99,31 @@ typedef struct LeaveRoomResponse
 	std::vector<Byte> status;
 } LeaveRoomResponse;
 
+
+typedef struct LeaveGameResponse
+{
+	std::vector<Byte> status;
+} LeaveGameResponse;
+
+typedef struct GetQuestionResponse
+{
+	std::vector<Byte> status;
+	std::string question;
+	std::map<unsigned, std::string> answers;
+} GetQuestionResponse;
+
+typedef struct SubmitAnswerResponse
+{
+	std::vector<Byte> status;
+	unsigned correctAnswer;
+} SubmitAnswerResponse;
+
+typedef struct GetGameResultsResponse
+{
+	std::vector<Byte> status;
+	std::vector<PlayerResults> results;
+} GetGameResultsResponse;
+
 class JsonResponsePacketSerializer
 {
 public:
@@ -102,6 +141,10 @@ public:
 	static std::vector<Byte> serializeResponse(const StartGameResponse& response);
 	static std::vector<Byte> serializeResponse(const GetRoomStateResponse& response);
 	static std::vector<Byte> serializeResponse(const LeaveRoomResponse& response);
+	static std::vector<Byte> serializeResponse(const LeaveGameResponse& response);
+	static std::vector<Byte> serializeResponse(const GetQuestionResponse& response);
+	static std::vector<Byte> serializeResponse(const SubmitAnswerResponse& response);
+	static std::vector<Byte> serializeResponse(const GetGameResultsResponse& response);
 
 private:
 	static std::vector<Byte> serialize(const nlohmann::json& msg, Byte code);
