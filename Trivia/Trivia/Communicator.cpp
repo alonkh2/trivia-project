@@ -97,7 +97,8 @@ void Communicator::handleNewClient(SOCKET client)
 		while (true)
 		{
 			
-			code = receive(client, sizeof(Byte)), length = receive(client, sizeof(int));
+			code = receive(client, sizeof(Byte));
+			length = receive(client, sizeof(int));
 			
 			if (code == nullptr || length == nullptr)
 			{
@@ -142,7 +143,7 @@ void Communicator::handleNewClient(SOCKET client)
 	}
 	catch (std::exception& e)
 	{
-		std::cout << e.what() << ": " << client << std::endl;
+		std::cout << e.what() << std::endl;
 		closesocket(client);
 		lock.lock();
 		m_clients.erase(client);

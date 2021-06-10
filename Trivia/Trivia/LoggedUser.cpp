@@ -18,3 +18,13 @@ std::string LoggedUser::getUsername() const
 {
 	return m_username;
 }
+
+bool operator==(const LoggedUser& lhs, const LoggedUser& rhs)
+{
+	return lhs.m_username == rhs.m_username;
+}
+
+bool operator!=(const LoggedUser& lhs, const LoggedUser& rhs)
+{
+	return !(lhs == rhs);
+}
