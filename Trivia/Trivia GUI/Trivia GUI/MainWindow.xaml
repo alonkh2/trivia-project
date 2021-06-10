@@ -52,7 +52,15 @@
                                 FontSize="14"
                                 IsChecked="True"
                                 Style="{StaticResource MenuButtonTheme}"
-                                Command="{Binding HomeViewCommand}"
+                                ForceCursor="True"
+                                Cursor="Hand"/>
+
+                    <RadioButton Content="Add Questions"
+                                Height="50"
+                                Foreground="White"
+                                FontSize="14"
+                                Style="{StaticResource MenuButtonTheme}"
+                                Click="Question_Click"
                                 ForceCursor="True"
                                 Cursor="Hand"/>
 

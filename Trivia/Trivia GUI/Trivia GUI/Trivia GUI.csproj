@@ -98,6 +98,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddQuestionWindow.xaml.cs">
+      <DependentUpon>AddQuestionWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AfterGameWindow.xaml.cs">
       <DependentUpon>AfterGameWindow.xaml</DependentUpon>
     </Compile>
@@ -114,6 +117,7 @@
     <Compile Include="LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Question.cs" />
     <Compile Include="QuestionWindow.xaml.cs">
       <DependentUpon>QuestionWindow.xaml</DependentUpon>
     </Compile>
@@ -131,6 +135,10 @@
     <Compile Include="WelcomeWindow.xaml.cs">
       <DependentUpon>WelcomeWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="AddQuestionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AfterGameWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

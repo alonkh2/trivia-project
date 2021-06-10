@@ -125,6 +125,20 @@ namespace Trivia_GUI
             this.Close();
         }
 
+        /// <summary>
+        /// This function send the user to the AddQuestionWindow
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Question_Click(object sender, RoutedEventArgs e)
+        {
+
+            AddQuestionWindow addQuest = new AddQuestionWindow(communicator, currUser);
+            addQuest.Show();
+            this.Close();
+        }
+        
+
 
         /// <summary>
         /// This function allows the window to be dragged across the screen
