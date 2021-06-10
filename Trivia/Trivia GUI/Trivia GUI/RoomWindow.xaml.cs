@@ -171,7 +171,7 @@ namespace Trivia_GUI
                     }
                 }));
 
-                Thread.Sleep(3000);
+                Thread.Sleep(200); // 3 seconds is way too much
             }
         }
 

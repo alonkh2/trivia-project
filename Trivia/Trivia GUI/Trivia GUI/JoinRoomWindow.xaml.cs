@@ -60,7 +60,7 @@ namespace Trivia_GUI
                     DataContext = this;
 
                 }));
-                Thread.Sleep(3000);
+                Thread.Sleep(200); // Changed this from 3 seconds to 200 milliseconds
             }
             
         }
