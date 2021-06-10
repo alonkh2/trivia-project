@@ -1,0 +1,145 @@
+﻿<Window x:Class="Trivia_GUI.JoinRoomWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Trivia_GUI"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Height="600" Width="920"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True"
+        MouseDown="Window_MouseDown">
+
+    <Grid>
+        <Grid.Background>
+            <!--The gradient at the bottom-->
+            <LinearGradientBrush StartPoint="0.1,0" EndPoint="0.9,1">
+                <GradientStop Color="#b06ab3" Offset="1" />
+                <GradientStop Color="#4568dc   " Offset="0" />
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        
+        <!--The grey color all over the screen-->
+        <Border Background="#272537" CornerRadius="0 0 90 90" Margin="0,0,0,60"/>
+
+        <!--The return button in the top left-->
+        <Button Content="{materialDesign:PackIcon Kind=ArrowBack, Size=32}"
+                    Background="Transparent"
+                    Foreground="White" 
+                    Height="35"
+                    BorderThickness="0"
+                    Style="{DynamicResource LowerButton}"
+                    Click="Back_Click"
+                    ForceCursor="True"
+                    Cursor="Hand" 
+                    Margin="10,10,879,555" 
+                    RenderTransformOrigin="1.558,0.484"/>
+
+        <!--The exit button in the top right-->
+        <Button Content="{materialDesign:PackIcon Kind=ExitToApp, Size=32}"
+                    Background="Transparent"
+                    Foreground="White" 
+                    Height="35"
+                    BorderThickness="0"
+                    Style="{DynamicResource LowerButton}"
+                    Click="Leave_Click"
+                    ForceCursor="True"
+                    Cursor="Hand" 
+                    Margin="874,10,10,555" 
+                    RenderTransformOrigin="1.558,0.484"/>
+
+
+        <!--The ListView containing the rooms-->
+        <ListView ItemsSource="{Binding RoomList}" Foreground="White" x:Name="lv" Margin="41,0,41,95" MouseDoubleClick="JoinRoom">
+            <ListView.View>
+                <GridView>
+                    <!--Room ID column-->
+                    <GridViewColumn DisplayMemberBinding="{Binding roomID}" Width="138">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=roomID}" Foreground="White" HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Room id" Foreground="White" TextAlignment="Center"/>
+                        </GridViewColumn.Header>
+                        
+                    </GridViewColumn>
+
+                    <!--Name column-->
+                    <GridViewColumn DisplayMemberBinding="{Binding name}" Width="135">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=name}" Foreground="White" HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                        
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Name" Foreground="White"/>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    
+                    <!--Timeout column-->
+                    <GridViewColumn DisplayMemberBinding="{Binding timeout}" Width="135">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=timeout}" Foreground="White" HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Timeout" Foreground="White"/>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+
+
+                    <!--Max players column-->
+                    <GridViewColumn DisplayMemberBinding="{Binding max}" Width="135">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=max}" Foreground="White" HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Max players" Foreground="White"/>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+
+                    <!--Count column-->
+                    <GridViewColumn DisplayMemberBinding="{Binding count}" Width="135">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=count}" Foreground="White"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Questions" Foreground="White"/>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+
+                    <!--Active column-->
+                    <GridViewColumn DisplayMemberBinding="{Binding isActive}" Width="135">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=isActive}" Foreground="White"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+
+                        <GridViewColumn.Header>
+                            <TextBlock Text="Active" Foreground="White"/>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+    </Grid>
+</Window>

@@ -1,0 +1,338 @@
+﻿<Window x:Class="Trivia_GUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Height="600" Width="920"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True"
+        MouseDown="Window_MouseDown">
+
+    <Grid>
+        <Grid.Background>
+            <!--The gradient at the bottom-->
+            <LinearGradientBrush StartPoint="0.1,0" EndPoint="0.9,1">
+                <GradientStop Color="#b06ab3" Offset="1" />
+                <GradientStop Color="#4568dc" Offset="0" />
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <!--The background of the window-->
+        <Border Background="#272537" CornerRadius="0 0 90 90" Margin="0,0,0,60">
+
+            <Grid Margin="0,0,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="75"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <!--Top left of application screen-->
+                <TextBlock Text="Trivia" 
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    Foreground="White"
+                    FontSize="22"
+                    Margin="20,0,0,0"/>
+
+                <!--Stack Panel containnig the menu buttons-->
+                <StackPanel Grid.Row="1" Margin="0,0,0,60">
+
+                    <!--Home button in the left of the screen-->
+                    <RadioButton Content="Home"
+                                Height="50"
+                                Foreground="White"
+                                FontSize="14"
+                                IsChecked="True"
+                                Style="{StaticResource MenuButtonTheme}"
+                                Command="{Binding HomeViewCommand}"
+                                ForceCursor="True"
+                                Cursor="Hand"/>
+
+                    <!--Log out button in the left of the screen-->
+                    <RadioButton Content="Log Out"
+                                Height="50"
+                                Foreground="White"
+                                FontSize="14"
+                                Style="{StaticResource MenuButtonTheme}"
+                                Click="LogOut_Click"
+                                ForceCursor="True"
+                                Cursor="Hand"/>
+
+                    <!--Exit button in the left of the screen-->
+                    <RadioButton Content="Exit"
+                                Height="50"
+                                Foreground="White"
+                                FontSize="14"
+                                Click="ExitButton_Click"
+                                Style="{StaticResource MenuButtonTheme}"
+                                ForceCursor="True"
+                                Cursor="Hand"/>
+                </StackPanel>
+
+                <!--The View Display-->
+                <StackPanel Grid.Row="1" 
+                            Grid.Column="1"
+                            Margin="10,0,0,0">
+                    <TextBlock Text="Home"
+                   Foreground="White"
+                   FontSize="28"
+                   HorizontalAlignment="Left"
+                   Margin="0,0,0,20"/>
+
+                    <!--StackPanel containig top 2 buttons-->
+                    <StackPanel Orientation="Horizontal"
+                    Margin="0,0,0,10">
+
+                        <!--Create room Button-->
+                        <Border Width="400"
+                                Height="200">
+
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                                    <GradientStop Color="#4286f4" Offset="0.0"/>
+                                    <GradientStop Color="#373B44" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+
+                            <Border.Clip>
+                                <RectangleGeometry RadiusX="10"
+                                       RadiusY="10"
+                                       Rect="0,0,400,200"/>
+                            </Border.Clip>
+
+                            <Grid>
+                                <StackPanel>
+                                    <TextBlock Text="Create a New Room!"
+                                   Foreground="White"
+                                   FontSize="28"
+                                   Margin="20,10,10,0"/>
+
+                                    <TextBlock Text="Choose a name and &#10;amount of players!"
+                                                Foreground="White"
+                                                FontSize="18"
+                                                Margin="20,10,10,0"/>
+                                </StackPanel>
+
+                                <Button Background="Transparent"
+                                        Click="Create_Click" 
+                                        BorderThickness="0" 
+                                        BorderBrush="Transparent"
+                                        ForceCursor="true" 
+                                        Cursor="Hand"
+                                        Style="{DynamicResource LowerButton}"/>
+                            </Grid>
+
+                        </Border>
+
+                        <!--Join room button-->
+                        <Border Width="200"
+                                Height="200"
+                                CornerRadius="10"
+                                Margin="45,0,0,0">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                                    <GradientStop Color="#f9d423" Offset="0.0"/>
+                                    <GradientStop Color="#f83600" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Grid>
+                                <StackPanel>
+                                    <TextBlock Text="Join a room!"
+                                   Foreground="White"
+                                   FontSize="28"
+                                   Margin="20,10,10,0"/>
+
+                                    <TextBlock Text="Choose a room&#10;from the list!"
+                                   Foreground="White"
+                                   FontSize="18"
+                                   Margin="20,10,10,0"/>
+                                </StackPanel>
+
+                                <Button Background="Transparent" 
+	                                    BorderThickness="0" 
+	                                    BorderBrush="Transparent"
+	                                    ForceCursor="true" 
+	                                    Cursor="Hand"
+	                                    Click="Join_Click"
+	                                    Style="{DynamicResource LowerButton}"/>
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+
+                    <!--Bottom StackPanel-->
+                    <StackPanel>
+                        <StackPanel.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="Margin" Value="15,0,0,0"/>
+                            </Style>
+                        </StackPanel.Resources>
+                        <TextBlock Margin="0,0,0,10"/>
+
+                        <!--The StackPanel containing the bottom 4 buttons-->
+                        <StackPanel Orientation="Horizontal">
+
+                            <!--Statistics button-->
+                            <Border Width="150"
+                                    Height="150"
+                                    CornerRadius="10"
+                                    Margin="0">
+
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                                        <GradientStop Color="#AA076B" Offset="0.0"/>
+                                        <GradientStop Color="#61045F" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+
+                                <Grid>
+                                    <StackPanel>
+                                        <TextBlock Text="Statistics"
+                                            Foreground="White"
+                                            FontSize="20"
+                                            Margin="10,10,10,0"/>
+
+                                        <TextBlock Text="View your&#10;statistics"
+                                            Foreground="White"
+                                            FontSize="17"
+                                            Margin="10,10,10,0"/>
+                                    </StackPanel>
+
+                                    <Button Background="Transparent"
+                                        Width="150"
+                                        Height="150" 
+                                        BorderThickness="0" 
+                                        BorderBrush="Transparent"
+                                        ForceCursor="true" 
+                                        Cursor="Hand"
+                                        Click="Stats_Click"
+                                        Style="{DynamicResource LowerButton}"/>
+                                </Grid>
+                            </Border>
+
+                            <!--High Scores button-->
+                            <Border Width="150"
+                                Height="150"
+                                CornerRadius="10">
+
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                                        <GradientStop Color="#00bf8f" Offset="0.0"/>
+                                        <GradientStop Color="#001510" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+
+                                <Grid>
+                                    <StackPanel>
+                                        <TextBlock Text="High Scores"
+                                           Foreground="White"
+                                           FontSize="20"
+                                           Margin="10,10,10,0"/>
+
+                                        <TextBlock Text="View the players&#10;with the&#10;highest scores"
+                                           Foreground="White"
+                                           FontSize="17"
+                                           Margin="10,10,10,0"/>
+                                    </StackPanel>
+
+                                    <Button Background="Transparent"
+                                        Width="150"
+                                        Height="150" 
+                                        BorderThickness="0" 
+                                        BorderBrush="Transparent"
+                                        ForceCursor="true" 
+                                        Cursor="Hand"
+                                        Click="High_Click"
+                                        Style="{DynamicResource LowerButton}"/>
+
+                                </Grid>
+                            </Border>
+
+                            <!--Log out button-->
+                            <Border Width="150"
+                                Height="150"
+                                CornerRadius="10">
+
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                                        <GradientStop Color="#f7b733" Offset="0.0"/>
+                                        <GradientStop Color="#fc4a1a" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+
+                                <Grid>
+                                    <StackPanel>
+                                        <TextBlock Text="Log out"
+                                         Foreground="White"
+                                         FontSize="20"
+                                        Margin="10,10,10,0"/>
+
+                                        <TextBlock Text="Go back to the&#10;welcome screen"
+                                            Foreground="White"
+                                            FontSize="17"
+                                            Margin="10,10,10,0"/>
+                                    </StackPanel>
+
+                                    <Button Background="Transparent"
+                                        Width="150"
+                                        Height="150"
+                                        Click="LogOut_Click" 
+                                        BorderThickness="0" 
+                                        BorderBrush="Transparent"
+                                        ForceCursor="true" 
+                                        Cursor="Hand"
+                                        Style="{DynamicResource LowerButton}"/>
+                                </Grid>
+                            </Border>
+
+                            <!--Exit button-->
+                            <Border Width="150"
+                                 Height="150"
+                                 CornerRadius="10">
+
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                                        <GradientStop Color="#ED213A" Offset="0.0"/>
+                                        <GradientStop Color="#6f0000" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+
+                                <Grid>
+                                    <StackPanel>
+                                        <TextBlock Text="Exit"
+                                           Foreground="White"
+                                           FontSize="20"
+                                           Margin="10,10,10,0"/>
+
+                                        <TextBlock Text="Leave the&#10;program"
+                                           Foreground="White"
+                                           FontSize="17"
+                                           Margin="10,10,10,0"/>
+                                    </StackPanel>
+
+                                    <Button Background="Transparent"
+                                        Width="150"
+                                        Height="150"
+                                        Click="ExitButton_Click" 
+                                        BorderThickness="0" 
+                                        BorderBrush="Transparent"
+                                        ForceCursor="true" 
+                                        Cursor="Hand"
+                                        Style="{DynamicResource LowerButton}"/>
+                                </Grid>
+                            </Border>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
+
