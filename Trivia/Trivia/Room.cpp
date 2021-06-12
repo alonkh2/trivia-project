@@ -55,6 +55,11 @@ RoomData Room::getRoomData() const
 	return m_metadata;
 }
 
+std::vector<LoggedUser> Room::getUsers() const
+{
+	return m_users;
+}
+
 void Room::start()
 {
 	m_metadata.isActive = 2;

@@ -39,6 +39,7 @@ public:
 	void removeUser(const LoggedUser& user);
 	std::vector<std::string> getAllUsers();
 	RoomData getRoomData() const;
+	std::vector<LoggedUser> getUsers() const;
 
 	void start();
 	void close();

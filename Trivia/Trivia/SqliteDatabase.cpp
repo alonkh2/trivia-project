@@ -65,15 +65,15 @@ int SqliteDatabase::questionCallback(void* used, int argc, char** argv, char** a
 		{
 			if (!strcmp(az_col_name[i], "question"))
 			{
-				q.question = std::string(argv[i]);
+				q.setQuestion(std::string(argv[i]));
 			}
 			else if (!strcmp(az_col_name[i], "correct"))
 			{
-				q.correct = std::stoi(std::string(argv[i]));
+				q.setAnswer(std::stoi(std::string(argv[i])));
 			}
 			else if (std::string(az_col_name[i]).substr(0, 3) == "ans")
 			{
-				q.options.emplace_back(argv[i]);
+				q.addAnswer(argv[i]);
 			}
 		}
 	}
@@ -256,9 +256,9 @@ float SqliteDatabase::getPlayerAverageAnswerTime(const std::string& username)
 /*
  * I do not know.
  */
-std::list<Question> SqliteDatabase::getQuestions(int roomID)
+std::list<Question> SqliteDatabase::getQuestions()
 {
-	const auto query = "SELECT * FROM QUESTIONS WHERE room_id = " + std::to_string(roomID) + ";";
+	const std::string query = "SELECT * FROM QUESTIONS;";
 	auto questions = std::list<Question>();
 	execCommand(query, questionCallback, &questions);
 	return questions;

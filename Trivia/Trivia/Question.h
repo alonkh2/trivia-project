@@ -1,15 +1,20 @@
 ﻿#pragma once
 #include <string>
 #include <vector>
-class Question;
 
 class Question
 {
 public:
+	Question();
 	Question(std::string question, std::vector<std::string> answers, unsigned correctAnswer);
 
+	void setQuestion(const std::string& question);
+	void addAnswer(const std::string& answer);
+	void setAnswer(unsigned answer);
+	
+	
 	std::string getQuestion() const;
-	std::string getPossibleAnswers() const;
+	std::vector<std::string> getPossibleAnswers() const;
 	unsigned getCorrectAnswer() const;
 
 

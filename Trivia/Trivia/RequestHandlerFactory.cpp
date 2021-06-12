@@ -39,6 +39,11 @@ RoomMemberRequestHandler* RequestHandlerFactory::createRoomMemberRequestHandler(
 	return new RoomMemberRequestHandler(room, user, *this);
 }
 
+GameRequestHandler* RequestHandlerFactory::createGameRequestHandler(Game& game, const LoggedUser& user)
+{
+	return new GameRequestHandler(game, user, GameManager::getInstance<IDatabase&>(m_database), *this);
+}
+
 /**
  * \brief loginManager getter.
  * \return The login manager.

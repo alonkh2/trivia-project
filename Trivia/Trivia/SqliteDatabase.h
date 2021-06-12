@@ -16,7 +16,7 @@ public:
 	bool doesPasswordMatch(const std::string& username, const std::string& password) override;
 	void addNewUser(const std::string& username, const std::string& password, const std::string& email) override;
 
-	std::list<Question> getQuestions(int roomID) override;
+	std::list<Question> getQuestions() override;
 	float getPlayerAverageAnswerTime(const std::string& username) override;
 	int getNumOfCorrectAnswers(const std::string& username) override;
 	int getNumOfTotalAnswers(const std::string& username) override;

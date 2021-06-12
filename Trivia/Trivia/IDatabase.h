@@ -3,13 +3,7 @@
 #include <string>
 #include <vector>
 
-
-typedef struct Question
-{
-	std::string question;
-	std::vector<std::string> options;
-	unsigned correct;
-} Question;
+#include "Question.h"
 
 
 typedef struct Statistic
@@ -31,7 +25,7 @@ public:
 	virtual void addNewUser(const std::string& username, const std::string& password, const std::string& email) = 0;
 
 	// Questions and statistics
-	virtual std::list<Question> getQuestions(int roomID) = 0;
+	virtual std::list<Question> getQuestions() = 0;
 	virtual float getPlayerAverageAnswerTime(const std::string& username) = 0;
 	virtual int getNumOfCorrectAnswers(const std::string& username) = 0;
 	virtual int getNumOfTotalAnswers(const std::string& username) = 0;

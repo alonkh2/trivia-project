@@ -9,16 +9,16 @@ Game::Game(const std::vector<Question>& questions, const std::vector<LoggedUser>
 {
 	for (const auto& user : users)
 	{
-		m_players.insert_or_assign(user, GameData{});
+		m_players.insert_or_assign(user, GameData(user.getUsername()));
 	}
 }
 
 
-std::string Game::getQuestionForUser(const LoggedUser& user)
+Question Game::getQuestionForUser(const LoggedUser& user)
 {
 	if (m_players.find(user) != m_players.end())
 	{
-		return m_questions[m_players.at(user).currentQuestion].getQuestion();
+		return m_questions[m_players.at(user).currentQuestion];
 	}
 	throw CommunicationException("Player doesn't exist in room!", DSNT_EXST);
 }
@@ -50,4 +50,14 @@ void Game::removeUser(const LoggedUser& user)
 		m_players.erase(user);
 	}
 	throw CommunicationException("Player doesn't exist in room!", DSNT_EXST);
+}
+
+std::vector<GameData> Game::getResults()
+{
+	std::vector<GameData> results;
+	for (auto player : m_players)
+	{
+		results.push_back(player.second);
+	}
+	return results;
 }
