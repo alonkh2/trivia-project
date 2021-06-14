@@ -5,7 +5,7 @@
 #include "CommunicationException.h"
 
 
-Game::Game(const std::vector<Question>& questions, const std::vector<LoggedUser>& users)
+Game::Game(std::vector<Question> questions, const std::vector<LoggedUser>& users): m_questions(std::move(questions))
 {
 	for (const auto& user : users)
 	{
@@ -16,9 +16,16 @@ Game::Game(const std::vector<Question>& questions, const std::vector<LoggedUser>
 
 Question Game::getQuestionForUser(const LoggedUser& user)
 {
-	if (m_players.find(user) != m_players.end())
+	/*if (m_players.find(user) != m_players.end())
 	{
 		return m_questions[m_players.at(user).currentQuestion];
+	}*/
+	for (auto player : m_players)
+	{
+		if (player.first == user)
+		{
+			return m_questions[player.second.currentQuestion++];
+		}
 	}
 	throw CommunicationException("Player doesn't exist in room!", DSNT_EXST);
 }

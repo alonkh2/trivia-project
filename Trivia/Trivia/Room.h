@@ -44,6 +44,29 @@ public:
 	void start();
 	void close();
 
+
+	friend bool operator<(const Room& lhs, const Room& rhs)
+	{
+		if (lhs.m_metadata.id < rhs.m_metadata.id)
+			return true;
+		return false;
+	}
+
+	friend bool operator<=(const Room& lhs, const Room& rhs)
+	{
+		return !(rhs < lhs);
+	}
+
+	friend bool operator>(const Room& lhs, const Room& rhs)
+	{
+		return rhs < lhs;
+	}
+
+	friend bool operator>=(const Room& lhs, const Room& rhs)
+	{
+		return !(lhs < rhs);
+	}
+
 private:
 	RoomData m_metadata;
 	std::vector<LoggedUser> m_users;

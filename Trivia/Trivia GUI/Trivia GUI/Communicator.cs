@@ -318,6 +318,31 @@ namespace Trivia_GUI
             return true;
         }
 
+        public Question getQuestion()
+        {
+            string json = JsonConvert.SerializeObject("{}");
+            dynamic reply = getJson(json, 't');
+            Dictionary<int, string> ans = new Dictionary<int, string>();
+
+            if (reply == null || reply.status == null || reply.status != "1" || reply.question == null || reply.answers == null)
+            {
+                return null;
+            }
+            string question = reply.question;
+            string[] answers = ((string)(reply.answers)).Split('$');
+            foreach (string item in answers)
+            {
+                ans.Add(int.Parse(item.Split(',')[0]), item.Split(',')[1]);
+            }
+            Question q = new Question
+            {
+                answers = ans,
+                name = question
+            };
+            return q;
+            
+        }
+
         /// <summary>
         /// Takes in the json request and the request code and generates the result json.
         /// </summary>

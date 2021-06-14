@@ -20,8 +20,8 @@ RequestResult RoomAdminRequestHandler::closeRoom(const RequestInfo& info) const
 	try
 	{
 		m_roomManager.closeRoom(m_room.getRoomData().id);
-		m_roomManager.deleteRoom(m_room.getRoomData().id);
 		m_room.removeUser(m_user);
+		m_roomManager.deleteRoom(m_room.getRoomData().id);
 		cr.status.push_back('1');
 		rr.buffer = JsonResponsePacketSerializer::serializeResponse(cr);
 		rr.newHandler = m_handlerFactory.createMenuRequestHandler(m_user.getUsername());
@@ -120,6 +120,8 @@ RequestResult RoomAdminRequestHandler::startGame(const RequestInfo& info) const
 		m_room.start();
 		sg.status.push_back('1');
 		rr.buffer = JsonResponsePacketSerializer::serializeResponse(sg);
+
+		rr.newHandler = m_handlerFactory.createGameRequestHandler(m_handlerFactory.getGameManager().createGame(m_room), m_user);
 	}
 	catch (CommunicationException& e)
 	{

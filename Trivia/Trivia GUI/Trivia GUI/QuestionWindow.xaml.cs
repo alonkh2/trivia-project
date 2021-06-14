@@ -25,12 +25,13 @@ namespace Trivia_GUI
 
     public partial class QuestionWindow : Window
     {
-        DispatcherTimer _timer;
-        TimeSpan _time;
+        DispatcherTimer timer_;
+        TimeSpan time_;
         Communicator communicator_;
         string username_;
         bool admin_;
-        public QuestionWindow(Communicator communicator, string username, bool admin)
+        int count_;
+        public QuestionWindow(Communicator communicator, string username, bool admin, int count, double timeout)
         {
             InitializeComponent();
 
@@ -40,25 +41,26 @@ namespace Trivia_GUI
             communicator_ = communicator;
             username_ = username;
             admin_ = admin;
-            
+            count_ = count;
 
+            communicator_.getQuestion();
             //idk what this does, looks important tho
 
-            _time = TimeSpan.FromSeconds(100);
+            time_ = TimeSpan.FromSeconds(timeout);
 
-            _timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
+            timer_ = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
             {
-                timer.Text = _time.ToString(@"mm\:ss");
+                timer.Text = time_.ToString(@"mm\:ss");
 
-                if (_time == TimeSpan.Zero)
+                if (time_ == TimeSpan.Zero)
                 {
-                    _timer.Stop();
+                    timer_.Stop();
                 }
 
-                _time = _time.Add(TimeSpan.FromSeconds(-1));
+                time_ = time_.Add(TimeSpan.FromSeconds(-1));
             }, Application.Current.Dispatcher);
 
-            _timer.Start();
+            timer_.Start();
         }
 
         private void Ans_Click(object sender, RoutedEventArgs e)
@@ -84,7 +86,7 @@ namespace Trivia_GUI
         /// <param name="e"></param>
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            _timer.Stop();
+            timer_.Stop();
             if (admin_)
             {
                 communicator_.closeRoom();
@@ -114,7 +116,7 @@ namespace Trivia_GUI
             {
                 communicator_.leaveRoom();
             }
-            _timer.Stop();
+            timer_.Stop();
             communicator_.logout();
             System.Windows.Application.Current.Shutdown();
         }

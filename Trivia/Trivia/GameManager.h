@@ -7,7 +7,7 @@
 class GameManager : public Singleton<GameManager>
 {
 public:
-	Game createGame(const Room& room);
+	Game& createGame(const Room& room);
 	void deleteGame();
 
 	friend class Singleton;
@@ -15,5 +15,5 @@ private:
 	GameManager(IDatabase& database);
 
 	IDatabase& m_database;
-	std::vector<Game> m_games;
+	std::map<Room, Game> m_games;
 };

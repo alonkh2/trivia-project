@@ -26,7 +26,7 @@ typedef struct GameData
 class Game
 {
 public:
-	Game(const std::vector<Question>& questions, const std::vector<LoggedUser>& users);
+	Game(std::vector<Question> questions, const std::vector<LoggedUser>& users);
 
 	Question getQuestionForUser(const LoggedUser& user);
 	unsigned submitAnswer(const LoggedUser& user, unsigned answer);

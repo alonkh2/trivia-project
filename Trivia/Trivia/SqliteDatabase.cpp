@@ -149,7 +149,7 @@ SqliteDatabase::SqliteDatabase(): _db(nullptr)
 		"CREATE TABLE IF NOT EXISTS USERS (username TEXT PRIMARY KEY, password TEXT, email TEXT);";
 	execCommand<int>(createTableQuery, nullptr, nullptr);
 	createTableQuery =
-		"CREATE TABLE IF NOT EXISTS QUESTIONS (question TEXT PRIMARY KEY, ans1 TEXT, ans2 TEXT, ans3 TEXT, ans4 TEXT, correct INTEGER, room_id INTEGER);";
+		"CREATE TABLE IF NOT EXISTS QUESTIONS (question TEXT PRIMARY KEY, ans1 TEXT, ans2 TEXT, ans3 TEXT, ans4 TEXT, correct INTEGER);";
 	execCommand<int>(createTableQuery, nullptr, nullptr);
 	createTableQuery =
 		"CREATE TABLE IF NOT EXISTS STATISTICS (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, username TEXT NOT NULL, average REAL DEFAULT 0, correct INTEGER DEFAULT 0, total INTEGER DEFAULT 0, games INTEGER DEFAULT 0, score INTEGER DEFAULT 0, FOREIGN KEY(username) REFERENCES USERS(username));";
@@ -256,9 +256,9 @@ float SqliteDatabase::getPlayerAverageAnswerTime(const std::string& username)
 /*
  * I do not know.
  */
-std::list<Question> SqliteDatabase::getQuestions()
+std::list<Question> SqliteDatabase::getQuestions(unsigned num)
 {
-	const std::string query = "SELECT * FROM QUESTIONS;";
+	const auto query = "SELECT * FROM QUESTIONS LIMIT " + std::to_string(num) + ";";
 	auto questions = std::list<Question>();
 	execCommand(query, questionCallback, &questions);
 	return questions;

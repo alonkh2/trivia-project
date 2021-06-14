@@ -31,6 +31,7 @@ public:
 	LoginManager& getLoginManager() const;
 	RoomManager& getRoomManager() const;
 	StatisticsManager& getStatisticsManager() const;
+	GameManager& getGameManager() const;
 	
 private:
 	// C'tor. Private because of singleton
@@ -40,6 +41,7 @@ private:
 	LoginManager& m_loginManager;
 	RoomManager& m_roomManager;
 	StatisticsManager& m_statisticsManager;
+	GameManager& m_gameManager;
 	
 	friend class Singleton;
 };

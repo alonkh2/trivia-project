@@ -82,7 +82,7 @@ namespace Trivia_GUI
         private void Start_Click(object sender, RoutedEventArgs e)
         {
             communicator_.startGame();
-            QuestionWindow questionWindow = new QuestionWindow(communicator_, username_, admin_);
+            QuestionWindow questionWindow = new QuestionWindow(communicator_, username_, admin_, room_.count, room_.timeout);
             t_.Abort();
             questionWindow.Show();
             this.Close();
@@ -157,7 +157,7 @@ namespace Trivia_GUI
                     if (room_.isActive == 2)
                     {
                         t_.Abort();
-                        QuestionWindow questionWindow = new QuestionWindow(communicator_, username_, admin_);
+                        QuestionWindow questionWindow = new QuestionWindow(communicator_, username_, admin_, room_.count, room_.timeout);
                         questionWindow.Show();
                         this.Close();
                     }

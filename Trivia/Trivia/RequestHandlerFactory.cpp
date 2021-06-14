@@ -17,7 +17,6 @@ LoginRequestHandler* RequestHandlerFactory::createLoginRequestHandler()
  */
 MenuRequestHandler* RequestHandlerFactory::createMenuRequestHandler(const std::string& username)
 {
-	
 	for (const auto& user : m_loginManager.getLoggedUsers())
 	{
 		if (user.getUsername() == username)
@@ -71,10 +70,16 @@ StatisticsManager& RequestHandlerFactory::getStatisticsManager() const
 	return m_statisticsManager;
 }
 
+GameManager& RequestHandlerFactory::getGameManager() const
+{
+	return m_gameManager;
+}
+
 RequestHandlerFactory::RequestHandlerFactory(IDatabase& db) : m_database(db),
                                                               m_loginManager(LoginManager::getInstance<IDatabase&>(db)),
                                                               m_roomManager(RoomManager::getInstance()),
                                                               m_statisticsManager(
-	                                                              StatisticsManager::getInstance<IDatabase&>(db))
+	                                                              StatisticsManager::getInstance<IDatabase&>(db)),
+                                                              m_gameManager(GameManager::getInstance<IDatabase&>(db))
 {
 }
