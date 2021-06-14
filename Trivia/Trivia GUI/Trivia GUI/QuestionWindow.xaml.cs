@@ -30,6 +30,7 @@ namespace Trivia_GUI
         Communicator communicator_;
         string username_;
         bool admin_;
+        Question question_;
         int count_;
         public QuestionWindow(Communicator communicator, string username, bool admin, int count, double timeout)
         {
@@ -43,7 +44,7 @@ namespace Trivia_GUI
             admin_ = admin;
             count_ = count;
 
-            communicator_.getQuestion();
+            question_ = communicator_.getQuestion();
             //idk what this does, looks important tho
 
             time_ = TimeSpan.FromSeconds(timeout);
@@ -60,19 +61,31 @@ namespace Trivia_GUI
                 time_ = time_.Add(TimeSpan.FromSeconds(-1));
             }, Application.Current.Dispatcher);
 
+            question.Text = question_.name;
+            ans1Txt.Text = question_.answers[0];
+            ans2Txt.Text = question_.answers[1];
+            ans3Txt.Text = question_.answers[2];
+            ans4Txt.Text = question_.answers[3];
             timer_.Start();
         }
 
         private void Ans_Click(object sender, RoutedEventArgs e)
         {
-            if(sender == ans1)
+            if (sender == ans1)
             {
                 // do stuff
             }
-
             else if(sender == ans2)
             {
                 // do more stuff
+            }
+            else if (sender == ans3)
+            {
+
+            }
+            else if (sender == ans4)
+            {
+
             }
         }
 
