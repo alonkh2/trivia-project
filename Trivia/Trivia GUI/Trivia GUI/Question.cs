@@ -11,6 +11,8 @@ namespace Trivia_GUI
         public string name { get; set; }
 
         public Dictionary<int, string> answers { get; set; }
+
+        public int answer { get; set; }
         
     }
 }

@@ -57,7 +57,7 @@ int SqliteDatabase::statisticCallback(void* used, int argc, char** argv, char** 
  */
 int SqliteDatabase::questionCallback(void* used, int argc, char** argv, char** az_col_name)
 {
-	auto* val = static_cast<std::list<Question>*>(used);
+	auto* val = static_cast<std::vector<Question>*>(used);
 	Question q;
 	if (argc > 0)
 	{
@@ -256,10 +256,10 @@ float SqliteDatabase::getPlayerAverageAnswerTime(const std::string& username)
 /*
  * I do not know.
  */
-std::list<Question> SqliteDatabase::getQuestions(unsigned num)
+std::vector<Question> SqliteDatabase::getQuestions(unsigned num)
 {
 	const auto query = "SELECT * FROM QUESTIONS LIMIT " + std::to_string(num) + ";";
-	auto questions = std::list<Question>();
+	auto questions = std::vector<Question>();
 	execCommand(query, questionCallback, &questions);
 	return questions;
 }

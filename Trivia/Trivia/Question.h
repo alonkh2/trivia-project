@@ -18,6 +18,34 @@ public:
 	unsigned getCorrectAnswer() const;
 
 
+	friend bool operator<(const Question& lhs, const Question& rhs)
+	{
+		if (lhs.m_question < rhs.m_question)
+			return true;
+		if (rhs.m_question < lhs.m_question)
+			return false;
+		if (lhs.m_answers < rhs.m_answers)
+			return true;
+		if (rhs.m_answers < lhs.m_answers)
+			return false;
+		return lhs.m_correctAnswer < rhs.m_correctAnswer;
+	}
+
+	friend bool operator<=(const Question& lhs, const Question& rhs)
+	{
+		return !(rhs < lhs);
+	}
+
+	friend bool operator>(const Question& lhs, const Question& rhs)
+	{
+		return rhs < lhs;
+	}
+
+	friend bool operator>=(const Question& lhs, const Question& rhs)
+	{
+		return !(lhs < rhs);
+	}
+
 private:
 	std::string m_question;
 	std::vector<std::string> m_answers;

@@ -82,7 +82,7 @@ namespace Trivia_GUI
         private void Start_Click(object sender, RoutedEventArgs e)
         {
             communicator_.startGame();
-            QuestionWindow questionWindow = new QuestionWindow(communicator_, username_, admin_, room_.count, room_.timeout);
+            QuestionWindow questionWindow = new QuestionWindow(communicator_, username_, admin_, room_.count, room_.timeout, 1);
             t_.Abort();
             questionWindow.Show();
             this.Close();
@@ -141,34 +141,43 @@ namespace Trivia_GUI
         /// </summary>
         private void updateList()
         {
-            while (true)
+            bool working = true;
+            while (working)
             {
                 this.Dispatcher.BeginInvoke(new Action(delegate ()
                 {
                     room_ = communicator_.getRoomState(room_);
 
-                    UserList = room_.users;
-                    adminName.Text = room_.users.First().username;
-                    UserList.RemoveAt(0);
-                    playerList.ItemsSource = UserList;
-
-                    DataContext = this;
-
-                    if (room_.isActive == 2)
+                    if (room_ != null)
                     {
-                        t_.Abort();
-                        QuestionWindow questionWindow = new QuestionWindow(communicator_, username_, admin_, room_.count, room_.timeout);
-                        questionWindow.Show();
-                        this.Close();
+                        UserList = room_.users;
+                        adminName.Text = room_.users.First().username;
+                        UserList.RemoveAt(0);
+                        playerList.ItemsSource = UserList;
+
+                        DataContext = this;
+
+                        if (room_.isActive == 2)
+                        {
+                            t_.Abort();
+                            QuestionWindow questionWindow = new QuestionWindow(communicator_, username_, admin_, room_.count, room_.timeout, 1);
+                            questionWindow.Show();
+                            this.Close();
+                        }
+                        else if (room_.isActive == 0)
+                        {
+                            t_.Abort();
+                            communicator_.leaveRoom();
+                            JoinRoomWindow joinRoom = new JoinRoomWindow(communicator_, username_);
+                            joinRoom.Show();
+                            this.Close();
+                        }
                     }
-                    else if (room_.isActive == 0)
+                    else
                     {
-                        t_.Abort();
-                        communicator_.leaveRoom();
-                        JoinRoomWindow joinRoom = new JoinRoomWindow(communicator_, username_);
-                        joinRoom.Show();
-                        this.Close();
+                        working = false;
                     }
+                    
                 }));
 
                 Thread.Sleep(200); // 3 seconds is way too much

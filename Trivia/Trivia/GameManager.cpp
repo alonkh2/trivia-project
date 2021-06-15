@@ -7,22 +7,16 @@ GameManager::GameManager(IDatabase& database): m_database(database)
 
 Game& GameManager::createGame(const Room& room)
 {
-	
-	auto questions = m_database.getQuestions(room.getRoomData().numOfQuestions);
+	std::lock_guard<std::mutex> mx(m_mutex);
 	if (m_games.find(room) == m_games.end())
 	{
-		// fix that later
 		std::vector<LoggedUser> users;
 		for (const auto& user : room.getUsers())
 		{
 			users.emplace_back(user.getUsername());
 		}
 		std::vector<Question> qs;
-		for (const auto& question : questions)
-		{
-			qs.push_back(question);
-		}
-		auto game = Game(qs, users);
+		auto game = Game(m_database.getQuestions(room.getRoomData().numOfQuestions), users);
 		m_games.insert(std::pair<Room, Game>(room, game));
 	}
 	return m_games.at(room);

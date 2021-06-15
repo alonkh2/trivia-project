@@ -343,6 +343,70 @@ namespace Trivia_GUI
             
         }
 
+        public int submitAnswer(int ans)
+        {
+            Question question = new Question
+            {
+                answer = ans
+            };
+            string json = JsonConvert.SerializeObject(question);
+            dynamic reply = getJson(json, 'u');
+
+            if (reply == null || reply.status == null || reply.status != "1" || reply.correct == null)
+            {
+                return -1;
+            }
+
+            return (int)reply.correct;
+
+        }
+
+        public bool leaveGame()
+        {
+            string json = JsonConvert.SerializeObject("{}");
+            dynamic reply = getJson(json, 's');
+
+            return !(reply == null || reply.status == null || reply.status != "1");
+            
+        }
+
+        public List<Results> getGameResults()
+        {
+            string json = JsonConvert.SerializeObject("{}");
+            dynamic reply = getJson(json, 'v');
+
+            if (reply == null || reply.status == null || reply.results == null || reply.status != "1")
+            {
+                return null;
+            }
+
+            string[] players = ((string)(reply.results)).Split('$');
+            List<Results> results = new List<Results>();
+
+            for (int i = 0; i < players.Length; i++)
+            {
+                string[] stats = players[i].Split(',');
+                results.Add(new Results
+                {
+                    username = stats[0],
+                    correctAnswers = int.Parse(stats[1]),
+                    wrongAnswers = int.Parse(stats[2]),
+                    averageTime = double.Parse(stats[3]),
+                    score = int.Parse(stats[4])
+                });
+            }
+
+            results.Sort(delegate (Results one, Results two)
+            {
+                if (one.score > two.score)
+                {
+                    return 1;
+                }
+                return -1;
+            });
+            return results;
+        }
+
         /// <summary>
         /// Takes in the json request and the request code and generates the result json.
         /// </summary>

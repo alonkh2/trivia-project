@@ -33,11 +33,20 @@ namespace Trivia_GUI
             communicator = communicator_;
             username = username_;
 
+            List<Results> results = communicator_.getGameResults();
+
+            firstPlaces.Text = results.ElementAt(0).username;
+
+            if (results.Count >= 2)
+                secondPlace.Text = results.ElementAt(1).username;
+            if (results.Count >= 3)
+                thirdPlace.Text = results.ElementAt(2).username;
+
+            int pos = results.FindIndex(x => x.username == username);
+            position.Text = (pos + 1).ToString();
+            avgTime.Text = results[pos].averageTime.ToString();
+            totalPoints.Text = results[pos].score.ToString();
         }
-
-
-
-
 
 
         /// <summary>
@@ -47,6 +56,7 @@ namespace Trivia_GUI
         /// <param name="e"></param>
         private void Leave_Click(object sender, RoutedEventArgs e)
         {
+            communicator.leaveGame();
             communicator.logout();
             System.Windows.Application.Current.Shutdown();
         }
@@ -58,6 +68,7 @@ namespace Trivia_GUI
         /// <param name="e"></param>
         private void Back_Click(object sender, RoutedEventArgs e)
         {
+            communicator.leaveGame();
             MainWindow mainWin = new MainWindow(communicator, username); ;
             mainWin.Show();
             this.Close();

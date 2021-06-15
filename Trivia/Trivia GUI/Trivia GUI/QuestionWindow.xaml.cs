@@ -32,7 +32,9 @@ namespace Trivia_GUI
         bool admin_;
         Question question_;
         int count_;
-        public QuestionWindow(Communicator communicator, string username, bool admin, int count, double timeout)
+        double timeout_;
+        int current_;
+        public QuestionWindow(Communicator communicator, string username, bool admin, int count, double timeout, int current)
         {
             InitializeComponent();
 
@@ -43,6 +45,8 @@ namespace Trivia_GUI
             username_ = username;
             admin_ = admin;
             count_ = count;
+            timeout_ = timeout;
+            current_ = current;
 
             question_ = communicator_.getQuestion();
             //idk what this does, looks important tho
@@ -71,25 +75,52 @@ namespace Trivia_GUI
 
         private void Ans_Click(object sender, RoutedEventArgs e)
         {
+            int ans = -1;
             if (sender == ans1)
             {
-                // do stuff
+                ans = 1;
             }
-            else if(sender == ans2)
+            else if (sender == ans2)
             {
-                // do more stuff
+                ans = 2;
             }
             else if (sender == ans3)
             {
-
+                ans = 3;
             }
             else if (sender == ans4)
             {
-
+                ans = 4;
             }
+
+            timer_.Stop();
+
+            int correct = communicator_.submitAnswer(ans);
+
+
+            if (correct == ans)
+            {
+                MessageBox.Show("Correct");
+            }
+            else
+            {
+                MessageBox.Show("Wrong");
+            }
+
+            if (current_ == count_)
+            {
+                AfterGameWindow afterGameWindow = new AfterGameWindow(communicator_, username_);
+                afterGameWindow.Show();
+                this.Close();
+            }
+            else
+            {
+                QuestionWindow questionWindow = new QuestionWindow(communicator_, username_, admin_, count_, timeout_, current_ + 1);
+                questionWindow.Show();
+                this.Close();
+            }
+
         }
-
-
 
 
         /// <summary>
@@ -100,14 +131,7 @@ namespace Trivia_GUI
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             timer_.Stop();
-            if (admin_)
-            {
-                communicator_.closeRoom();
-            }
-            else
-            {
-                communicator_.leaveRoom();
-            }
+            communicator_.leaveGame();
             MainWindow mainWin = new MainWindow(communicator_, username_);
             mainWin.Show();
             this.Close();
@@ -121,14 +145,7 @@ namespace Trivia_GUI
         /// <param name="e"></param>
         private void Leave_Click(object sender, RoutedEventArgs e)
         {
-            if (admin_)
-            {
-                communicator_.closeRoom();
-            }
-            else
-            {
-                communicator_.leaveRoom();
-            }
+            communicator_.leaveGame();
             timer_.Stop();
             communicator_.logout();
             System.Windows.Application.Current.Shutdown();

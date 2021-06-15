@@ -13,13 +13,14 @@ typedef struct GameData
 	unsigned correctAnswerCount;
 	unsigned wrongAnswerCount;
 	float averageAnswerTime;
+	unsigned score;
 
-	GameData(const std::string& name): username(name), currentQuestion(0), correctAnswerCount(0), wrongAnswerCount(0), averageAnswerTime(0) {}
+	GameData(std::string name): username(std::move(name)), currentQuestion(0), correctAnswerCount(0), wrongAnswerCount(0), averageAnswerTime(0), score(0) {}
 
 	std::string toString() const
 	{
 		return username + "," + std::to_string(correctAnswerCount) + "," + std::to_string(wrongAnswerCount) + "," +
-			std::to_string(averageAnswerTime);
+			std::to_string(averageAnswerTime) + "," + std::to_string(score);
 	}
 } GameData;
 

@@ -16,4 +16,5 @@ private:
 
 	IDatabase& m_database;
 	std::map<Room, Game> m_games;
+	std::mutex m_mutex;
 };
