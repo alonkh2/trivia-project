@@ -60,6 +60,22 @@ namespace Trivia_GUI
                 if (time_ == TimeSpan.Zero)
                 {
                     timer_.Stop();
+                    communicator.submitAnswer(5);
+                    MessageBox.Show("Wrong");
+                    
+
+                    if (current_ == count_)
+                    {
+                        AfterGameWindow afterGameWindow = new AfterGameWindow(communicator_, username_);
+                        afterGameWindow.Show();
+                        this.Close();
+                    }
+                    else
+                    {
+                        QuestionWindow questionWindow = new QuestionWindow(communicator_, username_, admin_, count_, timeout_, current_ + 1);
+                        questionWindow.Show();
+                        this.Close();
+                    }
                 }
 
                 time_ = time_.Add(TimeSpan.FromSeconds(-1));
