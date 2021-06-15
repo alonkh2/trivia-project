@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Threading;
 
 namespace Trivia_GUI
 {
@@ -22,6 +23,7 @@ namespace Trivia_GUI
 
         Communicator communicator;
         string username;
+        Thread t_;
 
         public AfterGameWindow(Communicator communicator_, string username_)
         {
@@ -33,19 +35,33 @@ namespace Trivia_GUI
             communicator = communicator_;
             username = username_;
 
-            List<Results> results = communicator_.getGameResults();
+            t_ = new Thread(getResults);
+            t_.Start();
+        }
 
-            firstPlaces.Text = results.ElementAt(0).username;
 
-            if (results.Count >= 2)
-                secondPlace.Text = results.ElementAt(1).username;
-            if (results.Count >= 3)
-                thirdPlace.Text = results.ElementAt(2).username;
+        public void getResults()
+        {
+            while (true)
+            {
+                this.Dispatcher.BeginInvoke(new Action(delegate ()
+                {
+                    List<Results> results = communicator.getGameResults();
 
-            int pos = results.FindIndex(x => x.username == username);
-            position.Text = (pos + 1).ToString();
-            avgTime.Text = results[pos].averageTime.ToString();
-            totalPoints.Text = results[pos].score.ToString();
+                    firstPlaces.Text = results.ElementAt(0).username;
+
+                    if (results.Count >= 2)
+                        secondPlace.Text = results.ElementAt(1).username;
+                    if (results.Count >= 3)
+                        thirdPlace.Text = results.ElementAt(2).username;
+
+                    int pos = results.FindIndex(x => x.username == username);
+                    position.Text = (pos + 1).ToString();
+                    avgTime.Text = results[pos].averageTime.ToString();
+                    totalPoints.Text = results[pos].score.ToString();
+                }));
+                Thread.Sleep(200);
+            }
         }
 
 
@@ -56,6 +72,7 @@ namespace Trivia_GUI
         /// <param name="e"></param>
         private void Leave_Click(object sender, RoutedEventArgs e)
         {
+            t_.Abort();
             communicator.leaveGame();
             communicator.logout();
             System.Windows.Application.Current.Shutdown();
@@ -68,6 +85,7 @@ namespace Trivia_GUI
         /// <param name="e"></param>
         private void Back_Click(object sender, RoutedEventArgs e)
         {
+            t_.Abort();
             communicator.leaveGame();
             MainWindow mainWin = new MainWindow(communicator, username); ;
             mainWin.Show();

@@ -400,9 +400,9 @@ namespace Trivia_GUI
             {
                 if (one.score > two.score)
                 {
-                    return 1;
+                    return -1;
                 }
-                return -1;
+                return 1;
             });
             return results;
         }

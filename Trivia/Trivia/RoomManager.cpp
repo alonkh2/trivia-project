@@ -87,7 +87,7 @@ std::vector<RoomData> RoomManager::getNotActiveRooms()
 	std::vector<RoomData> rooms;
 	for (const auto& room : m_rooms)
 	{
-		if (room.second.getRoomData().isActive != 2)
+		if (room.second.getRoomData().isActive != 2 && room.second.getRoomData().maxPlayers > room.second.getUsers().size())
 		{
 			rooms.push_back(room.second.getRoomData());
 		}

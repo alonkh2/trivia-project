@@ -9,16 +9,21 @@ Game::Game(std::vector<Question> questions, const std::vector<LoggedUser>& users
 {
 	for (const auto& user : users)
 	{
-		m_players.insert(std::pair<LoggedUser, GameData>(user, GameData(user.getUsername())));
+		m_players[LoggedUser(user.getUsername())] = GameData(user.getUsername());
+		m_users[user.getUsername()] = GameData(user.getUsername());
 	}
 }
 
 
 Question Game::getQuestionForUser(const LoggedUser& user)
 {
-	if (m_players.find(user) != m_players.end())
+	if (m_users[user.getUsername()].currentQuestion >= m_questions.size())
 	{
-		return m_questions[m_players.at(user).currentQuestion];
+		throw CommunicationException("Not enough questions!", NEQ);
+	}
+	if (m_users.find(user.getUsername()) != m_users.end())
+	{
+		return m_questions[m_users[user.getUsername()].currentQuestion];
 	}
 	throw CommunicationException("Player doesn't exist in room!", DSNT_EXST);
 }
@@ -26,18 +31,18 @@ Question Game::getQuestionForUser(const LoggedUser& user)
 
 unsigned Game::submitAnswer(const LoggedUser& user, unsigned answer)
 {
-	if (m_players.find(user) != m_players.end())
+	if (m_users.find(user.getUsername()) != m_users.end())
 	{
-		if (m_questions[m_players.at(user).currentQuestion].getCorrectAnswer() == answer)
+		if (m_questions[m_users.at(user.getUsername()).currentQuestion].getCorrectAnswer() == answer)
 		{
-			m_players.at(user).correctAnswerCount++;
-			m_players.at(user).score += 50;
+			m_users.at(user.getUsername()).correctAnswerCount++;
+			m_users.at(user.getUsername()).score += 50;
 		}
 		else
 		{
-			m_players.at(user).wrongAnswerCount++;
+			m_users.at(user.getUsername()).wrongAnswerCount++;
 		}
-		return m_questions[m_players.at(user).currentQuestion++].getCorrectAnswer();
+		return m_questions[m_users.at(user.getUsername()).currentQuestion++].getCorrectAnswer();
 	}
 	throw CommunicationException("Player doesn't exist in room!", DSNT_EXST);
 }
@@ -45,9 +50,9 @@ unsigned Game::submitAnswer(const LoggedUser& user, unsigned answer)
 
 void Game::removeUser(const LoggedUser& user)
 {
-	if (m_players.find(user) != m_players.end())
+	if (m_users.find(user.getUsername()) != m_users.end())
 	{
-		m_players.erase(user);
+		m_users.erase(user.getUsername());
 		return;
 	}
 	throw CommunicationException("Player doesn't exist in room!", DSNT_EXST);
@@ -56,7 +61,7 @@ void Game::removeUser(const LoggedUser& user)
 std::vector<GameData> Game::getResults()
 {
 	std::vector<GameData> results;
-	for (auto player : m_players)
+	for (const auto& player : m_users)
 	{
 		results.push_back(player.second);
 	}

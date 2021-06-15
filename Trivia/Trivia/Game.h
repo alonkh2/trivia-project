@@ -15,6 +15,7 @@ typedef struct GameData
 	float averageAnswerTime;
 	unsigned score;
 
+	GameData(): username(""), currentQuestion(0), correctAnswerCount(0), wrongAnswerCount(0), averageAnswerTime(0), score(0) {}
 	GameData(std::string name): username(std::move(name)), currentQuestion(0), correctAnswerCount(0), wrongAnswerCount(0), averageAnswerTime(0), score(0) {}
 
 	std::string toString() const
@@ -37,4 +38,5 @@ public:
 private:
 	std::vector<Question> m_questions;
 	std::map<LoggedUser, GameData> m_players;
+	std::map<std::string, GameData> m_users;
 };
