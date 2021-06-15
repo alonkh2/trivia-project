@@ -42,7 +42,11 @@ unsigned Game::submitAnswer(const LoggedUser& user, unsigned answer)
 		{
 			m_users.at(user.getUsername()).wrongAnswerCount++;
 		}
-		const auto time_ = time(nullptr) - m_users.at(user.getUsername()).time - 1;
+		auto time_ = time(nullptr) - m_users.at(user.getUsername()).time - 1;
+		if (time_ < 0)
+		{
+			time_ = 0;
+		}
 		m_users.at(user.getUsername()).totalTime += time_;
 		m_users.at(user.getUsername()).averageAnswerTime = m_users.at(user.getUsername()).totalTime / (static_cast<long long>(m_users.at(user.getUsername()).currentQuestion) + static_cast<float>(1));
 		if (m_users.at(user.getUsername()).currentQuestion == m_questions.size() - 1)
