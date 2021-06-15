@@ -18,7 +18,7 @@
             <!--The gradient at the bottom-->
             <LinearGradientBrush StartPoint="0.1,0" EndPoint="0.9,1">
                 <GradientStop Color="#b06ab3" Offset="1" />
-                <GradientStop Color="#4568dc   " Offset="0" />
+                <GradientStop Color="#4568dc" Offset="0" />
             </LinearGradientBrush>
         </Grid.Background>
 
@@ -77,8 +77,8 @@
                 </Border.RenderTransform>
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                        <GradientStop Color="#c31432" Offset="0.0"/>
-                        <GradientStop Color="#1520a6" Offset="1"/>
+                        <GradientStop Color="#6dd5ed" Offset="0.0"/>
+                        <GradientStop Color="#2193b0" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
                 <Grid>
@@ -95,10 +95,10 @@
                                  Foreground="White" 
                                  Width="275" 
                                  BorderBrush="White"
-                                 CaretBrush="#4568dc" 
-                                 SelectionBrush="#4568dc"
+                                 CaretBrush="#6dd5ed" 
+                                 SelectionBrush="#6dd5ed"
                                  MaxLength="20"
-                                 materialDesign:TextFieldAssist.UnderlineBrush="#b06ab3"/>
+                                 materialDesign:TextFieldAssist.UnderlineBrush="#2193b0"/>
                     </StackPanel>
                 </Grid>
             </Border>
@@ -118,8 +118,8 @@
                 </Border.RenderTransform>
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                        <GradientStop Color="#1520a6" Offset="0.0"/>
-                        <GradientStop Color="#4c0121" Offset="1"/>
+                        <GradientStop Color="#90ee90 " Offset="0.0"/>
+                        <GradientStop Color="#00bf8f" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
 
@@ -137,9 +137,9 @@
                                  Foreground="White" 
                                  Width="275" 
                                  BorderBrush="White"
-                                 CaretBrush="#4568dc" 
-                                 SelectionBrush="#4568dc"
-                                 materialDesign:TextFieldAssist.UnderlineBrush="#b06ab3"/>
+                                 CaretBrush="#90ee90" 
+                                 SelectionBrush="#90ee90"
+                                 materialDesign:TextFieldAssist.UnderlineBrush="#00bf8f"/>
                     </StackPanel>
                 </Grid>
             </Border>
@@ -165,8 +165,8 @@
                 </Border.RenderTransform>
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                        <GradientStop Color="#c31432" Offset="0.0"/>
-                        <GradientStop Color="#1520a6" Offset="1"/>
+                        <GradientStop Color="#f5af19" Offset="0.0"/>
+                        <GradientStop Color="#f12711" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
 
@@ -184,9 +184,9 @@
                                  Foreground="White" 
                                  Width="275" 
                                  BorderBrush="White"
-                                 CaretBrush="#4568dc" 
-                                 SelectionBrush="#4568dc"
-                                 materialDesign:TextFieldAssist.UnderlineBrush="#b06ab3"/>
+                                 CaretBrush="#f5af19" 
+                                 SelectionBrush="#f5af19"
+                                 materialDesign:TextFieldAssist.UnderlineBrush="#f12711"/>
                     </StackPanel>
                 </Grid>
             </Border>
@@ -206,8 +206,8 @@
                 </Border.RenderTransform>
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                        <GradientStop Color="#1520a6" Offset="0.0"/>
-                        <GradientStop Color="#4c0121" Offset="1"/>
+                        <GradientStop Color="#c43a30" Offset="0.0"/>
+                        <GradientStop Color="#c71d6f" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
 
@@ -224,9 +224,9 @@
                                  Foreground="White" 
                                  Width="275" 
                                  BorderBrush="White"
-                                 CaretBrush="#4568dc" 
-                                 SelectionBrush="#4568dc"
-                                 materialDesign:TextFieldAssist.UnderlineBrush="#b06ab3"/>
+                                 CaretBrush="#c43a30" 
+                                 SelectionBrush="#c43a30"
+                                 materialDesign:TextFieldAssist.UnderlineBrush="#c71d6f"/>
                     </StackPanel>
                 </Grid>
             </Border>
@@ -240,7 +240,7 @@
                     materialDesign:ButtonAssist.CornerRadius="10" 
                     BorderThickness="2" 
                     BorderBrush="Transparent"
-                    Background="#4c0121" 
+                    Background="#c43a30" 
                     Foreground="White" 
                     ToolTip="Submit" 
                     x:Name="Sub" 
