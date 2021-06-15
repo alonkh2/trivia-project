@@ -24,7 +24,7 @@ RequestResult RoomMemberRequestHandler::getRoomState(const RequestInfo& info) co
 
 		if (rs.state == 2)
 		{
-			auto game = m_handlerFactory.getGameManager().createGame(m_room);
+			auto& game = m_handlerFactory.getGameManager().createGame(m_room);
 			rr.newHandler = m_handlerFactory.createGameRequestHandler(game, m_user);
 		}
 		

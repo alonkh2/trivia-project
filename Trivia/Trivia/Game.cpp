@@ -9,7 +9,7 @@ Game::Game(std::vector<Question> questions, const std::vector<LoggedUser>& users
 {
 	for (const auto& user : users)
 	{
-		m_players.insert_or_assign(user, GameData(user.getUsername()));
+		m_players.insert(std::pair<LoggedUser, GameData>(user, GameData(user.getUsername())));
 	}
 }
 
