@@ -21,7 +21,8 @@ public:
 	int getNumOfCorrectAnswers(const std::string& username) override;
 	int getNumOfTotalAnswers(const std::string& username) override;
 	int getNumOfPlayerGames(const std::string& username) override;
-
+	void updateStats(const GameData& stats) override;
+	
 	Statistic getStats(const std::string& username) override;
 	std::vector<std::string> getHighScore() override;
 private:

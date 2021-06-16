@@ -34,7 +34,9 @@ public:
 
 	Question getQuestionForUser(const LoggedUser& user);
 	unsigned submitAnswer(const LoggedUser& user, unsigned answer);
-	void removeUser(const LoggedUser& user);
+	GameData removeUser(const LoggedUser& user);
+
+	std::map<LoggedUser, GameData> getPlayers() const;
 
 	std::vector<GameData> getResults();
 private:

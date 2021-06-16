@@ -24,5 +24,16 @@ Game& GameManager::createGame(const Room& room)
 
 void GameManager::deleteGame()
 {
-	auto i = m_games.begin();
+	for (const auto& game : m_games)
+	{
+		if (game.second.getPlayers().empty())
+		{
+			m_games.erase(game.first);
+		}
+	}
+}
+
+void GameManager::updateScore(const GameData& data) const
+{
+	m_database.updateStats(data);
 }

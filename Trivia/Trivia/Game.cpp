@@ -42,7 +42,7 @@ unsigned Game::submitAnswer(const LoggedUser& user, unsigned answer)
 		{
 			m_users.at(user.getUsername()).wrongAnswerCount++;
 		}
-		auto time_ = time(nullptr) - m_users.at(user.getUsername()).time - 1;
+		auto time_ = time(nullptr) - m_users.at(user.getUsername()).time;
 		if (time_ < 0)
 		{
 			time_ = 0;
@@ -59,15 +59,21 @@ unsigned Game::submitAnswer(const LoggedUser& user, unsigned answer)
 }
 
 
-void Game::removeUser(const LoggedUser& user)
+GameData Game::removeUser(const LoggedUser& user)
 {
 	if (m_users.find(user.getUsername()) != m_users.end())
 	{
 		calculateScore(user);
+		auto data = m_users.at(user.getUsername());
 		m_users.erase(user.getUsername());
-		return;
+		return data;
 	}
 	throw CommunicationException("Player doesn't exist in room!", DSNT_EXST);
+}
+
+std::map<LoggedUser, GameData> Game::getPlayers() const
+{
+	return m_players;
 }
 
 std::vector<GameData> Game::getResults()

@@ -39,7 +39,8 @@ RequestResult GameRequestHandler::leaveGame(const RequestInfo& info) const
 
 	try
 	{
-		m_game.removeUser(m_user);
+		const auto data = m_game.removeUser(m_user);
+		m_gameManager.updateScore(data);
 		lg.status.push_back('1');
 		rr.buffer = JsonResponsePacketSerializer::serializeResponse(lg);
 	}

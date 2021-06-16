@@ -94,7 +94,7 @@ int SqliteDatabase::stringVectorCallback(void* used, int argc, char** argv, char
 			if (!strcmp(az_col_name[i], "score") || !strcmp(az_col_name[i], "username"))
 			{
 				val->push_back(std::string(argv[i]) + ",");
-			}	
+			}
 		}
 	}
 	return 0;
@@ -105,7 +105,7 @@ int SqliteDatabase::stringVectorCallback(void* used, int argc, char** argv, char
  * \param username The user's name.
  * \return The user's stats.
  */
-Statistic SqliteDatabase::getStats(const std::string& username) 
+Statistic SqliteDatabase::getStats(const std::string& username)
 {
 	const auto query = "SELECT * FROM STATISTICS WHERE username = '" + username + "';";
 	Statistic stat;
@@ -189,7 +189,7 @@ bool SqliteDatabase::doesPasswordMatch(const std::string& username, const std::s
 {
 	std::string dbResp;
 	const auto passwordQuery = "SELECT password FROM USERS WHERE username = '" + username + "';";
-	
+
 	execCommand(passwordQuery, stringCallback, &dbResp);
 
 	return dbResp == password;
@@ -231,6 +231,22 @@ int SqliteDatabase::getNumOfCorrectAnswers(const std::string& username)
 int SqliteDatabase::getNumOfPlayerGames(const std::string& username)
 {
 	return getStats(username).playerGames;
+}
+
+void SqliteDatabase::updateStats(const GameData& stats)
+{
+	auto stat = getStats(stats.username);
+	stat.score += stats.score;
+	const auto time = stat.averageTime * stat.totalAnswers + stats.totalTime;
+	stat.totalAnswers += stats.currentQuestion;
+	stat.averageTime = time / stat.totalAnswers;
+	stat.playerGames++;
+	stat.correctAnswers += stats.correctAnswerCount;
+	const auto command = "UPDATE STATISTICS SET AVERAGE=" + std::to_string(stat.averageTime) + ", CORRECT=" +
+		std::to_string(stat.correctAnswers) + ", TOTAL=" + std::to_string(stat.totalAnswers) + ", GAMES=" +
+		std::to_string(stat.playerGames) + ", SCORE=" + std::to_string(stat.score) + " WHERE USERNAME='" + stats.
+		username + "';";
+	execCommand<int>(command, nullptr, nullptr);
 }
 
 /**

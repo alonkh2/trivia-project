@@ -10,6 +10,8 @@ public:
 	Game& createGame(const Room& room);
 	void deleteGame();
 
+	void updateScore(const GameData& data) const;
+
 	friend class Singleton;
 private:
 	GameManager(IDatabase& database);

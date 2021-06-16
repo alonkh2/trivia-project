@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+
+#include "Game.h"
 #include "Question.h"
 
 
@@ -30,6 +32,7 @@ public:
 	virtual int getNumOfCorrectAnswers(const std::string& username) = 0;
 	virtual int getNumOfTotalAnswers(const std::string& username) = 0;
 	virtual int getNumOfPlayerGames(const std::string& username) = 0;
+	virtual void updateStats(const GameData& stats) = 0;
 
 	virtual Statistic getStats(const std::string& username) = 0;
 	virtual std::vector<std::string> getHighScore() = 0;
