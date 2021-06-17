@@ -50,6 +50,9 @@ namespace Trivia_GUI
 
                     firstPlaces.Text = results.ElementAt(0).username;
 
+                    secondPlace.Text = "";
+                    thirdPlace.Text = "";
+
                     if (results.Count >= 2)
                         secondPlace.Text = results.ElementAt(1).username;
                     if (results.Count >= 3)
