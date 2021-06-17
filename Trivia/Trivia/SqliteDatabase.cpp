@@ -277,5 +277,11 @@ std::vector<Question> SqliteDatabase::getQuestions(unsigned num)
 	const auto query = "SELECT * FROM QUESTIONS LIMIT " + std::to_string(num) + ";";
 	auto questions = std::vector<Question>();
 	execCommand(query, questionCallback, &questions);
+
+	if (questions.size() == 0)
+	{
+		throw(CommunicationException("No questions in database", DSNT_EXST));
+	}
+
 	return questions;
 }

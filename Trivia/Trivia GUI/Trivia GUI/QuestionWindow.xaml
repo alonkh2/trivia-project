@@ -68,6 +68,13 @@
                    FontSize="25"
                    TextAlignment="Center"/>
 
+        <TextBlock x:Name="questionNum"
+            Text="0/0"
+            Margin="46,9,654,555"
+            Foreground="White"
+            FontSize="25"
+            TextAlignment="Center"/>
+
 
         <StackPanel Orientation="Horizontal" Margin="20,170,20,265">
             <Border Width="200"
@@ -240,6 +247,7 @@
             </Border>
 
         </StackPanel>
+
 
     </Grid>
 </Window>
