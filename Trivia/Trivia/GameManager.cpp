@@ -5,6 +5,11 @@ GameManager::GameManager(IDatabase& database): m_database(database)
 {
 }
 
+/**
+ * \brief Creates a game.
+ * \param room The room the game is based upon.
+ * \return A game.
+ */
 Game& GameManager::createGame(const Room& room)
 {
 	std::lock_guard<std::mutex> mx(m_mutex);
@@ -22,6 +27,9 @@ Game& GameManager::createGame(const Room& room)
 	return m_games.at(room);
 }
 
+/**
+ * \brief Deletes all games that are empty.
+ */
 void GameManager::deleteGame()
 {
 	for (const auto& game : m_games)
@@ -33,6 +41,10 @@ void GameManager::deleteGame()
 	}
 }
 
+/**
+ * \brief Updates a player's score.
+ * \param data The player's stats.
+ */
 void GameManager::updateScore(const GameData& data) const
 {
 	m_database.updateStats(data);

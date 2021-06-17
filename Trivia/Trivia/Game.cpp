@@ -15,6 +15,11 @@ Game::Game(std::vector<Question> questions, const std::vector<LoggedUser>& users
 }
 
 
+/**
+ * \brief Gets a question for a user.
+ * \param user The user.
+ * \return The user's next question.
+ */
 Question Game::getQuestionForUser(const LoggedUser& user)
 {
 	if (m_users[user.getUsername()].currentQuestion >= m_questions.size())
@@ -30,6 +35,12 @@ Question Game::getQuestionForUser(const LoggedUser& user)
 }
 
 
+/**
+ * \brief Submits a user's answer.
+ * \param user The user.
+ * \param answer The user's answer.
+ * \return The correct answer.
+ */
 unsigned Game::submitAnswer(const LoggedUser& user, unsigned answer)
 {
 	if (m_users.find(user.getUsername()) != m_users.end())
@@ -59,6 +70,11 @@ unsigned Game::submitAnswer(const LoggedUser& user, unsigned answer)
 }
 
 
+/**
+ * \brief Removes a user from the game.
+ * \param user The user to remove.
+ * \return The user's stats.
+ */
 GameData Game::removeUser(const LoggedUser& user)
 {
 	if (m_users.find(user.getUsername()) != m_users.end())
@@ -71,11 +87,19 @@ GameData Game::removeUser(const LoggedUser& user)
 	throw CommunicationException("Player doesn't exist in room!", DSNT_EXST);
 }
 
+/**
+ * \brief m_players getter.
+ * \return The players.
+ */
 std::map<LoggedUser, GameData> Game::getPlayers() const
 {
 	return m_players;
 }
 
+/**
+ * \brief results getter.
+ * \return The results.
+ */
 std::vector<GameData> Game::getResults()
 {
 	std::vector<GameData> results;
@@ -86,8 +110,13 @@ std::vector<GameData> Game::getResults()
 	return results;
 }
 
+/**
+ * \brief Calculates a user's score.
+ * \param user The user.
+ */
 void Game::calculateScore(const LoggedUser& user)
 {
+	// 20 points for each correct answer, 5 points * (10 - average time). Minimal score is zero.
 	int score = m_users[user.getUsername()].correctAnswerCount * 20;
 	score += (10 - m_users[user.getUsername()].averageAnswerTime) * 5 * (m_users[user.getUsername()].correctAnswerCount > 0);
 	if (score > 0)

@@ -233,6 +233,10 @@ int SqliteDatabase::getNumOfPlayerGames(const std::string& username)
 	return getStats(username).playerGames;
 }
 
+/**
+ * \brief Updates stats in the database.
+ * \param stats The updated stats.
+ */
 void SqliteDatabase::updateStats(const GameData& stats)
 {
 	auto stat = getStats(stats.username);

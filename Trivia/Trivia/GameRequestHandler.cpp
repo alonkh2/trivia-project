@@ -8,12 +8,21 @@ GameRequestHandler::GameRequestHandler(Game& game, LoggedUser user, GameManager&
 {
 }
 
+/**
+ * \brief Checks if a request is relevant.
+ * \param info The request's info.
+ * \return True if the request is relevant, else false.
+ */
 bool GameRequestHandler::isRequestRelevant(const RequestInfo& info)
 {
 	return info.id >= LG_CD && info.id <= GG_CD;
 }
 
-
+/**
+ * \brief Calls the correct function to handle the request.
+ * \param info The request's info.
+ * \return The request's result.
+ */
 RequestResult GameRequestHandler::handleRequest(const RequestInfo& info)
 {
 	switch (info.id)
@@ -31,6 +40,11 @@ RequestResult GameRequestHandler::handleRequest(const RequestInfo& info)
 	}
 }
 
+/**
+ * \brief Handles a leaveGame request.
+ * \param info The request's info.
+ * \return The request's result.
+ */
 RequestResult GameRequestHandler::leaveGame(const RequestInfo& info) const
 {
 	RequestResult rr;
@@ -59,7 +73,11 @@ RequestResult GameRequestHandler::leaveGame(const RequestInfo& info) const
 	return rr;
 }
 
-
+/**
+ * \brief Handles a getQuestion request.
+ * \param info The request's info.
+ * \return The request's result.
+ */
 RequestResult GameRequestHandler::getQuestion(const RequestInfo& info) const
 {
 	GetQuestionResponse gq;
@@ -93,7 +111,11 @@ RequestResult GameRequestHandler::getQuestion(const RequestInfo& info) const
 	return rr;
 }
 
-
+/**
+ * \brief Handles a submitAnswer request.
+ * \param info The request's info.
+ * \return The request's result.
+ */
 RequestResult GameRequestHandler::submitAnswer(const RequestInfo& info) const
 {
 	SubmitAnswerResponse sa;
@@ -123,6 +145,12 @@ RequestResult GameRequestHandler::submitAnswer(const RequestInfo& info) const
 	return rr;
 }
 
+
+/**
+ * \brief Handles a getGameResults request.
+ * \param info The request's info.
+ * \return The request's result.
+ */
 RequestResult GameRequestHandler::getGameResults(const RequestInfo& info) const
 {
 	GetGameResultsResponse gr;

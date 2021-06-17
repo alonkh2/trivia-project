@@ -168,7 +168,10 @@ namespace Trivia_GUI
             return stats;
         }
 
-
+        /// <summary>
+        /// Gets a list of the rooms.
+        /// </summary>
+        /// <returns>A list of the rooms</returns>
         public List<Room> getRooms()
         {
             string json = JsonConvert.SerializeObject("{}");
@@ -203,6 +206,11 @@ namespace Trivia_GUI
             return roooms;
         }
 
+        /// <summary>
+        /// Joins a room.
+        /// </summary>
+        /// <param name="room">The room to join</param>
+        /// <returns>True if successful, else false</returns>
         public bool joinRoom(Room room)
         {
             string json = JsonConvert.SerializeObject(room);
@@ -216,6 +224,11 @@ namespace Trivia_GUI
             return true;
         }
 
+        /// <summary>
+        /// Creates a room.
+        /// </summary>
+        /// <param name="room">The room to create</param>
+        /// <returns>The new room's id</returns>
         public int createRoom(Room room)
         {
 
@@ -231,6 +244,11 @@ namespace Trivia_GUI
 
         }
 
+        /// <summary>
+        /// Gets a list of the players in a room.
+        /// </summary>
+        /// <param name="room">The room</param>
+        /// <returns>A list of the players in the room</returns>
         public List<User> getPlayersInRoom(Room room)
         {
             string json = JsonConvert.SerializeObject(room);
@@ -251,6 +269,11 @@ namespace Trivia_GUI
             return users;
         }
 
+        /// <summary>
+        /// Gets a room's state.
+        /// </summary>
+        /// <param name="room">The room</param>
+        /// <returns>The room's state</returns>
         public Room getRoomState(Room room)
         {
             string json = JsonConvert.SerializeObject("{}");
@@ -286,6 +309,10 @@ namespace Trivia_GUI
             }
         }
 
+        /// <summary>
+        /// Removes the user from a room.
+        /// </summary>
+        /// <returns>True if successful, else false</returns>
         public bool leaveRoom()
         {
             string json = JsonConvert.SerializeObject("{}");
@@ -298,6 +325,10 @@ namespace Trivia_GUI
             return true;
         }
 
+        /// <summary>
+        /// Closes a room.
+        /// </summary>
+        /// <returns>True if successful, else false</returns>
         public bool closeRoom()
         {
             string json = JsonConvert.SerializeObject("{}");
@@ -310,6 +341,10 @@ namespace Trivia_GUI
             return true;
         }
 
+        /// <summary>
+        /// Starts a game.
+        /// </summary>
+        /// <returns>True if successful, else false</returns>
         public bool startGame()
         {
             string json = JsonConvert.SerializeObject("{}");
@@ -322,6 +357,10 @@ namespace Trivia_GUI
             return true;
         }
 
+        /// <summary>
+        /// Gets a question.
+        /// </summary>
+        /// <returns>The question</returns>
         public Question getQuestion()
         {
             string json = JsonConvert.SerializeObject("{}");
@@ -347,6 +386,11 @@ namespace Trivia_GUI
 
         }
 
+        /// <summary>
+        /// Submits a user's answer.
+        /// </summary>
+        /// <param name="ans">The user's answer</param>
+        /// <returns>The correct answer's index</returns>
         public int submitAnswer(int ans)
         {
             Question question = new Question
@@ -365,6 +409,10 @@ namespace Trivia_GUI
 
         }
 
+        /// <summary>
+        /// Leaves a game.
+        /// </summary>
+        /// <returns>True if successful, else false</returns>
         public bool leaveGame()
         {
             string json = JsonConvert.SerializeObject("{}");
@@ -374,6 +422,10 @@ namespace Trivia_GUI
 
         }
 
+        /// <summary>
+        /// Gets a game's results.
+        /// </summary>
+        /// <returns>The results</returns>
         public List<Results> getGameResults()
         {
             string json = JsonConvert.SerializeObject("{}");

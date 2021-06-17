@@ -63,7 +63,8 @@ namespace Trivia_GUI
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message);
+                        if (ex.Message != "Error with login/signup attempt")
+                            MessageBox.Show(ex.Message);
                     }
 
                 }));

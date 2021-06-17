@@ -264,6 +264,7 @@ RequestResult MenuRequestHandler::createRoom(const RequestInfo& info) const
 {
 	CreateRoomResponse cr;
 	RequestResult rr;
+	rr.newHandler = m_handlerFactory.createMenuRequestHandler(m_user.getUsername());
 
 	try
 	{
