@@ -21,7 +21,13 @@ namespace Trivia_GUI
         ~Communicator()
         {
             if (socket.Connected)
-                logout();
+                try
+                {
+                    logout();
+                }
+                catch (Exception ex)
+                {
+                }
         }
 
         /// <summary>
@@ -51,7 +57,7 @@ namespace Trivia_GUI
 
             if (reply.status != null && reply.status == "1")
             {
-                
+
                 return 2; // success 
             }
             return 1; // Login/Signup excpetion
@@ -149,6 +155,7 @@ namespace Trivia_GUI
             string json = JsonConvert.SerializeObject("{}");
             string data = string.Empty;
 
+
             dynamic reply = getJson(json, 'l');
 
             if (reply == null || reply.statistics == null)
@@ -211,7 +218,7 @@ namespace Trivia_GUI
 
         public int createRoom(Room room)
         {
-            
+
             string json = JsonConvert.SerializeObject(room);
 
             dynamic reply = getJson(json, 'n');
@@ -337,7 +344,7 @@ namespace Trivia_GUI
                 name = question
             };
             return q;
-            
+
         }
 
         public int submitAnswer(int ans)
@@ -364,7 +371,7 @@ namespace Trivia_GUI
             dynamic reply = getJson(json, 's');
 
             return !(reply == null || reply.status == null || reply.status != "1");
-            
+
         }
 
         public List<Results> getGameResults()
@@ -413,17 +420,14 @@ namespace Trivia_GUI
         private Object getJson(string json, char code)
         {
             string data = string.Empty;
-            try
-            {
-                data = data + sendAndReceive(json, code);
-                dynamic reply = JsonConvert.DeserializeObject(data);
 
-                return reply;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+
+            data = data + sendAndReceive(json, code);
+            dynamic reply = JsonConvert.DeserializeObject(data);
+
+            return reply;
+
+
         }
 
         /// <summary>
@@ -494,7 +498,11 @@ namespace Trivia_GUI
             {
                 throw new Exception("Irrelevant request");
             }
-
+            if (charicCode == 'g')
+            {
+                dynamic reply = JsonConvert.DeserializeObject(System.Text.Encoding.Default.GetString(bytesReceived));
+                throw new Exception((string)(reply.message));
+            }
             return System.Text.Encoding.Default.GetString(bytesReceived);
         }
     }

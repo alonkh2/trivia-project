@@ -50,7 +50,14 @@ namespace Trivia_GUI
 
             questionNum.Text = current_.ToString() + "/" + count_.ToString();
 
-            question_ = communicator_.getQuestion();
+            try
+            {
+                question_ = communicator_.getQuestion();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
             time_ = TimeSpan.FromSeconds(timeout);
 
@@ -61,7 +68,15 @@ namespace Trivia_GUI
                 if (time_ == TimeSpan.Zero)
                 {
                     timer_.Stop();
-                    communicator.submitAnswer(5);
+                    try
+                    {
+                        communicator.submitAnswer(5);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+
                     MessageBox.Show("Wrong");
 
 
@@ -95,6 +110,7 @@ namespace Trivia_GUI
         private void Ans_Click(object sender, RoutedEventArgs e)
         {
             int ans = -1;
+            int correct = -2;
             if (sender == ans1)
             {
                 ans = 1;
@@ -114,8 +130,14 @@ namespace Trivia_GUI
 
             timer_.Stop();
 
-            int correct = communicator_.submitAnswer(ans);
-
+            try
+            {
+                correct = communicator_.submitAnswer(ans);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
             if (correct == ans)
             {
@@ -150,7 +172,14 @@ namespace Trivia_GUI
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             timer_.Stop();
-            communicator_.leaveGame();
+            try
+            {
+                communicator_.leaveGame();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
             MainWindow mainWin = new MainWindow(communicator_, username_);
             mainWin.Show();
             this.Close();
@@ -164,9 +193,16 @@ namespace Trivia_GUI
         /// <param name="e"></param>
         private void Leave_Click(object sender, RoutedEventArgs e)
         {
-            communicator_.leaveGame();
-            timer_.Stop();
-            communicator_.logout();
+            try
+            {
+                communicator_.leaveGame();
+                timer_.Stop();
+                communicator_.logout();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
             System.Windows.Application.Current.Shutdown();
         }
 

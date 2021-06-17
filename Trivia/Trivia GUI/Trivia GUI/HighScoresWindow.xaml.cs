@@ -37,45 +37,52 @@ namespace Trivia_GUI
             communicator = communicator_;
             currUser = username;
 
-            string[] stats = communicator.getHighScores();
-
-            // Checking if there are enough players to fill the entire window, and if not, fill it up to a certain point
-            if (stats == null)
+            try
             {
-                MessageBox.Show("Error");
+                string[] stats = communicator.getHighScores();
+
+                // Checking if there are enough players to fill the entire window, and if not, fill it up to a certain point
+                if (stats == null)
+                {
+                    MessageBox.Show("Error");
+                }
+                else
+                {
+                    if (stats.Length > 1 && !string.IsNullOrEmpty(stats[0]) && !string.IsNullOrEmpty(stats[1]))
+                    {
+                        firstUser.Text = stats[0];
+                        firstPoints.Text = stats[1];
+                    }
+
+                    if (stats.Length > 3 && !string.IsNullOrEmpty(stats[2]) && !string.IsNullOrEmpty(stats[3]))
+                    {
+                        secondUser.Text = stats[2];
+                        secondPoints.Text = stats[3];
+                    }
+
+
+                    if (stats.Length > 5 && !string.IsNullOrEmpty(stats[4]) && !string.IsNullOrEmpty(stats[5]))
+                    {
+                        thirdUser.Text = stats[4];
+                        thirdPoints.Text = stats[5];
+                    }
+
+                    if (stats.Length > 7 && !string.IsNullOrEmpty(stats[6]) && !string.IsNullOrEmpty(stats[7]))
+                    {
+                        fourthUser.Text = stats[6];
+                        fourthPoints.Text = stats[7];
+                    }
+
+                    if (stats.Length > 9 && !string.IsNullOrEmpty(stats[8]) && !string.IsNullOrEmpty(stats[9]))
+                    {
+                        fifthUser.Text = stats[8];
+                        fifthPoints.Text = stats[9];
+                    }
+                }
             }
-            else
+            catch (Exception ex)
             {
-                if (stats.Length > 1 && !string.IsNullOrEmpty(stats[0]) && !string.IsNullOrEmpty(stats[1]))
-                {
-                    firstUser.Text = stats[0];
-                    firstPoints.Text = stats[1];
-                }
-
-                if (stats.Length > 3 && !string.IsNullOrEmpty(stats[2]) && !string.IsNullOrEmpty(stats[3]))
-                {
-                    secondUser.Text = stats[2];
-                    secondPoints.Text = stats[3];
-                }
-
-
-                if (stats.Length > 5 && !string.IsNullOrEmpty(stats[4]) && !string.IsNullOrEmpty(stats[5]))
-                {
-                    thirdUser.Text = stats[4];
-                    thirdPoints.Text = stats[5];
-                }
-
-                if (stats.Length > 7 && !string.IsNullOrEmpty(stats[6]) && !string.IsNullOrEmpty(stats[7]))
-                {
-                    fourthUser.Text = stats[6];
-                    fourthPoints.Text = stats[7];
-                }
-
-                if (stats.Length > 9 && !string.IsNullOrEmpty(stats[8]) && !string.IsNullOrEmpty(stats[9]))
-                {
-                    fifthUser.Text = stats[8];
-                    fifthPoints.Text = stats[9];
-                }
+                MessageBox.Show(ex.Message);
             }
         }
 

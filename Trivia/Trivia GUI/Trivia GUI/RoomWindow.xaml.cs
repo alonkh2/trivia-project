@@ -81,12 +81,18 @@ namespace Trivia_GUI
 
         private void Start_Click(object sender, RoutedEventArgs e)
         {
-            communicator_.startGame();
+            try
+            {
+                communicator_.startGame();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
             QuestionWindow questionWindow = new QuestionWindow(communicator_, username_, admin_, room_.count, room_.timeout, 1);
             t_.Abort();
             questionWindow.Show();
             this.Close();
-            // MessageBox.Show("nice");
         }
 
         /// <summary>
@@ -97,15 +103,29 @@ namespace Trivia_GUI
         private void Leave_Click(object sender, RoutedEventArgs e)
         {
             t_.Abort();
-            if (admin_)
+            try
             {
-                communicator_.closeRoom();
+                if (admin_)
+                {
+                    communicator_.closeRoom();
+                }
+                else
+                {
+                    communicator_.leaveRoom();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                communicator_.leaveRoom();
+                MessageBox.Show(ex.Message);
             }
-            communicator_.logout();
+            try
+            {
+                communicator_.logout();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
             System.Windows.Application.Current.Shutdown();
         }
 
@@ -117,21 +137,27 @@ namespace Trivia_GUI
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             t_.Abort();
-
-            if (admin_) // If the current user is the admin go back to CreateRoom
+            try
             {
-                communicator_.closeRoom();
-                CreateRoomWindow createWin = new CreateRoomWindow(communicator_, username_);
-                createWin.Show();
-                this.Close();
+                if (admin_) // If the current user is the admin go back to CreateRoom
+                {
+                    communicator_.closeRoom();
+                    CreateRoomWindow createWin = new CreateRoomWindow(communicator_, username_);
+                    createWin.Show();
+                    this.Close();
+                }
+
+                else // If the current user is a regular player go back to JoinRoom
+                {
+                    communicator_.leaveRoom();
+                    JoinRoomWindow joinRoom = new JoinRoomWindow(communicator_, username_);
+                    joinRoom.Show();
+                    this.Close();
+                }
             }
-
-            else // If the current user is a regular player go back to JoinRoom
+            catch (Exception ex)
             {
-                communicator_.leaveRoom();
-                JoinRoomWindow joinRoom = new JoinRoomWindow(communicator_, username_);
-                joinRoom.Show();
-                this.Close();
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -146,8 +172,15 @@ namespace Trivia_GUI
             {
                 this.Dispatcher.BeginInvoke(new Action(delegate ()
                 {
-                    room_ = communicator_.getRoomState(room_);
-
+                    try
+                    {
+                        room_ = communicator_.getRoomState(room_);
+                    }
+                    catch (Exception ex)
+                    {
+                        working = false;
+                        MessageBox.Show(ex.Message);
+                    }
                     if (room_ != null)
                     {
                         UserList = room_.users;
@@ -167,7 +200,14 @@ namespace Trivia_GUI
                         else if (room_.isActive == 0)
                         {
                             t_.Abort();
-                            communicator_.leaveRoom();
+                            try
+                            {
+                                communicator_.leaveRoom();
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message);
+                            }
                             JoinRoomWindow joinRoom = new JoinRoomWindow(communicator_, username_);
                             joinRoom.Show();
                             this.Close();

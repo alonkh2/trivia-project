@@ -95,28 +95,38 @@ namespace Trivia_GUI
                 MessageBox.Show("Missing or invalid paramaters");
             }
             else
-            { 
-                int result = communicator.signup(txtEmail.Text, txtUsername.Text, txtPassword.Password);
-
-                switch (result)
+            {
+                try
                 {
-                    case 0:
-                        MessageBox.Show("Server error");
-                        break;
+                    int result = communicator.signup(txtEmail.Text, txtUsername.Text, txtPassword.Password);
 
-                    case 1:
-                        MessageBox.Show("Login error");
-                        break;
+                    switch (result)
+                    {
+                        case 0:
+                            MessageBox.Show("Server error");
+                            break;
 
-                    case 2:
-                        MainWindow main = new MainWindow(communicator, txtUsername.Text);
-                        main.Show();
-                        this.Close();
-                        break;
+                        case 1:
+                            MessageBox.Show("Login error");
+                            break;
 
-                    default:
-                        break;
+                        case 2:
+                            MainWindow main = new MainWindow(communicator, txtUsername.Text);
+                            main.Show();
+                            this.Close();
+                            break;
+
+                        default:
+                            break;
+                    }
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                
+
+                
             }
         }
 

@@ -7,7 +7,7 @@
 class CommunicationException : public std::exception
 {
 public:
-	CommunicationException(const std::string& message, Byte status);
+	CommunicationException(std::string message, Byte status);
 	char const* what() const override;
 	Byte getStatus() const noexcept;
 

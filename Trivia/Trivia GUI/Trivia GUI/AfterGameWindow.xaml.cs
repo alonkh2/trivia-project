@@ -73,8 +73,15 @@ namespace Trivia_GUI
         private void Leave_Click(object sender, RoutedEventArgs e)
         {
             t_.Abort();
-            communicator.leaveGame();
-            communicator.logout();
+            try
+            {
+                communicator.leaveGame();
+                communicator.logout();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
             System.Windows.Application.Current.Shutdown();
         }
 
@@ -86,7 +93,14 @@ namespace Trivia_GUI
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             t_.Abort();
-            communicator.leaveGame();
+            try
+            {
+                communicator.leaveGame();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
             MainWindow mainWin = new MainWindow(communicator, username); ;
             mainWin.Show();
             this.Close();

@@ -38,25 +38,38 @@ namespace Trivia_GUI
             communicator = communicator_;
             currUser = username;
 
-            string[] stats = communicator.getPersonalStats(currUser);
+            try
+            {
+
+                string[] stats = communicator.getPersonalStats(currUser);
 
 
-            if (stats == null || stats.Length < 5) // If there is no data on the user
+                if (stats == null || stats.Length < 5) // If there is no data on the user
+                {
+                    totalGames.Text = "No data";
+                    correctAnswers.Text = "No data";
+                    totalAnswers.Text = "No data";
+                    avgTime.Text = "No data";
+                    totalPoints.Text = "No data";
+                }
+
+                else
+                {
+                    totalAnswers.Text = stats[0];
+                    correctAnswers.Text = stats[1];
+                    totalGames.Text = stats[2];
+                    avgTime.Text = stats[3];
+                    totalPoints.Text = stats[4];
+                }
+            }
+            catch (Exception ex)
             {
                 totalGames.Text = "No data";
                 correctAnswers.Text = "No data";
                 totalAnswers.Text = "No data";
                 avgTime.Text = "No data";
                 totalPoints.Text = "No data";
-            }
-
-            else 
-            {
-                totalAnswers.Text = stats[0];
-                correctAnswers.Text = stats[1];
-                totalGames.Text = stats[2];
-                avgTime.Text = stats[3];
-                totalPoints.Text = stats[4];
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -79,7 +92,14 @@ namespace Trivia_GUI
         /// <param name="e"></param>
         private void Leave_Click(object sender, RoutedEventArgs e)
         {
-            communicator.logout();
+            try
+            {
+                communicator.logout();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
             System.Windows.Application.Current.Shutdown();
         }
 

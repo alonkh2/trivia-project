@@ -70,26 +70,32 @@ namespace Trivia_GUI
             }
             else
             {
-                int result = communicator.signin(txtUsername.Text, txtPassword.Password);
-
-                switch (result) // Checking the different error codes
+                try
                 {
-                    case 0:
-                        MessageBox.Show("Server error");
-                        break;
+                    int result = communicator.signin(txtUsername.Text, txtPassword.Password);
 
-                    case 1:
-                        MessageBox.Show("Login error");
-                        break;
+                    switch (result) // Checking the different error codes
+                    {
+                        case 0:
+                            MessageBox.Show("Server error");
+                            break;
 
-                    case 2:
-                        MainWindow main = new MainWindow(communicator, txtUsername.Text);
-                        main.Show();
-                        this.Close();
-                        break;
+                        case 1:
+                            MessageBox.Show("Login error");
+                            break;
 
-                    default:
-                        break;
+                        case 2:
+                            MainWindow main = new MainWindow(communicator, txtUsername.Text);
+                            main.Show();
+                            this.Close();
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
                 }
             }
         }
