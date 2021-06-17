@@ -28,7 +28,16 @@ namespace Trivia_GUI
         {
             InitializeComponent();
 
-            communicator = new Communicator();
+            try
+            {
+                communicator = new Communicator();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Server not online");
+                System.Windows.Application.Current.Shutdown();
+            }
+            
 
         }
 

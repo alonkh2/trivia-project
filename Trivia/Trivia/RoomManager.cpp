@@ -14,6 +14,10 @@ unsigned RoomManager::createRoom(const LoggedUser& user, const RoomData& data)
 	{
 		throw CommunicationException("There's already a room with this name", EXSTS);
 	}
+	if (data.numOfQuestions == 0 || data.timePerQuestion <= 0)
+	{
+		throw CommunicationException("Invalid Parameters", INVLD);
+	}
 	std::lock_guard<std::mutex> lock(m_roomMutex);
 	Room room(user, data);
 	m_rooms.insert_or_assign(data.id, room);

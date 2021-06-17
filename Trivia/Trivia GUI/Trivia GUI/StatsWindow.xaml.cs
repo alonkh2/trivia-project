@@ -41,7 +41,7 @@ namespace Trivia_GUI
             string[] stats = communicator.getPersonalStats(currUser);
 
 
-            if (stats.Length < 5) // If there is no data on the user
+            if (stats == null || stats.Length < 5) // If there is no data on the user
             {
                 totalGames.Text = "No data";
                 correctAnswers.Text = "No data";
