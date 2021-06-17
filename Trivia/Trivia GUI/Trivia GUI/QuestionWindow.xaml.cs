@@ -52,53 +52,44 @@ namespace Trivia_GUI
 
             question_ = communicator_.getQuestion();
 
-            if (question_ == null)
-            {
-                AfterGameWindow afterGameWindow = new AfterGameWindow(communicator_, username_);
-                afterGameWindow.Show();
-                this.Close();
-            }
+            time_ = TimeSpan.FromSeconds(timeout);
 
-            else
+            timer_ = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
             {
-                time_ = TimeSpan.FromSeconds(timeout);
+                timer.Text = time_.ToString(@"mm\:ss");
 
-                timer_ = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
+                if (time_ == TimeSpan.Zero)
                 {
-                    timer.Text = time_.ToString(@"mm\:ss");
+                    timer_.Stop();
+                    communicator.submitAnswer(5);
+                    MessageBox.Show("Wrong");
 
-                    if (time_ == TimeSpan.Zero)
+
+                    if (current_ == count_)
                     {
-                        timer_.Stop();
-                        communicator.submitAnswer(5);
-                        MessageBox.Show("Wrong");
-
-
-                        if (current_ == count_)
-                        {
-                            AfterGameWindow afterGameWindow = new AfterGameWindow(communicator_, username_);
-                            afterGameWindow.Show();
-                            this.Close();
-                        }
-                        else
-                        {
-                            QuestionWindow questionWindow = new QuestionWindow(communicator_, username_, admin_, count_, timeout_, current_ + 1);
-                            questionWindow.Show();
-                            this.Close();
-                        }
+                        AfterGameWindow afterGameWindow = new AfterGameWindow(communicator_, username_);
+                        afterGameWindow.Show();
+                        this.Close();
                     }
+                    else
+                    {
+                        QuestionWindow questionWindow = new QuestionWindow(communicator_, username_, admin_, count_, timeout_, current_ + 1);
+                        questionWindow.Show();
+                        this.Close();
+                    }
+                }
 
-                    time_ = time_.Add(TimeSpan.FromSeconds(-1));
-                }, Application.Current.Dispatcher);
+                time_ = time_.Add(TimeSpan.FromSeconds(-1));
+            }, Application.Current.Dispatcher);
 
 
-                question.Text = question_.name;
-                ans1Txt.Text = question_.answers[0];
-                ans2Txt.Text = question_.answers[1];
-                ans3Txt.Text = question_.answers[2];
-                ans4Txt.Text = question_.answers[3];
-                timer_.Start();
-            }
+            question.Text = question_.name;
+            ans1Txt.Text = question_.answers[0];
+            ans2Txt.Text = question_.answers[1];
+            ans3Txt.Text = question_.answers[2];
+            ans4Txt.Text = question_.answers[3];
+            timer_.Start();
+
         }
 
         private void Ans_Click(object sender, RoutedEventArgs e)

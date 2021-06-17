@@ -77,9 +77,8 @@ GameManager& RequestHandlerFactory::getGameManager() const
 
 RequestHandlerFactory::RequestHandlerFactory(IDatabase& db) : m_database(db),
                                                               m_loginManager(LoginManager::getInstance<IDatabase&>(db)),
-                                                              m_roomManager(RoomManager::getInstance()),
-                                                              m_statisticsManager(
-	                                                              StatisticsManager::getInstance<IDatabase&>(db)),
+                                                              m_roomManager(RoomManager::getInstance<IDatabase&>(db)),
+                                                              m_statisticsManager(StatisticsManager::getInstance<IDatabase&>(db)),
                                                               m_gameManager(GameManager::getInstance<IDatabase&>(db))
 {
 }

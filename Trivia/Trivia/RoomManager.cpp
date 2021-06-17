@@ -14,7 +14,7 @@ unsigned RoomManager::createRoom(const LoggedUser& user, const RoomData& data)
 	{
 		throw CommunicationException("There's already a room with this name", EXSTS);
 	}
-	if (data.numOfQuestions == 0 || data.timePerQuestion <= 0)
+	if (data.numOfQuestions == 0 || data.timePerQuestion <= 0 || data.numOfQuestions > m_database.getQuestions(data.numOfQuestions).size())
 	{
 		throw CommunicationException("Invalid Parameters", INVLD);
 	}
