@@ -33,7 +33,7 @@
         </Border>
 
         <!--Image on the side-->
-        <Image Source="/Images/c18.png" Margin="71,98,577,157"/>
+        <Image Source="/Images/c12.png" Margin="71,98,577,157"/>
 
         <TextBlock Text="Trivia" 
                     FontSize="56" 

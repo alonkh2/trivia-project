@@ -43,11 +43,12 @@
                     RenderTransformOrigin="1.558,0.484"/>
 
         <StackPanel Orientation="Horizontal">
-            <StackPanel Width="350">
-                <Image Source="Images/c18.png"
-                       Height="377" 
+            <StackPanel Width="350" Margin="0,98,0,0">
+                <Image Source="Images/c6.png"
+                       Height="345"
+                       Width="272"
                        VerticalAlignment="Top" 
-                       Margin="50,50,-18,30" 
+                       Margin="71,0,10,30" 
                        Stretch="Fill" />
             </StackPanel>
             <StackPanel Width="570" >
