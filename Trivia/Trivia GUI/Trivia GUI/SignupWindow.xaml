@@ -43,15 +43,13 @@
         <StackPanel Orientation="Horizontal">
             <StackPanel Width="350">
                 <Image Source="Images/c18.png"
-                       Width="300"
                        Height="377" 
                        VerticalAlignment="Top" 
-                       Margin="50,50,20,30" 
+                       Margin="50,50,-18,30" 
                        Stretch="Fill" />
             </StackPanel>
             <StackPanel Width="570" >
 
-                <!--Exit button-->
 
                 <!--Stack panel containing the input fields-->
                 <!--Exit button-->
