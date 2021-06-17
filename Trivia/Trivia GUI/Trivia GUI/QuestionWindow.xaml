@@ -18,8 +18,8 @@
         <Grid.Background>
             <!--The gradient at the bottom-->
             <LinearGradientBrush StartPoint="0.1,0" EndPoint="0.9,1">
-                <GradientStop Color="#4c0121" Offset="1" />
-                <GradientStop Color="#1520a6   " Offset="0" />
+                <GradientStop Color="#b06ab3" Offset="0" />
+                <GradientStop Color="#4568dc" Offset="1" />
             </LinearGradientBrush>
         </Grid.Background>
 
@@ -68,6 +68,7 @@
                    FontSize="25"
                    TextAlignment="Center"/>
 
+        <!--Question display-->
         <TextBlock x:Name="questionNum"
             Text="0/0"
             Margin="46,9,654,555"
@@ -76,7 +77,10 @@
             TextAlignment="Center"/>
 
 
+        <!--Top Stack Panel-->
         <StackPanel Orientation="Horizontal" Margin="20,170,20,265">
+            
+            <!--First answer button-->
             <Border Width="200"
                     Height="150"
                     CornerRadius="10"
@@ -84,8 +88,8 @@
                 
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                        <GradientStop Color="#141e30  " Offset="0.0"/>
-                        <GradientStop Color="#243b55" Offset="1"/>
+                        <GradientStop Color="#6dd5ed  " Offset="0.0"/>
+                        <GradientStop Color="#2193b0" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
 
@@ -118,6 +122,8 @@
                 </Grid>
             </Border>
 
+            
+            <!--Second answer button-->
             <Border Width="200"
                     Height="150"
                     CornerRadius="10"
@@ -125,8 +131,8 @@
 
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                        <GradientStop Color="#2c3e50" Offset="0.0"/>
-                        <GradientStop Color="#3498db" Offset="1"/>
+                        <GradientStop Color="#90ee90" Offset="0.0"/>
+                        <GradientStop Color="#00bf8f" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
                 
@@ -162,8 +168,10 @@
         </StackPanel>
 
 
-
+        <!--Bottom stack panel-->
         <StackPanel Orientation="Horizontal" Margin="20,340,20,80">
+            
+            <!--Third answer button-->
             <Border Width="200"
                     Height="150"
                     CornerRadius="10"
@@ -171,8 +179,8 @@
 
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                        <GradientStop Color="#136a8a" Offset="0.0"/>
-                        <GradientStop Color="#267871" Offset="1"/>
+                        <GradientStop Color="#f5af19" Offset="0.0"/>
+                        <GradientStop Color="#f12711" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
 
@@ -205,6 +213,8 @@
                 </Grid>
             </Border>
 
+            
+            <!--Fourth answer button-->
             <Border Width="200"
                     Height="150"
                     CornerRadius="10"
@@ -212,8 +222,8 @@
 
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                        <GradientStop Color="#00bf8f" Offset="0.0"/>
-                        <GradientStop Color="#001510" Offset="1"/>
+                        <GradientStop Color="#c43a30" Offset="0.0"/>
+                        <GradientStop Color="#c71d6f" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
 
