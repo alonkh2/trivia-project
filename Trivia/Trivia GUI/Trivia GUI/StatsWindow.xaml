@@ -18,7 +18,7 @@
             <!--The gradient at the bottom-->
             <LinearGradientBrush StartPoint="0.1,0" EndPoint="0.9,1">
                 <GradientStop Color="#b06ab3" Offset="1" />
-                <GradientStop Color="#4568dc   " Offset="0" />
+                <GradientStop Color="#4568dc" Offset="0" />
             </LinearGradientBrush>
         </Grid.Background>
 
@@ -76,8 +76,8 @@
                 </Border.RenderTransform>
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                        <GradientStop Color="#c31432" Offset="0.0"/>
-                        <GradientStop Color="#1520a6" Offset="1"/>
+                        <GradientStop Color="#6dd5ed" Offset="0.0"/>
+                        <GradientStop Color="#2193b0" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
 
@@ -85,12 +85,12 @@
                     <StackPanel>
                         <TextBlock Text="Total Games"
                                    Foreground="White"
-                                   FontSize="32"
+                                   FontSize="28"
                                    Margin="20,10,10,0"/>
                         <TextBlock Text="Null"
                                    x:Name="totalGames"
                                    Foreground="White"
-                                   FontSize="28"
+                                   FontSize="24"
                                    Margin="20,10,10,0"/>
                     </StackPanel>
 
@@ -113,8 +113,8 @@
                 </Border.RenderTransform>
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                        <GradientStop Color="#1520a6" Offset="0.0"/>
-                        <GradientStop Color="#4c0121" Offset="1"/>
+                        <GradientStop Color="#90ee90" Offset="0.0"/>
+                        <GradientStop Color="#00bf8f" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
 
@@ -122,13 +122,13 @@
                     <StackPanel>
                         <TextBlock Text="Correct Answers"
                                    Foreground="White"
-                                   FontSize="32"
+                                   FontSize="28"
                                    Margin="20,10,10,0"/>
 
                         <TextBlock Text="Null"
                                    x:Name="correctAnswers"
                                    Foreground="White"
-                                   FontSize="28"
+                                   FontSize="24"
                                    Margin="20,10,10,0"/>
                     </StackPanel>
                 </Grid>
@@ -145,11 +145,11 @@
                     Margin="150,0,0,57">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                        <GradientStop Color="#4c0121" Offset="0.0"/>
-                        <GradientStop Color="#710193" Offset="1"/>
+                        <GradientStop Color="#f5af19" Offset="0.0"/>
+                        <GradientStop Color="#f12711" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
-                
+
                 <Grid>
                     <StackPanel>
                         <TextBlock Text="Total Answers"
@@ -171,12 +171,14 @@
                     Height="150"
                     CornerRadius="10"
                     Margin="25,0,0,57">
+
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                        <GradientStop Color="#710193" Offset="0.0"/>
-                        <GradientStop Color="#a4508b" Offset="1"/>
+                        <GradientStop Color="#ffb199" Offset="0.0"/>
+                        <GradientStop Color="#ff0844" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
+
                 <Grid>
                     <StackPanel>
                         <TextBlock Text="Average time"
@@ -191,6 +193,7 @@
                                    Margin="20,10,10,0"/>
                     </StackPanel>
                 </Grid>
+
             </Border>
 
             <!--Total points display-->
@@ -198,13 +201,16 @@
                     Height="150"
                     CornerRadius="10"
                     Margin="25,0,0,57">
+
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
                         <GradientStop Color="#a4508b" Offset="0.0"/>
                         <GradientStop Color="#861657" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
+
                 <Grid>
+
                     <StackPanel>
                         <TextBlock Text="Total Points"
                                    Foreground="White"
@@ -217,10 +223,9 @@
                                    FontSize="20"
                                    Margin="20,10,10,0"/>
                     </StackPanel>
+
                 </Grid>
             </Border>
-
         </StackPanel>
-
     </Grid>
 </Window>
