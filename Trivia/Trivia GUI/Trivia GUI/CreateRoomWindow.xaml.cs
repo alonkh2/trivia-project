@@ -70,19 +70,17 @@ namespace Trivia_GUI
                 count = count
             };
 
-            int id = communicator_.createRoom(room);
-
-            if (id != 0) // If the creation is successful
+            try
             {
+                int id = communicator_.createRoom(room);
                 room.roomID = id.ToString();
                 RoomWindow rw = new RoomWindow(communicator_, username_, true, room);
                 rw.Show();
                 this.Close();
             }
-
-            else // If the creation isn't successful
+            catch (Exception ex)
             {
-                MessageBox.Show("Not success");
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -105,7 +103,14 @@ namespace Trivia_GUI
         /// <param name="e"></param>
         private void Leave_Click(object sender, RoutedEventArgs e)
         {
-            communicator_.logout();
+            try
+            {
+                communicator_.logout();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
             System.Windows.Application.Current.Shutdown();
         }
 

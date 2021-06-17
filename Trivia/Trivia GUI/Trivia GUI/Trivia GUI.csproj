@@ -114,9 +114,11 @@
     <Compile Include="LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Question.cs" />
     <Compile Include="QuestionWindow.xaml.cs">
       <DependentUpon>QuestionWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Results.cs" />
     <Compile Include="Room.cs" />
     <Compile Include="RoomWindow.xaml.cs">
       <DependentUpon>RoomWindow.xaml</DependentUpon>
@@ -231,6 +233,16 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\silver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\c12.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\c20.png" />
+    <Resource Include="Images\c5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\c6.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets')" />

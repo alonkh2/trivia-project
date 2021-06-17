@@ -15,6 +15,27 @@ public:
 
 	friend bool operator!=(const LoggedUser& lhs, const LoggedUser& rhs);
 
+
+	friend bool operator<(const LoggedUser& lhs, const LoggedUser& rhs)
+	{
+		return false;
+	}
+
+	friend bool operator<=(const LoggedUser& lhs, const LoggedUser& rhs)
+	{
+		return !(rhs < lhs);
+	}
+
+	friend bool operator>(const LoggedUser& lhs, const LoggedUser& rhs)
+	{
+		return rhs < lhs;
+	}
+
+	friend bool operator>=(const LoggedUser& lhs, const LoggedUser& rhs)
+	{
+		return !(lhs < rhs);
+	}
+
 private:
 	std::string m_username;
 };

@@ -54,7 +54,6 @@ RequestResult LoginRequestHandler::login(const RequestInfo& info) const
 		m_loginManager.login(data.username, data.password);
 		lr.status.push_back('1');
 		rr.buffer = JsonResponsePacketSerializer::serializeResponse(lr);
-		// rr.newHandler = nullptr;
 		rr.newHandler = m_handlerFactory.createMenuRequestHandler(data.username);
 	}
 	catch (CommunicationException& e)
@@ -77,7 +76,7 @@ RequestResult LoginRequestHandler::login(const RequestInfo& info) const
  * \param info The request's info.
  * \return The request's result.
  */
-RequestResult LoginRequestHandler::signup(const RequestInfo& info)
+RequestResult LoginRequestHandler::signup(const RequestInfo& info) const
 {
 	RequestResult rr{};
 	SignupResponse sr{};

@@ -18,8 +18,8 @@
         <Grid.Background>
             <!--The gradient at the bottom-->
             <LinearGradientBrush StartPoint="0.1,0" EndPoint="0.9,1">
-                <GradientStop Color="#4c0121" Offset="1" />
-                <GradientStop Color="#1520a6   " Offset="0" />
+                <GradientStop Color="#b06ab3" Offset="1" />
+                <GradientStop Color="#4568dc   " Offset="0" />
             </LinearGradientBrush>
         </Grid.Background>
 

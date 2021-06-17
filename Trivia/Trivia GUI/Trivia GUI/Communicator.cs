@@ -1,12 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 using System.Net.Sockets;
 using Newtonsoft.Json;
-using System;
+
 
 namespace Trivia_GUI
 {
@@ -24,7 +21,13 @@ namespace Trivia_GUI
         ~Communicator()
         {
             if (socket.Connected)
-                logout();
+                try
+                {
+                    logout();
+                }
+                catch (Exception ex)
+                {
+                }
         }
 
         /// <summary>
@@ -54,7 +57,7 @@ namespace Trivia_GUI
 
             if (reply.status != null && reply.status == "1")
             {
-                
+
                 return 2; // success 
             }
             return 1; // Login/Signup excpetion
@@ -152,6 +155,7 @@ namespace Trivia_GUI
             string json = JsonConvert.SerializeObject("{}");
             string data = string.Empty;
 
+
             dynamic reply = getJson(json, 'l');
 
             if (reply == null || reply.statistics == null)
@@ -164,7 +168,10 @@ namespace Trivia_GUI
             return stats;
         }
 
-
+        /// <summary>
+        /// Gets a list of the rooms.
+        /// </summary>
+        /// <returns>A list of the rooms</returns>
         public List<Room> getRooms()
         {
             string json = JsonConvert.SerializeObject("{}");
@@ -199,6 +206,11 @@ namespace Trivia_GUI
             return roooms;
         }
 
+        /// <summary>
+        /// Joins a room.
+        /// </summary>
+        /// <param name="room">The room to join</param>
+        /// <returns>True if successful, else false</returns>
         public bool joinRoom(Room room)
         {
             string json = JsonConvert.SerializeObject(room);
@@ -212,9 +224,14 @@ namespace Trivia_GUI
             return true;
         }
 
+        /// <summary>
+        /// Creates a room.
+        /// </summary>
+        /// <param name="room">The room to create</param>
+        /// <returns>The new room's id</returns>
         public int createRoom(Room room)
         {
-            
+
             string json = JsonConvert.SerializeObject(room);
 
             dynamic reply = getJson(json, 'n');
@@ -227,6 +244,11 @@ namespace Trivia_GUI
 
         }
 
+        /// <summary>
+        /// Gets a list of the players in a room.
+        /// </summary>
+        /// <param name="room">The room</param>
+        /// <returns>A list of the players in the room</returns>
         public List<User> getPlayersInRoom(Room room)
         {
             string json = JsonConvert.SerializeObject(room);
@@ -247,6 +269,11 @@ namespace Trivia_GUI
             return users;
         }
 
+        /// <summary>
+        /// Gets a room's state.
+        /// </summary>
+        /// <param name="room">The room</param>
+        /// <returns>The room's state</returns>
         public Room getRoomState(Room room)
         {
             string json = JsonConvert.SerializeObject("{}");
@@ -282,6 +309,10 @@ namespace Trivia_GUI
             }
         }
 
+        /// <summary>
+        /// Removes the user from a room.
+        /// </summary>
+        /// <returns>True if successful, else false</returns>
         public bool leaveRoom()
         {
             string json = JsonConvert.SerializeObject("{}");
@@ -294,6 +325,10 @@ namespace Trivia_GUI
             return true;
         }
 
+        /// <summary>
+        /// Closes a room.
+        /// </summary>
+        /// <returns>True if successful, else false</returns>
         public bool closeRoom()
         {
             string json = JsonConvert.SerializeObject("{}");
@@ -306,6 +341,10 @@ namespace Trivia_GUI
             return true;
         }
 
+        /// <summary>
+        /// Starts a game.
+        /// </summary>
+        /// <returns>True if successful, else false</returns>
         public bool startGame()
         {
             string json = JsonConvert.SerializeObject("{}");
@@ -319,6 +358,112 @@ namespace Trivia_GUI
         }
 
         /// <summary>
+        /// Gets a question.
+        /// </summary>
+        /// <returns>The question</returns>
+        public Question getQuestion()
+        {
+            string json = JsonConvert.SerializeObject("{}");
+            dynamic reply = getJson(json, 't');
+            Dictionary<int, string> ans = new Dictionary<int, string>();
+
+            if (reply == null || reply.status == null || reply.status != "1" || reply.question == null || reply.answers == null)
+            {
+                return null;
+            }
+            string question = reply.question;
+            string[] answers = ((string)(reply.answers)).Split('$');
+            foreach (string item in answers)
+            {
+                ans.Add(int.Parse(item.Split(',')[0]), item.Split(',')[1]);
+            }
+            Question q = new Question
+            {
+                answers = ans,
+                name = question
+            };
+            return q;
+
+        }
+
+        /// <summary>
+        /// Submits a user's answer.
+        /// </summary>
+        /// <param name="ans">The user's answer</param>
+        /// <returns>The correct answer's index</returns>
+        public int submitAnswer(int ans)
+        {
+            Question question = new Question
+            {
+                answer = ans
+            };
+            string json = JsonConvert.SerializeObject(question);
+            dynamic reply = getJson(json, 'u');
+
+            if (reply == null || reply.status == null || reply.status != "1" || reply.correct == null)
+            {
+                return -1;
+            }
+
+            return (int)reply.correct;
+
+        }
+
+        /// <summary>
+        /// Leaves a game.
+        /// </summary>
+        /// <returns>True if successful, else false</returns>
+        public bool leaveGame()
+        {
+            string json = JsonConvert.SerializeObject("{}");
+            dynamic reply = getJson(json, 's');
+
+            return !(reply == null || reply.status == null || reply.status != "1");
+
+        }
+
+        /// <summary>
+        /// Gets a game's results.
+        /// </summary>
+        /// <returns>The results</returns>
+        public List<Results> getGameResults()
+        {
+            string json = JsonConvert.SerializeObject("{}");
+            dynamic reply = getJson(json, 'v');
+
+            if (reply == null || reply.status == null || reply.results == null || reply.status != "1")
+            {
+                return null;
+            }
+
+            string[] players = ((string)(reply.results)).Split('$');
+            List<Results> results = new List<Results>();
+
+            for (int i = 0; i < players.Length; i++)
+            {
+                string[] stats = players[i].Split(',');
+                results.Add(new Results
+                {
+                    username = stats[0],
+                    correctAnswers = int.Parse(stats[1]),
+                    wrongAnswers = int.Parse(stats[2]),
+                    averageTime = double.Parse(stats[3]),
+                    score = int.Parse(stats[4])
+                });
+            }
+
+            results.Sort(delegate (Results one, Results two)
+            {
+                if (one.score > two.score)
+                {
+                    return -1;
+                }
+                return 1;
+            });
+            return results;
+        }
+
+        /// <summary>
         /// Takes in the json request and the request code and generates the result json.
         /// </summary>
         /// <param name="json">The request</param>
@@ -327,17 +472,14 @@ namespace Trivia_GUI
         private Object getJson(string json, char code)
         {
             string data = string.Empty;
-            try
-            {
-                data = data + sendAndReceive(json, code);
-                dynamic reply = JsonConvert.DeserializeObject(data);
 
-                return reply;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+
+            data = data + sendAndReceive(json, code);
+            dynamic reply = JsonConvert.DeserializeObject(data);
+
+            return reply;
+
+
         }
 
         /// <summary>
@@ -408,7 +550,11 @@ namespace Trivia_GUI
             {
                 throw new Exception("Irrelevant request");
             }
-
+            if (charicCode == 'g')
+            {
+                dynamic reply = JsonConvert.DeserializeObject(System.Text.Encoding.Default.GetString(bytesReceived));
+                throw new Exception((string)(reply.message));
+            }
             return System.Text.Encoding.Default.GetString(bytesReceived);
         }
     }

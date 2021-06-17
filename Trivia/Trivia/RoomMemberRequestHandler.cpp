@@ -21,6 +21,12 @@ RequestResult RoomMemberRequestHandler::getRoomState(const RequestInfo& info) co
 		rs.state = m_room.getRoomData().isActive;
 		rs.questionCount = m_room.getRoomData().numOfQuestions;
 		rs.status.push_back('1');
+
+		if (rs.state == 2)
+		{
+			auto& game = m_handlerFactory.getGameManager().createGame(m_room);
+			rr.newHandler = m_handlerFactory.createGameRequestHandler(game, m_user);
+		}
 		
 		rr.buffer = JsonResponsePacketSerializer::serializeResponse(rs);
 	}

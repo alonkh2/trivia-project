@@ -57,7 +57,7 @@ int SqliteDatabase::statisticCallback(void* used, int argc, char** argv, char** 
  */
 int SqliteDatabase::questionCallback(void* used, int argc, char** argv, char** az_col_name)
 {
-	auto* val = static_cast<std::list<Question>*>(used);
+	auto* val = static_cast<std::vector<Question>*>(used);
 	Question q;
 	if (argc > 0)
 	{
@@ -65,15 +65,15 @@ int SqliteDatabase::questionCallback(void* used, int argc, char** argv, char** a
 		{
 			if (!strcmp(az_col_name[i], "question"))
 			{
-				q.question = std::string(argv[i]);
+				q.setQuestion(std::string(argv[i]));
 			}
 			else if (!strcmp(az_col_name[i], "correct"))
 			{
-				q.correct = std::stoi(std::string(argv[i]));
+				q.setAnswer(std::stoi(std::string(argv[i])));
 			}
 			else if (std::string(az_col_name[i]).substr(0, 3) == "ans")
 			{
-				q.options.emplace_back(argv[i]);
+				q.addAnswer(argv[i]);
 			}
 		}
 	}
@@ -94,7 +94,7 @@ int SqliteDatabase::stringVectorCallback(void* used, int argc, char** argv, char
 			if (!strcmp(az_col_name[i], "score") || !strcmp(az_col_name[i], "username"))
 			{
 				val->push_back(std::string(argv[i]) + ",");
-			}	
+			}
 		}
 	}
 	return 0;
@@ -105,7 +105,7 @@ int SqliteDatabase::stringVectorCallback(void* used, int argc, char** argv, char
  * \param username The user's name.
  * \return The user's stats.
  */
-Statistic SqliteDatabase::getStats(const std::string& username) 
+Statistic SqliteDatabase::getStats(const std::string& username)
 {
 	const auto query = "SELECT * FROM STATISTICS WHERE username = '" + username + "';";
 	Statistic stat;
@@ -149,7 +149,7 @@ SqliteDatabase::SqliteDatabase(): _db(nullptr)
 		"CREATE TABLE IF NOT EXISTS USERS (username TEXT PRIMARY KEY, password TEXT, email TEXT);";
 	execCommand<int>(createTableQuery, nullptr, nullptr);
 	createTableQuery =
-		"CREATE TABLE IF NOT EXISTS QUESTIONS (question TEXT PRIMARY KEY, ans1 TEXT, ans2 TEXT, ans3 TEXT, ans4 TEXT, correct INTEGER, room_id INTEGER);";
+		"CREATE TABLE IF NOT EXISTS QUESTIONS (question TEXT PRIMARY KEY, ans1 TEXT, ans2 TEXT, ans3 TEXT, ans4 TEXT, correct INTEGER);";
 	execCommand<int>(createTableQuery, nullptr, nullptr);
 	createTableQuery =
 		"CREATE TABLE IF NOT EXISTS STATISTICS (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, username TEXT NOT NULL, average REAL DEFAULT 0, correct INTEGER DEFAULT 0, total INTEGER DEFAULT 0, games INTEGER DEFAULT 0, score INTEGER DEFAULT 0, FOREIGN KEY(username) REFERENCES USERS(username));";
@@ -189,7 +189,7 @@ bool SqliteDatabase::doesPasswordMatch(const std::string& username, const std::s
 {
 	std::string dbResp;
 	const auto passwordQuery = "SELECT password FROM USERS WHERE username = '" + username + "';";
-	
+
 	execCommand(passwordQuery, stringCallback, &dbResp);
 
 	return dbResp == password;
@@ -234,6 +234,26 @@ int SqliteDatabase::getNumOfPlayerGames(const std::string& username)
 }
 
 /**
+ * \brief Updates stats in the database.
+ * \param stats The updated stats.
+ */
+void SqliteDatabase::updateStats(const GameData& stats)
+{
+	auto stat = getStats(stats.username);
+	stat.score += stats.score;
+	const auto time = stat.averageTime * stat.totalAnswers + stats.totalTime;
+	stat.totalAnswers += stats.currentQuestion;
+	stat.averageTime = time / stat.totalAnswers;
+	stat.playerGames++;
+	stat.correctAnswers += stats.correctAnswerCount;
+	const auto command = "UPDATE STATISTICS SET AVERAGE=" + std::to_string(stat.averageTime) + ", CORRECT=" +
+		std::to_string(stat.correctAnswers) + ", TOTAL=" + std::to_string(stat.totalAnswers) + ", GAMES=" +
+		std::to_string(stat.playerGames) + ", SCORE=" + std::to_string(stat.score) + " WHERE USERNAME='" + stats.
+		username + "';";
+	execCommand<int>(command, nullptr, nullptr);
+}
+
+/**
  * \brief Gets a user's total answer count.
  * \param username The user's name.
  * \return The user's total answer count.
@@ -256,10 +276,16 @@ float SqliteDatabase::getPlayerAverageAnswerTime(const std::string& username)
 /*
  * I do not know.
  */
-std::list<Question> SqliteDatabase::getQuestions(int roomID)
+std::vector<Question> SqliteDatabase::getQuestions(unsigned num)
 {
-	const auto query = "SELECT * FROM QUESTIONS WHERE room_id = " + std::to_string(roomID) + ";";
-	auto questions = std::list<Question>();
+	const auto query = "SELECT * FROM QUESTIONS LIMIT " + std::to_string(num) + ";";
+	auto questions = std::vector<Question>();
 	execCommand(query, questionCallback, &questions);
+
+	if (questions.size() == 0)
+	{
+		throw(CommunicationException("No questions in database", DSNT_EXST));
+	}
+
 	return questions;
 }

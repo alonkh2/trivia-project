@@ -3,6 +3,7 @@
 #include "vector"
 
 #include "constants.h"
+#include "Game.h"
 #include "json.hpp"
 #include "Room.h"
 
@@ -121,7 +122,7 @@ typedef struct SubmitAnswerResponse
 typedef struct GetGameResultsResponse
 {
 	std::vector<Byte> status;
-	std::vector<PlayerResults> results;
+	std::vector<GameData> results;
 } GetGameResultsResponse;
 
 class JsonResponsePacketSerializer

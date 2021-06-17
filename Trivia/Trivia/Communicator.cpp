@@ -49,16 +49,13 @@ void Communicator::bindAndListen()
 		throw std::exception(__FUNCTION__ " - socket");
 	}
 
-	sa.sin_port = htons(DEF_PORT); // port that server will listen for
-	sa.sin_family = AF_INET; // must be AF_INET
-	sa.sin_addr.s_addr = INADDR_ANY; // when there are few ip's for the machine. We will use always "INADDR_ANY"
+	sa.sin_port = htons(DEF_PORT); 
+	sa.sin_family = AF_INET; 
+	sa.sin_addr.s_addr = INADDR_ANY; 
 
-	// again stepping out to the global namespace
-	// Connects between the socket and the configuration (port and etc..)
 	if (bind(m_serverSocket, reinterpret_cast<sockaddr*>(&sa), sizeof(sa)) == SOCKET_ERROR)
 		throw std::exception(__FUNCTION__ " - bind");
 
-	// Start listening for incoming requests of clients
 	if (listen(m_serverSocket, SOMAXCONN) == SOCKET_ERROR)
 		throw std::exception(__FUNCTION__ " - listen");
 	std::cout << "Listening on port " << DEF_PORT << std::endl;
@@ -132,11 +129,18 @@ void Communicator::handleNewClient(SOCKET client)
 				}
 				
 				sendall(client, result.buffer);
+				if (result.newHandler == nullptr)
+				{
+					closesocket(client);
+					m_clientMutex.lock();
+					m_clients.erase(client);
+					m_clientMutex.unlock();
+				}
 			}
 			else
 			{
 				ErrorResponse error;
-				error.message = "Error with login/signup attempt" + std::to_string(client);
+				error.message = "Error with login/signup attempt " + std::to_string(client);
 				sendall(client, JsonResponsePacketSerializer::serializeResponse(error));
 			}
 		}
@@ -166,7 +170,7 @@ void Communicator::sendall(SOCKET socket, const std::vector<Byte>& msg) const
 
 	const auto res = send(socket, toSend, msg.size(), 0);
 
-	delete toSend;
+	delete[] toSend;
 	if (res == INVALID_SOCKET || res == SOCKET_ERROR || !res)
 	{
 		std::string error = "Error while sending message to client: ";

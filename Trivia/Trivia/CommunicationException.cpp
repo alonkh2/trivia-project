@@ -1,9 +1,10 @@
 #include "CommunicationException.h"
 
+#include <utility>
 
-CommunicationException::CommunicationException(const std::string& message, Byte status): m_status(status)
+
+CommunicationException::CommunicationException(std::string message, Byte status): m_message(std::move(message)), m_status(status)
 {
-	m_message = "Login/signup Exception - " + message;
 }
 
 char const* CommunicationException::what() const

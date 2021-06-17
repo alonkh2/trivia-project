@@ -54,10 +54,18 @@ namespace Trivia_GUI
             {
                 this.Dispatcher.BeginInvoke(new Action(delegate ()
                 {
-                    RoomList = communicator_.getRooms();
+                    try
+                    {
+                        RoomList = communicator_.getRooms();
 
-                    lv.ItemsSource = RoomList;
-                    DataContext = this;
+                        lv.ItemsSource = RoomList;
+                        DataContext = this;
+                    }
+                    catch (Exception ex)
+                    {
+                        if (ex.Message != "Error with login/signup attempt")
+                            MessageBox.Show(ex.Message);
+                    }
 
                 }));
                 Thread.Sleep(200); // Changed this from 3 seconds to 200 milliseconds
@@ -73,18 +81,24 @@ namespace Trivia_GUI
         private void JoinRoom(object sender, MouseButtonEventArgs e)
         {
             Room room = (Room)lv.SelectedItems[0];
-            if (communicator_.joinRoom(room))
+            try
             {
-                t.Abort();
-                RoomWindow rw = new RoomWindow(communicator_, username_, false, room);
-                rw.Show();
-                this.Close();
+                if (communicator_.joinRoom(room))
+                {
+                    t.Abort();
+                    RoomWindow rw = new RoomWindow(communicator_, username_, false, room);
+                    rw.Show();
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Error!");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Error!");
+                MessageBox.Show(ex.Message);
             }
-
         }
 
         /// <summary>
@@ -108,7 +122,14 @@ namespace Trivia_GUI
         private void Leave_Click(object sender, RoutedEventArgs e)
         {
             t.Abort();
-            communicator_.logout();
+            try
+            {
+                communicator_.logout();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
             System.Windows.Application.Current.Shutdown();
         }
 

@@ -25,12 +25,16 @@ namespace Trivia_GUI
 
     public partial class QuestionWindow : Window
     {
-        DispatcherTimer _timer;
-        TimeSpan _time;
+        DispatcherTimer timer_;
+        TimeSpan time_;
         Communicator communicator_;
         string username_;
         bool admin_;
-        public QuestionWindow(Communicator communicator, string username, bool admin)
+        Question question_;
+        int count_;
+        double timeout_;
+        int current_;
+        public QuestionWindow(Communicator communicator, string username, bool admin, int count, double timeout, int current)
         {
             InitializeComponent();
 
@@ -40,41 +44,124 @@ namespace Trivia_GUI
             communicator_ = communicator;
             username_ = username;
             admin_ = admin;
-            
+            count_ = count;
+            timeout_ = timeout;
+            current_ = current;
 
-            //idk what this does, looks important tho
+            questionNum.Text = current_.ToString() + "/" + count_.ToString();
 
-            _time = TimeSpan.FromSeconds(100);
-
-            _timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
+            try
             {
-                timer.Text = _time.ToString(@"mm\:ss");
+                question_ = communicator_.getQuestion();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
-                if (_time == TimeSpan.Zero)
+            time_ = TimeSpan.FromSeconds(timeout);
+
+            timer_ = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
+            {
+                timer.Text = time_.ToString(@"mm\:ss");
+
+                if (time_ == TimeSpan.Zero)
                 {
-                    _timer.Stop();
+                    timer_.Stop();
+                    try
+                    {
+                        communicator.submitAnswer(5);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+
+                    MessageBox.Show("Wrong");
+
+
+                    if (current_ == count_)
+                    {
+                        AfterGameWindow afterGameWindow = new AfterGameWindow(communicator_, username_);
+                        afterGameWindow.Show();
+                        this.Close();
+                    }
+                    else
+                    {
+                        QuestionWindow questionWindow = new QuestionWindow(communicator_, username_, admin_, count_, timeout_, current_ + 1);
+                        questionWindow.Show();
+                        this.Close();
+                    }
                 }
 
-                _time = _time.Add(TimeSpan.FromSeconds(-1));
+                time_ = time_.Add(TimeSpan.FromSeconds(-1));
             }, Application.Current.Dispatcher);
 
-            _timer.Start();
+
+            question.Text = question_.name;
+            ans1Txt.Text = question_.answers[0];
+            ans2Txt.Text = question_.answers[1];
+            ans3Txt.Text = question_.answers[2];
+            ans4Txt.Text = question_.answers[3];
+            timer_.Start();
+
         }
 
         private void Ans_Click(object sender, RoutedEventArgs e)
         {
-            if(sender == ans1)
+            int ans = -1;
+            int correct = -2;
+            if (sender == ans1)
             {
-                // do stuff
+                ans = 1;
+            }
+            else if (sender == ans2)
+            {
+                ans = 2;
+            }
+            else if (sender == ans3)
+            {
+                ans = 3;
+            }
+            else if (sender == ans4)
+            {
+                ans = 4;
             }
 
-            else if(sender == ans2)
+            timer_.Stop();
+
+            try
             {
-                // do more stuff
+                correct = communicator_.submitAnswer(ans);
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            if (correct == ans)
+            {
+                MessageBox.Show("Correct");
+            }
+            else
+            {
+                MessageBox.Show("Wrong");
+            }
+
+            if (current_ == count_)
+            {
+                AfterGameWindow afterGameWindow = new AfterGameWindow(communicator_, username_);
+                afterGameWindow.Show();
+                this.Close();
+            }
+            else
+            {
+                QuestionWindow questionWindow = new QuestionWindow(communicator_, username_, admin_, count_, timeout_, current_ + 1);
+                questionWindow.Show();
+                this.Close();
+            }
+
         }
-
-
 
 
         /// <summary>
@@ -84,14 +171,14 @@ namespace Trivia_GUI
         /// <param name="e"></param>
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            _timer.Stop();
-            if (admin_)
+            timer_.Stop();
+            try
             {
-                communicator_.closeRoom();
+                communicator_.leaveGame();
             }
-            else
+            catch (Exception ex)
             {
-                communicator_.leaveRoom();
+                MessageBox.Show(ex.Message);
             }
             MainWindow mainWin = new MainWindow(communicator_, username_);
             mainWin.Show();
@@ -106,16 +193,16 @@ namespace Trivia_GUI
         /// <param name="e"></param>
         private void Leave_Click(object sender, RoutedEventArgs e)
         {
-            if (admin_)
+            try
             {
-                communicator_.closeRoom();
+                communicator_.leaveGame();
+                timer_.Stop();
+                communicator_.logout();
             }
-            else
+            catch (Exception ex)
             {
-                communicator_.leaveRoom();
+                MessageBox.Show(ex.Message);
             }
-            _timer.Stop();
-            communicator_.logout();
             System.Windows.Application.Current.Shutdown();
         }
 

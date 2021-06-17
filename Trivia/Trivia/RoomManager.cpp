@@ -14,6 +14,10 @@ unsigned RoomManager::createRoom(const LoggedUser& user, const RoomData& data)
 	{
 		throw CommunicationException("There's already a room with this name", EXSTS);
 	}
+	if (data.numOfQuestions == 0 || data.timePerQuestion <= 0 || data.numOfQuestions > m_database.getQuestions(data.numOfQuestions).size())
+	{
+		throw CommunicationException("Invalid Parameters", INVLD);
+	}
 	std::lock_guard<std::mutex> lock(m_roomMutex);
 	Room room(user, data);
 	m_rooms.insert_or_assign(data.id, room);
@@ -87,7 +91,7 @@ std::vector<RoomData> RoomManager::getNotActiveRooms()
 	std::vector<RoomData> rooms;
 	for (const auto& room : m_rooms)
 	{
-		if (room.second.getRoomData().isActive != 2)
+		if (room.second.getRoomData().isActive != 2 && room.second.getRoomData().maxPlayers > room.second.getUsers().size())
 		{
 			rooms.push_back(room.second.getRoomData());
 		}
