@@ -96,10 +96,6 @@ namespace Trivia_GUI
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
-                    if (ex.Message == "An existing connection was forcibly closed by the remote host")
-                    {
-                        this.Close();
-                    }
                 }
             }
         }
