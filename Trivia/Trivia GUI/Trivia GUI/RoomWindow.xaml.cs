@@ -88,6 +88,11 @@ namespace Trivia_GUI
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                if (ex.Message == "An existing connection was forcibly closed by the remote host")
+                {
+                    t_.Abort();
+                    this.Close();
+                }
             }
             QuestionWindow questionWindow = new QuestionWindow(communicator_, username_, admin_, room_.count, room_.timeout, 1);
             t_.Abort();
@@ -117,6 +122,11 @@ namespace Trivia_GUI
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                if (ex.Message == "An existing connection was forcibly closed by the remote host")
+                {
+                    t_.Abort();
+                    this.Close();
+                }
             }
             try
             {
@@ -125,6 +135,11 @@ namespace Trivia_GUI
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                if (ex.Message == "An existing connection was forcibly closed by the remote host")
+                {
+                    t_.Abort();
+                    this.Close();
+                }
             }
             System.Windows.Application.Current.Shutdown();
         }
@@ -158,6 +173,11 @@ namespace Trivia_GUI
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                if (ex.Message == "An existing connection was forcibly closed by the remote host")
+                {
+                    t_.Abort();
+                    this.Close();
+                }
             }
         }
 
@@ -180,6 +200,11 @@ namespace Trivia_GUI
                     {
                         working = false;
                         MessageBox.Show(ex.Message);
+                        if (ex.Message == "An existing connection was forcibly closed by the remote host")
+                        {
+                            t_.Abort();
+                            this.Close();
+                        }
                     }
                     if (room_ != null)
                     {
@@ -207,6 +232,11 @@ namespace Trivia_GUI
                             catch (Exception ex)
                             {
                                 MessageBox.Show(ex.Message);
+                                if (ex.Message == "An existing connection was forcibly closed by the remote host")
+                                {
+                                    t_.Abort();
+                                    this.Close();
+                                }
                             }
                             JoinRoomWindow joinRoom = new JoinRoomWindow(communicator_, username_);
                             joinRoom.Show();

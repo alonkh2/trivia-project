@@ -70,6 +70,10 @@ namespace Trivia_GUI
                 avgTime.Text = "No data";
                 totalPoints.Text = "No data";
                 MessageBox.Show(ex.Message);
+                if (ex.Message == "An existing connection was forcibly closed by the remote host")
+                {
+                    this.Close();
+                }
             }
         }
 
@@ -99,6 +103,10 @@ namespace Trivia_GUI
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                if (ex.Message == "An existing connection was forcibly closed by the remote host")
+                {
+                    this.Close();
+                }
             }
             System.Windows.Application.Current.Shutdown();
         }

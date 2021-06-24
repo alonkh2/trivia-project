@@ -80,6 +80,10 @@ namespace Trivia_GUI
             }
             catch (Exception ex)
             {
+                if (ex.Message == "An existing connection was forcibly closed by the remote host")
+                {
+                    this.Close();
+                }
                 MessageBox.Show(ex.Message);
             }
         }
@@ -109,6 +113,10 @@ namespace Trivia_GUI
             }
             catch (Exception ex)
             {
+                if (ex.Message == "An existing connection was forcibly closed by the remote host")
+                {
+                    this.Close();
+                }
                 MessageBox.Show(ex.Message);
             }
             System.Windows.Application.Current.Shutdown();

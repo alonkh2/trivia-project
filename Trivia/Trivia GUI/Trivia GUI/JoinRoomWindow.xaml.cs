@@ -65,6 +65,10 @@ namespace Trivia_GUI
                     {
                         if (ex.Message != "Error with login/signup attempt")
                             MessageBox.Show(ex.Message);
+                        if (ex.Message == "An existing connection was forcibly closed by the remote host")
+                        {
+                            this.Close();
+                        }
                     }
 
                 }));
@@ -97,6 +101,11 @@ namespace Trivia_GUI
             }
             catch (Exception ex)
             {
+                if (ex.Message == "An existing connection was forcibly closed by the remote host")
+                {
+                    t.Abort();
+                    this.Close();
+                }
                 MessageBox.Show(ex.Message);
             }
         }
@@ -128,6 +137,11 @@ namespace Trivia_GUI
             }
             catch (Exception ex)
             {
+                if (ex.Message == "An existing connection was forcibly closed by the remote host")
+                {
+                    t.Abort();
+                    this.Close();
+                }
                 MessageBox.Show(ex.Message);
             }
             System.Windows.Application.Current.Shutdown();

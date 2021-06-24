@@ -57,6 +57,11 @@ namespace Trivia_GUI
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                if (ex.Message == "An existing connection was forcibly closed by the remote host")
+                {
+                    timer_.Stop();
+                    this.Close();
+                }
             }
 
             time_ = TimeSpan.FromSeconds(timeout);
@@ -74,6 +79,10 @@ namespace Trivia_GUI
                     }
                     catch (Exception ex)
                     {
+                        if (ex.Message == "An existing connection was forcibly closed by the remote host")
+                        {
+                            this.Close();
+                        }
                         MessageBox.Show(ex.Message);
                     }
 
@@ -136,7 +145,13 @@ namespace Trivia_GUI
             }
             catch (Exception ex)
             {
+                if (ex.Message == "An existing connection was forcibly closed by the remote host")
+                {
+                    timer_.Stop();
+                    this.Close();
+                }
                 MessageBox.Show(ex.Message);
+                
             }
 
             if (correct == ans)
@@ -179,6 +194,10 @@ namespace Trivia_GUI
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                if (ex.Message == "An existing connection was forcibly closed by the remote host")
+                {
+                    this.Close();
+                }
             }
             MainWindow mainWin = new MainWindow(communicator_, username_);
             mainWin.Show();
@@ -202,6 +221,11 @@ namespace Trivia_GUI
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                if (ex.Message == "An existing connection was forcibly closed by the remote host")
+                {
+                    timer_.Stop();
+                    this.Close();
+                }
             }
             System.Windows.Application.Current.Shutdown();
         }
